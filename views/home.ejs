@@ -1,0 +1,226 @@
+<% include ./partials/head%>
+
+<body class="ng-cloak">
+  <% include ./partials/option_nav/navbar%>
+  <div class="container-fluit" ng-controller="ctrl_Filter">
+    <header class="masthead paralax">
+      <div class="intro-text">
+        <div>
+          <span style="font-size: 2.0rem;">Descubre los mejores servicios de belleza y salud en Panamá <br> <br></span>
+        </div>
+        <div>
+          <div>
+            <div class="btn-group-toggle " data-toggle="buttons">
+              <label>
+                <button id="btnGroupDrop1" type="button" class=" d-none d-lg-block btn btn-light  btn-search ">
+                  <i class="fa fa-send-0 color-icon-send"></i> Panamá
+                </button>
+              </label>
+              <label>
+                <form>
+                  <div class="input-group  search-input-large ">
+                    <div class="input-group-prepend ">
+                      <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    </div>
+                    <input class="form-control a-search" id="searcrh-inp" type="text" name="myCountry" ng-model="search"
+                      placeholder="¿Qué servicio necesitas? " onclick="searchInp() " />
+                    <div class="input-group-append">
+                      <button class="btn btn-primary  btn-lg btn-font btn-search-Home " type="submit"
+                        ng-click="seachGlobal(this)">Buscar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </label>
+            </div>
+            <div class="mt-3 ">
+              <div>
+                <ul class="nav justify-content-center ">
+                  <li class="nav-item">
+                    <a class="nav-link color-nav activeA" href="/busqueda-Avanzada">Búsqueda avanzada</a>
+                  </li>
+                  <li class="nav-item" ng-controller="ctrl_validateUsers" ng-hide="addlocal">
+                    <a class="nav-link color-nav activeA" href="" ng-click="rolAdmin()">Agregar
+                      Local</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div id="list-R" class="suggest-result-holder" style="display: none;" ng-hide="filterservice">
+      <ul class="predefined">
+        <li class="title text-uppercase g-letter-spacing-1">Búsquedas recomendadas </li>
+        <li>
+          <a href="/busqueda-Avanzada?Search=Salones" id="Estetica" ng-click="FilterServices2(this.id)"><i class=""><img
+                class="mini-icon" src="../../icon/aseo.png" alt=""></i>Salones</a></li>
+        <li>
+          <a href="/busqueda-Avanzada?Search=Barberias">
+            <i class=""><img class="mini-icon" src="../../icon/barberia-polo.png" alt=""></i>
+            Barberias</a>
+        </li>
+        <li>
+          <a href="/busqueda-Avanzada?Search=Estética">
+            <i><img class="mini-icon" src="../../icon/estetica.png" alt=""></i>
+            Estéticas</a>
+        </li>
+        <li>
+          <a href="/busqueda-Avanzada?Search=Clinicas Dentales">
+            <i><img class="mini-icon" src="../../icon/dentadura.png" alt=""></i>
+            Clinicas Dentales</a>
+        </li>
+        <li>
+          <a href="/busqueda-Avanzada?Search=Functional Training">
+            <i><img class="mini-icon" src="../../icon/ejercer.png" alt=""></i>
+            Functional Training</a>
+        </li>
+        <li>
+          <a href="/busqueda-Avanzada?Search=Cejas y Pestañas">
+            <i><img class="mini-icon" src="../../icon/cejas&Pesta.png" alt=""></i>
+            Cejas y Pestañas</a>
+        </li>
+        <li>
+          <a href="/busqueda-Avanzada?Search=Uñas">
+            <i><img class="mini-icon" src="../../icon/unas.png" alt=""></i>
+            Uñas </a>
+        </li>
+        <li>
+          <a href="/busqueda-Avanzada?Search=Depilación">
+            <i><img class="mini-icon" src="../../icon/cera.png" alt=""></i>
+            Depilación </a>
+        </li>
+        <li>
+          <a href="/busqueda-Avanzada?Search=Depilación  ">
+            <i><img class="mini-icon" src="../../icon/masaje.png" alt=""></i>
+            Masajes y Spa </a>
+        </li>
+      </ul>
+    </div>
+    <div id="list-R2" class=" suggest-result-holder limit-list" style="display: none;" ng-show="searchServices">
+      <ul class="predefined">
+        <li class="service-list text-uppercase g-letter-spacing-1">
+          <i class="far fa-comment color-red"></i>Buscar por Establecimientos:<br>
+          <b class="font-small">{{search}}</b>
+        </li>
+        <li ng-repeat="Ubications in ubication | filter : search">
+          <a href="/busqueda-Avanzada?ubicacion={{Ubications.name}}">
+            <i class="fas fa-map-marker-alt"></i> {{Ubications.name}}
+          </a>
+        </li>
+        <li ng-repeat="serv in services | filter : search">
+          <a href="informacion-service?Establecimiento={{serv.id}}">
+            <i class="fas fa-home"></i> {{serv.Nombre_establecimiento}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- mini options-->
+  <div class="container ">
+    <div class=" dg-navbar-explora  ">
+      <div class="row">
+        <div class="col-lg-12 buttons-array ">
+          <div class=" row justify-content-md-center position-options">
+            <div class="">
+              <a href="/busqueda-Avanzada?Search=Salones"
+                class="btn btn-block btn-dg-white-outline-gray rounded-0  g-pt-20 g-pb-30 btn-dg-scale-hover size-options">
+                <i class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/aseo.png"
+                    alt=""></i>Salones</a>
+            </div>
+            <div class=" ">
+              <a href="/busqueda-Avanzada?Search=Barberias"
+                class="btn btn-block btn-dg-white-outline-gray rounded-0  g-pt-20 g-pb-30 btn-dg-scale-hover size-options">
+                <i class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/barberia-polo.png" alt="">
+                </i>Barberias </a> </div>
+            <div class=" ">
+              <a href="/busqueda-Avanzada?Search=Estética"
+                class="btn btn-block btn-dg-white-outline-gray rounded-0  g-pt-20 g-pb-30 btn-dg-scale-hover size-options">
+                <i class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/estetica.png"
+                    alt=""></i>Estética
+              </a>
+            </div>
+            <div class=" ">
+              <a href="/busqueda-Avanzada?Search=Clinicas Dentales"
+                class="btn btn-block btn-dg-white-outline-gray rounded-0 g-pt-20 g-pb-30 btn-dg-scale-hover size-options"><i
+                  class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/dentadura.png" alt=""></i>
+                Clinicas Dentales</a>
+            </div>
+            <div class=" ">
+              <a href="/busqueda-Avanzada?Search=Functional Training"
+                class="btn btn-block btn-dg-white-outline-gray rounded-0 g-pt-20 g-pb-30 btn-dg-scale-hover size-options"><i
+                  class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/ejercer.png"
+                    alt=""></i>Functional
+                Training</a>
+            </div>
+            <div class=" ">
+              <a href="/busqueda-Avanzada"
+                class="btn btn-block btn-dg-white-outline-gray rounded-0 g-pt-20 g-pb-30 btn-dg-scale-hover size-options"><i
+                  class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/next.png" alt=""></i>Ver todos
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class=" dg-navbar-explora  d-md-none d-lg-block d-none d-sm-block ">
+      <div class="row">
+        <div class="col-lg-6 buttons-array ">
+          <div class="row justify-content-md-center">
+            <div class="col g-pr-0 g-pl-0 mr-2">
+              <a href="/busqueda-Avanzada?Search=Salones" class="btn btn-block btn-dg-white-outline-gray rounded-0  g-pt-20 g-pb-30 btn-dg-scale-hover size-options">
+                <i class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/aseo.png" alt=""></i>Salones</a>
+            </div>
+            <div class=" col g-pr-0 g-pl-0 mr-2 ">
+              <a href="/busqueda-Avanzada?Search=Barberias" class="btn btn-block btn-dg-white-outline-gray rounded-0  g-pt-20 g-pb-30 btn-dg-scale-hover size-options ">
+                <i class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/barberia-polo.png" alt="">
+                </i>Barberias </a> </div>
+            <div class="col g-pr-0 g-pl-0 mr-2  ">
+              <a href="/busqueda-Avanzada?Search=Estética" class="btn btn-block btn-dg-white-outline-gray rounded-0  g-pt-20 g-pb-30 btn-dg-scale-hover size-options ">
+                <i class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/estetica.png" alt=""></i>Estética
+              </a>
+            </div>
+            <div class="col g-pr-0 g-pl-0 mr-2 ">
+              <a href="/busqueda-Avanzada?Search=Clinicas Dentales" class="btn btn-block btn-dg-white-outline-gray rounded-0 g-pt-20 g-pb-30 btn-dg-scale-hover size-options "><i class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/dentadura.png" alt=""></i>
+                Clinicas Dentales</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 buttons-array ">
+          <div class="row justify-content-md-center">
+            <div class="col g-pr-0 g-pl-0 mr-2 ">
+              <a href="/busqueda-Avanzada?Search=Functional Training" class="btn btn-block btn-dg-white-outline-gray rounded-0 g-pt-20 g-pb-30 btn-dg-scale-hover size-options "><i class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/ejercer.png" alt=""></i>Functional
+                Training</a>
+            </div>
+            <div class=" col g-pr-0 g-pl-0 mr-2">
+              <a href="/busqueda-Avanzada?Search=Functional Training" class="btn btn-block btn-dg-white-outline-gray rounded-0 g-pt-20 g-pb-30 btn-dg-scale-hover size-options "><i class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/cejas&amp;Pesta.png" alt=""></i>Cejas
+                Y Pestañas</a>
+            </div>
+            <div class="col g-pr-0 g-pl-0 mr-2 ">
+              <a href="/busqueda-Avanzada?Search=Functional Training" class="btn btn-block btn-dg-white-outline-gray rounded-0 g-pt-20 g-pb-30 btn-dg-scale-hover size-options "><i class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/cejas&amp;Pesta.png" alt=""></i>Cejas
+                Y Pestañas</a>
+            </div>
+            <div class="col g-pr-0 g-pl-0 mr-2  ">
+                <a href="/busqueda-Avanzada?Search=Functional Training" class="btn btn-block btn-dg-white-outline-gray rounded-0 g-pt-20 g-pb-30 btn-dg-scale-hover size-options "><i class="dg-sprite-explore dg-lunch "><img class="icon" src="../../icon/cejas&amp;Pesta.png" alt=""></i>Cejas
+                  Y Pestañas</a>
+              </div>
+          </div>
+
+        </div>
+      </div>
+    </div> -->
+
+  <div class="container container-look">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <% include ./partials/carousel/carousel_destacados%>
+        <% include ./partials/carousel/carousel_recomendados%>
+      </div>
+    </div>
+  </div>
+  <% include ./partials/footer/footer%>
+  <% include ./partials/script%>

@@ -1,0 +1,116 @@
+<% include ./partials/head%>
+
+<body class="ng-cloak">
+  <% include ./partials/option_nav/navbar%>
+  <div ng-app="aplication">
+    <div class="container " ng-controller="ctrl_contact">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+          <div class="col-md-12  mt-4">
+            <h2>Contacta con nuestro equipo de ventas </h2>
+          </div>
+          <div class="form-box">
+            <form name="myForm">
+              <div class="form-group mt-5">
+                <label>Nombre</label>
+                <input ng-class="myForm.nameClient.$touched && myForm.nameClient.$invalid ? 'red':'' " type="text"
+                  class="form-control" id="nameClient" name="nameClient" placeholder="Escriba su nombre"
+                  ng-model="nameClient" required>
+                <small class="form-text text-muted"
+                  ng-show="myForm.nameClient.$touched && myForm.nameClient.$invalid">Este Campo es obligatorio</small>
+              </div>
+              <div class="form-group mt-3 ">
+                <label for="lastName">Apellido</label>
+                <input ng-class="myForm.lastName.$touched && myForm.lastName.$invalid ? 'red':'' " type="text"
+                  class="form-control" name="lastName" id="lastName" placeholder="Escriba su apellido "
+                  ng-model="lastName" required>
+                <small class="form-text text-muted" ng-show="myForm.lastName.$touched && myForm.lastName.$invalid">Este
+                  Campo es obligatorio</small>
+              </div>
+              <div class="form-group mt-3">
+                <label for="nameBusiness">Nombre de la Empresa </label>
+                <input ng-class="myForm.nameBusiness.$touched && myForm.nameBusiness.$invalid ? 'red':'' " type="text"
+                  class="form-control" name="nameBusiness" id="nameBusiness" placeholder="Escriba nombre de su  empresa"
+                  ng-model="nameBusiness" required>
+                <small class="form-text text-muted"
+                  ng-show="myForm.nameBusiness.$touched && myForm.nameBusiness.$invalid">Este Campo es
+                  obligatorio.</small>
+              </div>
+              <div class="form-group mt-3">
+                <label for="EmailId">Correo Electrónico</label>
+                <input ng-class="myForm.EmailId.$touched && myForm.EmailId.$invalid ? 'red':'' " type="text"
+                  class="form-control" name="EmailId" id="EmailId" placeholder="Escriba  su correo electrónico "
+                  ng-model="EmailId" required>
+                <small class="form-text text-muted" ng-show="myForm.EmailId.$touched && myForm.EmailId.$invalid ">Este
+                  Campo es obligatorio</small>
+              </div>
+              <div class="form-group mt-3">
+                <label for="loadBusiness bold">Categoría de su local </label>
+                <select class="form-control" name="categories"
+                  ng-options="option.name for option in categories.availableOptions track by option.id"
+                  ng-model="categories.selectedOption" ng-change="selectCategories(this)">
+                </select>
+                <small id="loadBusinessHelp" class="form-text text-muted"
+                  ng-show="myForm.categories.$touched && myForm.categories.$invalid ">Este Campo es
+                  obligatorio.</small>
+              </div>
+              <div class="form-group mt-3">
+                <label for="loadBusiness bold"> ¿Cómo nos conoció ? </label>
+                <select class="form-control" name="find"
+                  ng-options="option.name for option in find.avaliableFind track by option.id"
+                  ng-model="find.selectedOption" ng-change="selectfind(this)">
+                  <option>Default select</option>
+                </select>
+                <small id="loadBusinessHelp" class="form-text text-muted"
+                  ng-show="myForm.known.$touched && myForm.known.$invalid ">Este Campo es obligatorio</small>
+              </div>
+              <div class="form-group mt-3">
+                <label for="loadBusiness bold"> País</label>
+                <select class="form-control" name="find"
+                  ng-options="option.name for option in countryNames.country track by option.name"
+                  ng-model="countryNames.selectedOption" ng-change="selectCountry(this)">
+                </select>
+                <small id="loadBusinessHelp" class="form-text text-muted"
+                  ng-show="myForm.country.$touched && myForm.country.$invalid ">Este Campo es obligatorio</small>
+              </div>
+              <div class="group-md">
+                <label for="loadBusiness bold"> Teléfono</label>
+                <div class="row">
+                  <div class="col-2">
+                    <input ng-class="myForm.number.$touched && myForm.number.$invalid ? 'red':'' "
+                      class="form-control code" type="text" id="CountryCode" placeholder="Code" ng-model="countryCode">
+                  </div>
+                  <div class="col-5 ">
+                    <input ng-class="myForm.number.$touched && myForm.number.$invalid ? 'red':'' " type="number"
+                      class="form-control" id="number" name="number" placeholder="Escriba su Telefono "
+                      ng-model="number" required>
+                  </div>
+                  <small class="form-text text-muted" ng-show="myForm.number.$touched && myForm.number.$invalid ">Este
+                    Campo es obligatorio</small>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">¿ Cómo nuestro equipo de ventas puede ayudarle?</label>
+                <textarea ng-class="myForm.teamcontact.$touched && myForm.teamcontact.$invalid ? 'red':'' "
+                  class="form-control" id="teamcontact" name="teamcontact" rows="3" ng-model="teamcontact"
+                  required></textarea>
+                <small class="form-text text-muted"
+                  ng-show="myForm.teamcontact.$touched && myForm.teamcontact.$invalid ">Este Campo es
+                  obligatorio.</small>
+              </div>
+              <div class="col-12 d-flex justify-content-center mt-5">
+                <div class="g-recaptcha" data-theme="dark" data-sitekey="6LeahZcUAAAAAEWTCl8437um_q4EqHDlBEFXc7Da">
+                </div>
+              </div>
+              <div class="mt-5">
+                <button class="btn btn-outline-primary  btn-lg  btn-block  border " ng-click="dataContact()"> Enviar
+                  Información </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% include ./partials/footer/footer%>
+  <% include ./partials/script%>

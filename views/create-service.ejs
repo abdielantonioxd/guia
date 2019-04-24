@@ -1,0 +1,403 @@
+<% include ./partials/head%>
+
+<body class="ng-cloak">
+  <% include ./partials/option_nav/navbar%>
+  <div class="container " ng-controller="ctrl-create">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-8">
+        <h5 class="mt-5 bold " ng-hide="personalInformation">Datos Generales</h5>
+        <hr ng-hide="personalInformation">
+        <div name="myform">
+          <div ng-hide="personalInformation">
+            <h6 class="color-grey bold">Agrega un establecimiento</h6>
+            <div class="form-group mt-5">
+              <label for="from-name bold">Nombre del establecimiento</label>
+              <span class="required-input">*</span>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-user-o"></i>
+                  </span>
+                </div>
+                <input type="text" name="Name_local" id="Name_local" placeholder="Escriba el nombre del establecimiento"
+                  class="form-control" id="from-name" />
+                <span class="error_name" id="name_error_message"></span>
+                <span class="highlight"></span>
+                <span class="highlight-err"></span>
+              </div>
+            </div>
+
+            <div class="form-group mt-5">
+              <label for="from-name bold">Email</label>
+              <span class="required-input">*</span>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="far fa-envelope"></i>
+                  </span>
+                </div>
+                <input type="email" name="Email" id="Email" placeholder="Escriba el correo  del establecimiento"
+                  class="form-control" id="from-name" />
+                <span class="error_Email" id="Email_error_message"></span>
+                <span class="highlight"></span>
+                <span class="highlight-err"></span>
+              </div>
+            </div>
+
+            <div class="form-group mt-5">
+              <label for="from-name bold">Telefono</label>
+              <span class="required-input">*</span>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-phone-volume"> 507</i>
+                  </span>
+                </div>
+                <input type="number" name="Telefono" id="Tel" placeholder="Escriba el Telefono  del establecimiento"
+                  class="form-control" id="from-name" />
+                <span class="error_tel" id="tel_error_message"></span>
+                <span class="highlight"></span>
+                <span class="highlight-err"></span>
+              </div>
+            </div>
+
+            <h6 class="mt-5 color-grey bold">Ubicación</h6>
+            <hr>
+            <div class="input-group mb-3 edtFormMarg mt-2">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Ubicación</label>
+              </div>
+              <select class="custom-select" name="mySelect" id="mySelect"
+                ng-options="option.name for option in ubication.Panama track by option.id"
+                ng-model="ubication.selectedOption">
+                <option>Elija una Ubicación</option>
+              </select>
+              <span class="error_mySelect" id="mySelect_error_message"></span>
+              <span class="highlight"></span>
+              <span class="highlight-err"></span>
+            </div>
+
+            <div class="mt-4">
+              <h6 class="bold">Precios desde </h6>
+              <hr />
+              <div ng-repeat="p in Price">
+                <div class="custom-control custom-switch">
+                  <input type="radio" name="price" class="custom-control-input" id="{{p.id}}" value="{{p.Price}}"
+                    ng-model="p.isChecked" ng-click="getIdPrice(this)">
+                  <label class="custom-control-label" for="{{p.id}}">{{p.de}} {{p.Precio}}</label>
+                </div>
+              </div>
+              <div class="mt-3">
+                <button class="btn btn-outline-primary btn-md btn-sm border" ng-click="EditPrice()" ng-hide="edit">
+                  Editar <i class="far fa-edit"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group mt-4">
+              <label class="h6 bold">Dirección del Establecimiento </label>
+              <hr>
+              <textarea class="form-control" id="idInformation" placeholder="Direccion del establecimiento"></textarea>
+              <span class="error_idInformation" id="idInformation_error_message"></span>
+              <span class="highlight"></span>
+              <span class="highlight-err"></span>
+            </div>
+            <form method="POST" id="imagesP" enctype="multipart/form-data">
+              <div class="container mt-5">
+                <label class="h6 bold"> Imagen Principal </label>
+                <hr>
+                <div class="custom-file">
+                  <input type="file" id="file-upload" name="image" class="custom-file-input" id="customFileLang"
+                    lang="es" onchange="imgFileP(this)">
+                  <label class="custom-file-label" for="customFileLang" id="namefile">Ingrese Imagen Principal</label>
+                </div>
+              </div>
+              <div class="rounded mx-auto d-block mt-2" id="preview">
+              </div>
+              <div class="mt-3 messageEdit ">
+                <label>Desea guardar esta Imagen </label>
+                <button class=" mt-2 btn btn-outline-primary btn-md  btn-sm border Save"
+                  onclick="saveImagesInServer('yes')">Guardar
+                  <i class="far fa-save"></i></button>
+                <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImage"
+                  onclick="saveImagesInServer('no')"> Elegir Otra <i class="far fa-edit"></i> </button>
+              </div>
+            </form>
+            <div class="mt-5">
+              <button type="submit" class="btn btn-outline-primary  btn-lg  btn-block  border btnEstablishment "
+                ng-click="obtainData(this)">
+                Insertar datos del local <i class="fa fa-chevron-circle-right"></i></button>
+            </div>
+
+            <div class="mt-3" ng-hide="responseUser">
+              <span>¿Desea continuar con la creación ? </span>
+              <button class="btn btn-outline-danger" ng-click="validateresponseUser('yes')">sí </button>
+              <button class="btn btn-outline-dark" ng-click="validateresponseUser('no')">no</button>
+            </div>
+          </div>
+
+          <!-- data services  table 2  -->
+          <div class="col-md-8 mt-4" id="message">
+            <div ng-hide="typeService">
+              <h6 class="bold mt-4"> Tipos de Servicios</h6>
+              <hr />
+              <div ng-repeat="s in Services">
+                <div class="custom-control custom-switch">
+                  <input type="radio" class="custom-control-input" name="micheckbox" id="{{s.id}}" value="{{s.Service}}"
+                    ng-model="s.isChecked" ng-click="getIdServ(this)" ng-dblclick="EditServ()">
+                  <label class="custom-control-label" for="{{s.id}}">{{s.Service}}</label>
+                </div>
+              </div>
+              <!-- <button class="mt-2 btn btn-outline-primary btn-md btn-sm border" ng-hide="buttonEdit"
+                ng-click="EditServ()"> editar
+                <i class="far fa-edit"></i>
+              </button> -->
+              <div class=" mt-5">
+                <div class="mt-3" ng-hide="serviceoptional">
+                  <div ng-repeat="subserv in subservice">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" name="subservice" id="{{subserv.id}}"
+                        value="{{subserv.Service}}" ng-model="s.isChecked" ng-click="getsubservice(this)">
+                      <label class="custom-control-label" for="{{subserv.id}}">{{subserv.Service}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mt-5 container col-md-8">
+                <div class="form-row">
+                  <div class="col">
+                    <button class="mt-2 btn btn-outline-primary btn-lg btn-block border" type="submit"
+                      ng-click="pushServiceAndSub()">Agregar
+                      Servicios
+                      <i class="fa fa-chevron-circle-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ##### Images local  ##### -->
+          <div class="container mt-5" ng-hide="imageslocal">
+            <h6 class="bold">Imagenes del Local </h6>
+            <hr />
+            <div class=" row mt-5">
+              <div class="col-md-12">
+                <form method="POST" id="imagesOne" enctype="multipart/form-data">
+                  <div class="custom-file">
+                    <input type="file" id="file-uploadOne" name="image" class="custom-file-input" id="customFileLang"
+                      lang="es" onchange="imgFileAlOne(this)">
+                    <label class="custom-file-label" for="customFileLang" id="namefileOne">Ingrese Imagen 1</label>
+                  </div>
+                  <div class="rounded mx-auto d-block mt-2" id="previewTwo"></div>
+                  <div class="mt-3 messageEdit">
+                    <label>Desea guardar esta Imagen </label>
+                    <button class=" mt-2 btn btn-outline-primary btn-md btn-sm border Save"
+                      onclick="saveImagesInServer('OneTrue')">Guardar
+                      <i class="far fa-save"></i></button>
+                    <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImage"
+                      onclick="saveImagesInServer('OneFalse')"> Elegir Otra <i class="far fa-edit"></i> </button>
+                  </div>
+                </form>
+                <form method="POST" id="imagesTwo" enctype="multipart/form-data">
+                  <div class="custom-file mt-3">
+                    <input type="file" id="file-uploadTwo" name="image" class="custom-file-input" id="customFileLang"
+                      lang="es" onchange="imgFileAlTwo(this)">
+                    <label class="custom-file-label" for="customFileLang" id="namefileTwo">Ingrese Imagen 2</label>
+                  </div>
+                  <div class="rounded mx-auto d-block mt-2" id="previewThree"></div>
+                  <div class="mt-3 messageEdit">
+                    <label>Desea guardar esta Imagen </label>
+                    <button class=" mt-2 btn btn-outline-primary  btn-md  btn-sm  border Save"
+                      onclick="saveImagesInServer('yes')">Guardar
+                      <i class="far fa-save"></i></button>
+                    <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImageTwo"
+                      onclick="saveImagesInServer('no')"> Elegir Otra <i class="far fa-edit"></i> </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="form-row mt-3">
+              <div class="col">
+                <button class="mt-2 btn btn-outline-primary btn-lg btn-block border btnEstablishment" type="submit"
+                  onclick="validateImages()" ng-click="ValidateImages()"> Validar Imagenes
+                  <i class="fa fa-chevron-circle-right"></i></button>
+              </div>
+            </div>
+          </div>
+          <!-- ##### table undefines method of payment  ##### -->
+          <div class="mt-4" ng-hide="methodP">
+            <h6 class="bold">Métodos de Pago </h6>
+            <hr />
+            <div>
+              <div class="form-group mx-sm-3 mb-2" ng-repeat="Pay in methodPay">
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="{{Pay.id}}" value="{{Pay.id}}"
+                    ng-click="getmethodPay(this)">
+                  <label class="custom-control-label" for="{{Pay.id}}">{{Pay.method}}</label>
+                </div>
+              </div>
+              <button class="mt-2 btn btn-outline-primary btn-lg btn-block border" type="submit"
+                ng-click="sendMethod()">Añadir Método</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ##### data of schedules   ##### -->
+      <div class=" col-md-12 mt-2" ng-hide="addHours" ng-hide="hourHide">
+        <h6 class="bold"><i class="fa fa-calendar-minus-o bold"></i> Opciones de Horario </h6>
+        <hr />
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button class="btn btn-link btnColorHorario " id="viernes" type="button" data-toggle="collapse"
+                  data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" ng-hide="lunesViernes"
+                  ng-click="validateBtnHour('LV')">
+                  Horario de Lunes a viernes
+                </button>
+              </h2>
+            </div>
+            <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Apertura</label>
+                        <input type="time" lass="form-control" id="openMondayV_id">
+                      </div>
+                      <div class="form-group">
+                        <label>Cierre</label>
+                        <input type="time" lass="form-control" id="closeMondayV_id">
+                      </div>
+                    </div>
+                    </button>
+                    <div class="col-md-4">
+                      <button class="btn btn-outline-dark   btn-sm" type="submit"
+                        ng-click="validateBtnHour('all')">Atrás
+                        <i class="fas fa-backward"></i></button>
+                    </div>
+                    <div class=" col-md-6 form-group mt-5 container ">
+                      <div class="form-row">
+                        <div class="col">
+                          <button class="btn btn-primary btn-search-Home   btn-block" type="submit"
+                            ng-click="octainselectweekdays('V')">Agregar
+                            Horario <i class="fa fa-chevron-circle-right"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h2 class="mb-0">
+                <button class="btn btn-link collapsed btnColorHorario" type="button" data-toggle="collapse"
+                  data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" ng-hide="lunesSabado"
+                  ng-click="validateBtnHour('LS')">
+                  Horario de Lunes a Sabado
+                </button>
+              </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Apertura</label>
+                        <input type="time" lass="form-control" id="openMondayS_id">
+                      </div>
+                      <div class="form-group">
+                        <label>Cierre</label>
+                        <input type="time" lass="form-control" id="closeMondayS_id">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <button class="btn btn-outline-dark   btn-sm" type="submit"
+                        ng-click="validateBtnHour('all')">Atrás
+                        <i class="fas fa-backward"></i></button>
+                    </div>
+                    <div class=" col-md-6 form-group mt-5 container ">
+                      <div class="form-row">
+                        <div class="col">
+                          <button class="btn btn-primary btn-search-Home   btn-block" type="submit"
+                            ng-click="octainselectweekdays('S')">Agregar
+                            Horario <i class="fa fa-chevron-circle-right"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h2 class="mb-0">
+                <button class="btn btn-link collapsed btnColorHorario" type="button" data-toggle="collapse"
+                  data-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree"
+                  ng-hide="Personalisation" ng-click="validateBtnHour('P')">
+                  Horario Personalizado
+                </button>
+              </h2>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+              <div class="card-body">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12 contenedor-horario">
+                      <div ng-repeat=" d in daysweek " class="col-md-12">
+                        <div class="form-check form-check-inline col-md-2">
+                          <label class="form-check-label" for="{{d.id}}">{{d.weekdays}} </label>
+                        </div>
+                        <div class="form-check form-check-inline m-2 col-md-4">
+                          <label class="form-check-label"> Apertura: </label>
+                          <input type="time" name="hours" id="{{d.id_HoursA}}"
+                            style="  font-size: 10px;    border: solid 1px #cecece;">
+                        </div>
+                        <div class="form-check form-check-inline col-md-3 mt-2">
+                          <label class="form-check-label" for="inlineCheckbox2">Cierre: </label>
+                          <input type="time" name="hours" id="{{d.id_HoursC}}"
+                            style="  font-size: 10px;     border: solid 1px #cecece; ">
+                        </div>
+                        <div class="form-check form-check-inline col-md-2">
+                          <input class="" type="checkbox" id="{{d.id}}" value="{{d.weekdays}}"
+                            ng-click="inputHours(this)">
+                        </div>
+                        <hr>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mt-5">
+                  <button class="btn btn-outline-dark   btn-sm" type="submit" ng-click="validateBtnHour('all')">Atrás
+                    <i class="fas fa-backward"></i></button>
+                </div>
+                <div class=" col-md-6 form-group mt-5 container ">
+                  <div class="form-row">
+                    <div class="col">
+                      <button class="btn btn-primary btn-search-Home   btn-block" type="submit"
+                        ng-click="sendHour()">Agregar
+                        Horario <i class="fa fa-chevron-circle-right"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% include ./partials/footer/footer%>
+  <% include ./partials/script-create-service/script%>
+</body>
+
+</html>

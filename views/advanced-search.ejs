@@ -1,0 +1,196 @@
+<% include ./partials/head%>
+
+<body class="ng-cloak">
+  <% include ./partials/option_nav/navbar%>
+  <div class=" container g-mt-5" ng-controller="ctrl_boutique">
+    <div class="row">
+      <!-- d-none d-lg-block -->
+      <div class="col-md-3 g-brd-right--lg g-brd-gray-light-v4 g-pt-20 tablet-Ui phone-categories">
+        <div class="g-mb-30">
+          <h6 class=" bold">Promociones</h6>
+          <hr>
+          <label class="color-check container-check-search" for="Promocion">Promociones
+            <input class="" type="checkbox" id="Promocion" name="Promocion" ng-click="promotion()"
+              ng-dblclick="LoadDataPages()">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="g-mb-30">
+          <h6 class=" bold">Horario</h6>
+          <hr>
+          <label class="color-check container-check-search" for="abierto">Abierto ahora
+            <input class="" type="checkbox" id="abierto" name="abierto" ng-click="getHours(this.id)"
+              ng-dblclick="LoadDataPages()">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="g-mb-30">
+          <h6 class="bold">Precios</h6>
+          <hr>
+          <!-- Precios checkbox  -->
+          <div ng-repeat="p in Price">
+            <label class="color-check container-check-search dbl" for="{{p.id}}">{{p.de}} {{p.Precio}}
+              <input type="radio" name="price" id="{{p.id}}" value="{{p.Price}}" ng-model="p.isChecked"
+                ng-click="getPrice(this.p)">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="g-mb-30">
+          <!-- servicios checkbox  -->
+          <h6 class=" bold">Servicios</h6>
+          <hr>
+          <div ng-repeat="service in Services">
+            <label class="color-check container-check-search  " for="{{service.id}}">{{service.Service}}
+              <input class="only-one" type="radio" name="service" id="{{service.id}}" value="{{service.Service}}"
+                ng-model="service.isChecked" ng-click="getService(this.service)">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="g-mb-30" ng-hide="subServiceshide">
+          <h6 class=" bold"> Subcategorías </h6>
+          <hr>
+          <div ng-repeat="subservice in subservices">
+            <label class="color-check container-check-search" for="{{subservice.id}}">{{subservice.Service}}
+              <input class="only-one" type="radio" name="subservice" id="{{subservice.id}}"
+                value="{{subservice.Service}}" ng-model="subservice.isChecked"
+                ng-click="getSubService(this.subservice)">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="g-mb-30">
+          <h6 class="bold">Zonas</h6>
+          <hr>
+          <!-- Precios checkbox  -->
+          <div ng-repeat="z in zonasPanama |limitTo:4">
+            <label class="color-check container-check-search" for="{{z.id}}">{{z.name}}
+              <input type="radio" name="zonas" id="{{z.id}}" value="{{z.name}}" ng-model="z.isChecked"
+                ng-click="filterZonas(this.z)">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <details>
+            <div ng-repeat="z in zonasPanama  ">
+              <label class="color-check container-check-search" for="{{z.id}}">{{z.name}}
+                <input type="radio" name="zonastwo" id="{{z.id}}" value="{{z.name}}" ng-model="z.isChecked"
+                  ng-click="filterZonas(this.z)">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <summary>
+              <label for="">Ver más</label>
+            </summary>
+          </details>
+        </div>
+      </div>
+      <div class="col-sm-10 col-md-6 g-pt-20 g-pb-20 tablet-Ui-local ">
+        <div class="row">
+          <div class="col-12">
+            <div class=" ">
+              <div class="input-group-prepend justify-content-center ">
+                <!-- select of service for mobile  -->
+                <select class="custom-select   m-1 select-tablet" name="mySelect" id="mySelect"
+                  ng-options="option.name for option in data.availableOptions track by option.id"
+                  ng-model="data.selectedOption" ng-change="clickaction(this,this.id)"></select>
+
+                <label class="input-group-text  d-block d-sm-none m-1 " style="border-radius:0 !important;"
+                  for="inputGroupSelect01">
+                  {{Nresultado}}
+                  resultados</label>
+                <label class="input-group-text m-300-look d-none d-sm-block " for="inputGroupSelect01"
+                  style="border-radius:0 !important; ">
+                  {{Nresultado}} resultados</label>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-8">
+            <!-- Lista de locales  -->
+            <label class="text-primary" ng-show="resulText"> Resultado de la Busqueda de : <b>{{resulOfSearch}}</b>
+            </label>
+            <p class="text-danger"> {{resultNotFound}} </p>
+            <div ng-repeat="x in NSelected">
+              <div class="media g-my-5 g-pt-5">
+                <div class="row">
+                  <div class="col-sm-12 col-md-3 picture-container">
+                    <a href="/informacion-service?Establecimiento={{x.id}}">
+                      <div class="img-cropped-search-div">
+                        <img class="img-cropped-search" ng-src="./public/images/{{x.imagenPrincipal}}"
+                          data-ng-style="{'background-image' : 'url(./public/images/{{x.imagenPrincipal}})','max-width': '100%'}">
+                      </div>
+                    </a>
+                  </div>
+                  <div class=" mt-3 col-sm-9 col-md-8 media-body  dg-result-restaurant-text">
+                    <div class="g-my-15 g-hidden-md-up"></div>
+                    <div class="row">
+                      <div class="col-8 g-pr-0">
+                        <h5 class="h5 dg-result-restaurant-title g-mt-minus-5  dg-text-ellipsis">
+                          <a class="g-color-black g-color-primary--hover g-font-weight-600 g-text-underline--none--hover"
+                            href="/informacion-service?Establecimiento={{x.id}}">{{x.Nombre_establecimiento}}</a>
+                        </h5>
+                        <div class="dg-result-restaurant-description">
+                          <div class="g-color-gray-dark-v4 dg-result-restaurant-cuisine g-mb-5">
+                            {{x.servicioPrincipal}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div
+                          class="h4 text-right g-font-weight-600 dg-font-blue g-mt-minus-5 g-mb-0 dg-result-restaurant-price bold ">
+                          <small>Desde</small> {{x.Precio | currency}}
+                        </div>
+                        <div class="h6 text-right dg-result-restaurant-number-qualifications">
+                          <i class="fa fa-star color-op  "></i> <i class="fa fa-star color-op  "></i> <i
+                            class="fa fa-star color-op  "></i>
+                        </div>
+                      </div>
+                      <div
+                        class="col-12-look g-color-gray-dark-v4 dg-result-restaurant-address dg-text-ellipsis g-mb-10"
+                        style="font-size : 14px;">
+                        {{x.Direccion }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="btn-group-justified">
+                <a class="btn btn-outline-light btn-lg  btn-block text border color-local"
+                  href="/informacion-service?Establecimiento={{x.id}}"
+                  style="font-size: 20px; border-radius:none!important;">
+                  Ver más de este servicio <i class="fa fa-chevron-circle-right"></i> </a>
+              </div>
+              <hr class="g-my-20">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 d-none d-lg-block">
+        <div class="row">
+          <div class="col-md-12 col-lg-12">
+            <div class="row">
+              <div style="margin-top: -8px;">
+                <div class="input-group m-top">
+                  <!-- select of service for mobile  -->
+                  <select class="custom-select" name="mySelect" id="mySelect"
+                    ng-options="option.name for option in data.availableOptions track by option.id"
+                    ng-model="data.selectedOption" ng-change="clickaction(this,this.id)"></select>
+                  <!-- end select  -->
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 map-display " style="height:343px; width: 300px;">
+          <% include partials/map/map%>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% include ./partials/footer/footer%>
+  <% include ./partials/script%>

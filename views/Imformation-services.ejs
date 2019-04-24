@@ -1,0 +1,265 @@
+<% include ./partials/head%>
+
+<body class="ng-cloak">
+	<% include ./partials/option_nav/navbar%>
+	<div class="m-3" ng-controller="ctrl_info">
+		<div class="container container-look ">
+			<div class="row row-ipat">
+				<div class="col-lg-8 col-md-8 ">
+					<div id="carouselExampleControls" class="carousel slide carousel-edit" data-ride="carousel">
+						<div class="carousel-inner  center-images ">
+							<div class="carousel-item active ">
+								<img class="w-50 images-h"
+									src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+									data-ng-src="/public/images/{{dataInfo[0].imagenesEstablecimiento}}" alt=" Images One ">
+							</div>
+							<div class="carousel-item">
+								<img class="w-50 images-h"
+									src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+									data-ng-src="/public/images/{{dataInfo[0].imagenPrincipal}}" alt="Images Two">
+							</div>
+							<div class="carousel-item">
+								<img class="w-50 images-h"
+									src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+									data-ng-src="/public/images/{{dataInfo[1].imagenesEstablecimiento}}" alt="Images Three">
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+					<div class="card-body " style="box-shadow: 1px -1px 15px 0px grey;">
+						<div>
+							<p class="card-title float-right bold text-primary"> desde {{dataInfo[0].Precio | currency}}</p>
+							<h1 class="namelocal">{{dataInfo[0].Nombre_establecimiento}}</h1>
+							<p><small class="text-muted bold ">{{dataInfo[0].Servicios}}</small></p>
+						</div>
+						<hr>
+						<div class="container mt-16">
+							<div class="row ">
+								<div class="col-md-4  ">
+									<div class="m-2">
+										<button class="btn btn-block btn-outline-ligth " data-toggle="modal" data-target="#telefono">
+											<i class="fas fa-phone-volume color-icon-call"></i> Ver Teléfono
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- </div> -->
+					<!-- Modal -->
+					<div class="modal fade" id="telefono" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+						aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content" style="height:240px">
+								<div class="modal-body">
+									<h4 class="text-center pt-4">Teléfono</h4>
+									<h5 class="text-center pt-4 color-tel"> {{dataInfo[0].Telefono}}</h4>
+										<div class="container mt-3">
+											<div class="row">
+												<div class="col text-center">
+													<button class="btn btn-dark " class="close" data-dismiss="modal"
+														aria-label="Close">Aceptar</button>
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="container container-mobil mt-5">
+						<div class=" row">
+							<div class="col-lg-12">
+								<h5 class="bold">Información</h5>
+								<hr class="color-hr-direction  ">
+							</div>
+							<div class="col-lg-6 ">
+								<div class=" mt-2 col-lg-12 ">
+									<h6 class="bold mt-3">Dirección:</h6>
+									<hr>
+									<p>
+										{{dataInfo[0].Direccion}}
+									</p>
+									<div class="card-img-top mt-3 ">
+										<!-- <div id="map" style="width:100%; height:100%"></div> -->
+										<iframe width="100%" height="230" id="gmap_canvas" ng-src="{{mapaUbication}}" frameborder="2"
+											scrolling="no" marginheight="0" marginwidth="0">
+										</iframe>
+									</div>
+									<div class="card-body mt-5 ">
+										<details>
+											<summary>
+												<label for="">Horario</label>
+											</summary>
+											<ul class="list" ng-repeat="h in horario">
+												<li class="">{{h.dia }} de {{h.horaInicio}} a {{h.horaFinal}}</li>
+											</ul>
+										</details>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 mt-3">
+								<div class="container container-service">
+									<h6 class="bold">Métodos de Pago</h6>
+									<hr>
+									<div class="custom-control custom-switch" ng-repeat="Pay in payMethod">
+										<input type="checkbox" class="custom-control-input" id="{{Pay}}" Checked>
+										<label class="custom-control-label" for="customSwitch1"></label>{{Pay}}</label>
+									</div>
+									<div class="mt-5">
+										<h6 class="bold">Servicios</h6>
+										<hr>
+										<div class="container ">
+											<div class="custom-control custom-switch">
+												<input type="checkbox" class="custom-control-input" id="service" Checked>
+												<label class="custom-control-label"></label>{{dataInfo[0].servicioPrincipal}}</label>
+											</div>
+											<div class="custom-control custom-switch"
+												ng-repeat="servicesopt in servicesaditional track by $index">
+												<input type="checkbox" class="custom-control-input" id="{{servicesopt}}" Checked>
+												<label class="custom-control-label" for="customSwitch1"></label>{{servicesopt}}</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="container m-3">
+						<div class="row  ">
+							<div class="col-12 col-lg-4 mt-5 ">
+								<h5 class="bold mt-5">Fotos</h5>
+								<div class="">
+									<div class="container">
+										<div class="row">
+											<div class="col-md-4 mt-2">
+												<img class="img-fluid img-thumbnail w-100 images"
+													ng-src="/public/images/{{dataInfo[0].imagenPrincipal}}" alt="Imagen 1 ">
+											</div>
+											<div class="col-md-4 mt-2">
+												<img class="img-fluid img-thumbnail w-100 images"
+													ng-src="/public/images/{{dataInfo[0].imagenesEstablecimiento}}" alt="Imgen 2 ">
+											</div>
+											<div class="col-md-4 mt-2">
+												<img class="img-fluid img-thumbnail w-100 images"
+													ng-src="/public/images/{{dataInfo[1].imagenesEstablecimiento}}" alt="Imgen 2 ">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="container mt-3">
+						<div class="row ">
+							<div class="col-12 col-lg-4 ">
+								<div class="border-form">
+									<div class="mt-3">
+										<form>
+											<h5 class="bold m-2">Calificar Servicios del local</h5>
+											 <h1 class=" btn container">Servicio del local </h1> 
+											<hr>
+											<p class="clasificacion m-5">
+												<input id="radio1" type="radio" name="estrellas" value="5" ng-click="calificateService('5')">
+												<label class=" start" for="radio1"><i class="fas fa-star"></i></label>
+												<input class="start" id="radio2" type="radio" name="estrellas" value="5"
+													ng-click="calificateService('4') ">
+												<label class="start" for="radio2"><i class="fas fa-star"></i></label>
+												<input class="start" id="radio3" type="radio" name="estrellas" value="5"
+													ng-click="calificateService('3') ">
+												<label class="start" for="radio3"><i class="fas fa-star"></i></label>
+												<input class="start" id="radio4" type="radio" name="estrellas" value="5"
+													ng-click="calificateService('2') ">
+												<label class="start" for="radio4"><i class="fas fa-star"></i></label>
+												<input class="start" id="radio5" type="radio" name="estrellas" value="5"
+													ng-click="calificateService('1') ">
+												<label class="start" for="radio5"><i class="fas fa-star"></i></label>
+												<label class="first-click g-hidden-md-down  m-3 calificate d-none d-lg-block" for=""
+													class="start">Haz click
+													para calificar<span class="arrow d-none d-lg-block"></span>
+												</label>
+											</p>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+					<!-- modal of calification  local -->
+					<!-- <div class="modal fade" id="calificateModal" tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header bg-headermodal">
+									<h5 class="modal-title " id="exampleModalLongTitle" style="color: white;">Guía Look</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true" class="spanclose">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<h5 class="bold"> ¡ Gracias por calificar al Local ! </h5>
+									<p>
+										Sigue navegando y encuentra los servicios para lograr tu bienestar y un look genial
+									</p>
+								</div>
+							</div>
+						</div>
+					</div> -->
+				</div>
+				<!-- banners -->
+				<div class=" col-lg-4 d-none d-lg-block col-md-mobil">
+					<div class="col-md-12">
+						<div class="">
+							<img src="public/images/banner.png" class="img-fluid m-3 imges-banners container-image imagen " alt="...">
+						</div>
+					</div>
+					<div class="col-md-12 mt-5">
+						<div>
+							<h6 class="bold">Otras Recomendaciones </h6>
+							<hr>
+						</div>
+						<!-- second recomendation  -->
+						<div class="card mt-2" style=" width: 21rem;" ng-repeat="R in recomendate ">
+							<h6 class="mt-10 bold text-dark m-3 bold">{{R.Nombre_establecimiento}}</h6>
+							<div class="card-body">
+								<div class="g-color-gray-dark-v4 dg-text-ellipsis">
+									{{R.Direccion}}
+								</div>
+								<img class="w-100 img-fluit" ng-src="/public/images/{{R.imagenPrincipal}}" alt="Card image cap">
+								<div class="">
+									<a class="a2 btn btn-outline-light btn-lg  btn-block text border color-local mt-2"
+										href="/informacion-service?Establecimiento={{R.id}}">Ver más <i
+											class="fa fa-chevron-circle-right"></i>
+									</a>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<% include ./partials/footer/footer%>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/alertify.min.js"></script>
+	<script src="angular/lib/angular.min.js"></script>
+	<script src="angular/app/app.js"></script>
+	<script src="angular/global/global_var.js"></script>
+	<script src="angular/global/checkbox.js"></script>
+	<script src="angular/global/pushHorario.js"></script>
+	<script src="angular/global/function-global.js"></script>
+	<script src="angular/service/service.js"></script>
+	<script src="angular/controller/ctrl_infoEs.js"></script>
+	<script src="angular/controller/ctrl_validateusers.js"></script>
+
+</body>
+
+</html>
