@@ -47,6 +47,7 @@ app.controller("ctrl_info", ['$scope', 'Dataservice', function ($scope, Dataserv
     $scope.payMethod = obj.split(",", 6);
     objservice = datosinfo[0].servicios;
     $scope.servicesaditional = objservice.split(",", 12);
+    recomendation();
     hoursLocal(horario);
   }
 
@@ -61,6 +62,5 @@ app.controller("ctrl_info", ['$scope', 'Dataservice', function ($scope, Dataserv
   }
 
   ShowdataInfo();
-  recomendation();
   $scope.dia = Dataservice.GetDay();
 }])

@@ -115,18 +115,17 @@
       <% } else{%>
       <span class="text-capitalize text-dark " data-filter="">
         <a href="/busqueda-avanzada " class="color-filter activeA">Búsqueda Avanzada</a>
-      </span>
-      <%}%>
+        <%}%>
       </span>
       <% if (name == "create" ){%>
-      <span class="text-capitalize active" data-filter="">
-        <a href="#" ng-click="rolAdmin()" style=" color: var(--color-a)">Agregar local</a>
-      </span>
-      <%}else{%>
-      <span class="text-capitalize text-dark" data-filter="">
-        <a href="#" class="color-filter activeA" ng-click="rolAdmin()">Agregar local</a>
-      </span>
-      <%}%>
+        <span class="text-capitalize active" data-filter="">
+          <a href="#" ng-click="rolAdmin()" style=" color: var(--color-a)">Agregar local</a>
+        </span>
+        <%}else{%>
+        <span class="text-capitalize text-dark" data-filter="">
+          <a href="#" class="color-filter activeA" ng-click="rolAdmin()">Agregar local</a>
+        </span>
+        <%}%>
     </div>
     <hr class=" d-none d-md-block">
     <%}%>

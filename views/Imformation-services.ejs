@@ -60,15 +60,15 @@
 							<div class="modal-content" style="height:240px">
 								<div class="modal-body">
 									<h4 class="text-center pt-4">Teléfono</h4>
-									<h5 class="text-center pt-4 color-tel"> {{dataInfo[0].Telefono}}</h4>
-										<div class="container mt-3">
-											<div class="row">
-												<div class="col text-center">
-													<button class="btn btn-dark " class="close" data-dismiss="modal"
-														aria-label="Close">Aceptar</button>
-												</div>
+									<h5 class="text-center pt-4 color-tel"> {{dataInfo[0].Telefono}}</h5>
+									<div class="container mt-3">
+										<div class="row">
+											<div class="col text-center">
+												<button class="btn btn-dark " class="close" data-dismiss="modal"
+													aria-label="Close">Aceptar</button>
 											</div>
 										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -110,7 +110,7 @@
 									<hr>
 									<div class="custom-control custom-switch" ng-repeat="Pay in payMethod">
 										<input type="checkbox" class="custom-control-input" id="{{Pay}}" Checked>
-										<label class="custom-control-label" for="customSwitch1"></label>{{Pay}}</label>
+										<label class="custom-control-label" for="customSwitch1">{{Pay}}</label>
 									</div>
 									<div class="mt-5">
 										<h6 class="bold">Servicios</h6>
@@ -118,12 +118,12 @@
 										<div class="container ">
 											<div class="custom-control custom-switch">
 												<input type="checkbox" class="custom-control-input" id="service" Checked>
-												<label class="custom-control-label"></label>{{dataInfo[0].servicioPrincipal}}</label>
+												<label class="custom-control-label">{{dataInfo[0].servicioPrincipal}}</label>
 											</div>
 											<div class="custom-control custom-switch"
 												ng-repeat="servicesopt in servicesaditional track by $index">
 												<input type="checkbox" class="custom-control-input" id="{{servicesopt}}" Checked>
-												<label class="custom-control-label" for="customSwitch1"></label>{{servicesopt}}</label>
+												<label class="custom-control-label" for="customSwitch1">{{servicesopt}}</label>
 											</div>
 										</div>
 									</div>
@@ -245,7 +245,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 	<% include ./partials/footer/footer%>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
