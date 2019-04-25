@@ -10,7 +10,7 @@ app.controller("ctrl_boutique", ['$scope', 'Dataservice', function ($scope, Data
    $scope.zonasPanama = modelZonasPanama;
    $scope.ObjSearchAdvanced = ObjSearchJSON;
    $scope.resulOfSearch = ObjresultJSON;
-   console.log($scope.resulOfSearch)
+   // console.log($scope.resulOfSearch)
 
    /* ==========================================
               Get Price of Establishment 
