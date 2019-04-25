@@ -9,7 +9,9 @@ if (users != null) {
 }
 
 resultOf = localStorage.getItem('resultOfSearch')
+// if (typeof resultOf !== "undefined") {
 ObjresultJSON = JSON.parse(resultOf)
+// }
 /* ==========================================
          Token Akuma 
    ========================================== */
