@@ -436,8 +436,7 @@ app.controller("ctrl_boutique", ['$scope', 'Dataservice', function ($scope, Data
       if (click == 0) {
          FunctionX
          valueOld = value;
-         click++
-         console.log(click)
+         click++;
       } else {
          if (valueOld != value) {
             document.getElementById(id).checked = true;
