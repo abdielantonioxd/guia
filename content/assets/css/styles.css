@@ -948,7 +948,8 @@ body.hidden-scroll {
 .images-b {
   height: 15px;
 }
-.carousel-edit{
+
+.carousel-edit {
   position: relative !important;
   /* height: 400px !important; */
   background-color: #423f3f !important;
@@ -956,7 +957,7 @@ body.hidden-scroll {
 }
 
 .images-h {
-overflow: hidden;
+  overflow: hidden;
 }
 
 .look-direccion {
@@ -1218,10 +1219,11 @@ input[type="radio"]:checked~.start {
 }
 
 @media (max-width:750px) {
-  .w-50{
-    width: 100%!important;
+  .w-50 {
+    width: 100% !important;
   }
 }
+
 .border {
   border-radius: 0;
   border-color: #b0b0b0 !important;
@@ -1447,7 +1449,7 @@ input[type="radio"]:checked~.start {
 .text {
   color: #000
 }
-  
+
 .text:hover {
   color: var(--color)
 }
@@ -1514,4 +1516,17 @@ input[type="radio"]:checked~.start {
 
 .center-images {
   text-align: center
+}
+
+.dropdown-personalize {
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  /* width: 500px; */
+  height: 194px;
+  position: absolute;
+  will-change: transform;
+  top: 389px;
+  left: 0px;
+  transform: translate3d(0px, -348px, 0px)
 }

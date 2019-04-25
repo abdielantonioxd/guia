@@ -297,22 +297,22 @@ app.controller("ctrl_boutique", ['$scope', 'Dataservice', function ($scope, Data
             $scope.subservices = objsubServiceEstetica;
             break;
          case "Clínicas Dentales":
-            $scope.subservices = objsubServiceClinicas
+            $scope.subservices = objsubServiceClinicas;
             break;
          case "Functional Training":
-            $scope.subservices = objsubServiceCejasPesta
+            $scope.subservices = objsubServiceFunctional;
             break;
          case "Cejas y Pestañas":
-            $scope.subservices = objsubServiceCejasPesta
+            $scope.subservices = objsubServiceCejasPesta;
             break;
          case "Uñas":
-            $scope.subservices = objsubServiceUñas
+            $scope.subservices = objsubServiceUñas;
             break;
          case "Depilación":
-            $scope.subservices = objsubServiceDepilacion
+            $scope.subservices = objsubServiceDepilacion;
             break;
          case "Masajes y Spa":
-            $scope.subservices = objsubServiceMasajesEspa
+            $scope.subservices = objsubServiceMasajesEspa;
             break;
          default:
             alert("a ocurrido un error Contacte al administrador de la Pagina")

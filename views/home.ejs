@@ -12,9 +12,18 @@
           <div>
             <div class="btn-group-toggle " data-toggle="buttons">
               <label>
-                <button id="btnGroupDrop1" type="button" class=" d-none d-lg-block btn btn-light  btn-search ">
-                  <i class="fa fa-send-0 color-icon-send"></i> Panamá
-                </button>
+                <div class="btn-group" role="group">
+                  <button id="Ubications" type="button" class=" d-none d-lg-block btn btn-light  btn-search "
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-send-0 color-icon-send"></i> Panamá
+                  </button>
+                  <!-- <div class="dropdown-menu dropdown-personalize" aria-labelledby="Ubications">
+                    <a href="/busqueda-Avanzada?ubicacion={{Ubications.name}}" class="dropdown-item "
+                      ng-repeat="Ubications in ubication ">
+                      <i class="fas fa-map-marker-alt"></i> {{Ubications.name}}
+                    </a>
+                  </div> -->
+                </div>
               </label>
               <label>
                 <form>
@@ -23,7 +32,8 @@
                       <span class="input-group-text"><i class="fa fa-search"></i></span>
                     </div>
                     <input class="form-control a-search" id="searcrh-inp" type="text" name="myCountry" ng-model="search"
-                      placeholder="¿Qué servicio necesitas? " onclick="searchInp() " />
+                      placeholder="¿Qué servicio necesitas? " onclick="searchInp()" ng-keydown="filterService()"
+                      autocomplete="off" />
                     <div class="input-group-append">
                       <button class="btn btn-primary  btn-lg btn-font btn-search-Home " type="submit"
                         ng-click="seachGlobal(this)">Buscar

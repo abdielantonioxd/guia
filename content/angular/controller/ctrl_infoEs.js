@@ -31,8 +31,6 @@ app.controller("ctrl_info", ['$scope', 'Dataservice', function ($scope, Dataserv
       },
       success: function (data) {
         var horarioApertura = data.result.Database[0].Table.Row[0];
-        console.log(horarioApertura)
-
         showhorario(horarioApertura);
       },
       error: function (textStatus, err) {
