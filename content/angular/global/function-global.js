@@ -9,8 +9,8 @@ if (users != null) {
 }
 
 resultOf = localStorage.getItem('resultOfSearch')
-if ( resultOf !== "undefined") {
-ObjresultJSON = JSON.parse(resultOf)
+if (resultOf !== "undefined") {
+  ObjresultJSON = JSON.parse(resultOf)
 }
 /* ==========================================
          Token Akuma 

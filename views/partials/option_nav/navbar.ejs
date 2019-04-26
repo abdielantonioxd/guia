@@ -34,75 +34,73 @@
             <a href="/contact-pages"
               class="nav-link text-white btn btn-outline-light border-ouline btn-sm color-dark-btn">Contáctanos</a></li>
         </ul>
-        <!-- modals  -->
-        <div class="modal fade" id="sesion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true" data-backdrop="static">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content ">
-              <div class="modal-header config-header-modal">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <h2 class="text-center bold" id="exampleModalLabel">Iniciar sesión en Look</h2>
-                <form name="myForm">
-                  <div class="container mt-4 ">
-                    <div class="col-auto">
-                      <label class="sr-only" for="">Email</label>
-                      <div class="input-group mb-2">
-                        <div class="input-group-prepend  ">
-                          <div class="input-group-text bg-input-look"
-                            ng-class="myForm.email.$touched && myForm.email.$invalid ? 'red' :'' "><i
-                              class="fas fa-user"></i>
-                          </div>
-                        </div>
-                        <input ng-class="myForm.email.$touched && myForm.email.$invalid ? 'red':'' " type="email"
-                          class="form-control bg-input-look  " name="email" ng-model="email" id="email"
-                          placeholder="Dirección de email" required autocomplete="off">
-                        <span class="text-danger ml-2" ng-show="myForm.email.$touched && myForm.email.$invalid">*</span>
-                      </div>
-                    </div>
-                    <div class="col-auto mt-1">
-                      <label class="sr-only" for="">Contraseña</label>
-                      <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text bg-input-look"
-                            ng-class="myForm.pass.$touched && myForm.pass.$invalid ? 'red' : ''"><i
-                              class="fas fa-unlock"></i>
-                          </div>
-                        </div>
-                        <input ng-class="myForm.pass.$touched && myForm.pass.$invalid ? 'red' :'' " type="password"
-                          class="form-control bg-input-look" name="pass" ng-model="pass" id="password"
-                          placeholder="Contraseña" required autocomplete="off">
-                        <br>
-                        <span class="text-danger ml-2" ng-show="myForm.pass.$touched && myForm.pass.$invalid">*</span>
-                      </div>
-                    </div>
-                    <div>
-                      <!-- <span class="text-danger" ng-hide="messagehide">{{message}}</span> -->
-                    </div>
-                    <div class="text-center mt-3">
-                      <input type="checkbox" id="customCheck1">
-                      <label for="customCheck1">Recordar Contraseña</label>
-                    </div>
-                    <div class="form-group mt-3">
-                      <input type="submit" class="btn btn-primary btn-block btn-search-Home " ng-click="validateuser()"
-                        value="Entrar ">
-                    </div>
-                  </div>
-                  <!-- <div class="text-center">
-            <label class="text-center"> <a href="/Get-password" class="text-dark">¿Olvidaste tu contraseña
-                ?</a></label>
-          </div> -->
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </nav>
+  <!-- modals  -->
+  <div class="modal fade" id="sesion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-backdrop="static" class="ng-cloak" ng-controller="ctrl_validateUsers">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content ">
+        <div class="modal-header config-header-modal">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h2 class="text-center bold" id="exampleModalLabel">Iniciar sesión en Look</h2>
+          <form name="myForm">
+            <div class="container mt-4 ">
+              <div class="col-auto">
+                <label class="sr-only" for="">Email</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend  ">
+                    <div class="input-group-text bg-input-look"
+                      ng-class="myForm.email.$touched && myForm.email.$invalid ? 'red' :'' "><i class="fas fa-user"></i>
+                    </div>
+                  </div>
+                  <input ng-class="myForm.email.$touched && myForm.email.$invalid ? 'red':'' " type="email"
+                    class="form-control bg-input-look  " name="email" ng-model="email" id="email"
+                    placeholder="Dirección de email" required autocomplete="off">
+                  <span class="text-danger ml-2" ng-show="myForm.email.$touched && myForm.email.$invalid">*</span>
+                </div>
+              </div>
+              <div class="col-auto mt-1">
+                <label class="sr-only" for="">Contraseña</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text bg-input-look"
+                      ng-class="myForm.pass.$touched && myForm.pass.$invalid ? 'red' : ''"><i class="fas fa-unlock"></i>
+                    </div>
+                  </div>
+                  <input ng-class="myForm.pass.$touched && myForm.pass.$invalid ? 'red' :'' " type="password"
+                    class="form-control bg-input-look" name="pass" ng-model="pass" id="password"
+                    placeholder="Contraseña" required autocomplete="off">
+                  <br>
+                  <span class="text-danger ml-2" ng-show="myForm.pass.$touched && myForm.pass.$invalid">*</span>
+                </div>
+              </div>
+              <div>
+                <!-- <span class="text-danger" ng-hide="messagehide">{{message}}</span> -->
+              </div>
+              <div class="text-center mt-3">
+                <input type="checkbox" id="customCheck1">
+                <label for="customCheck1">Recordar Contraseña</label>
+              </div>
+              <div class="form-group mt-3">
+                <input type="submit" class="btn btn-primary btn-block btn-search-Home " ng-click="validateuser()"
+                  value="Entrar ">
+              </div>
+            </div>
+            <!-- <div class="text-center">
+      <label class="text-center"> <a href="/Get-password" class="text-dark">¿Olvidaste tu contraseña
+          ?</a></label>
+    </div> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   <div style="background-color:#ffffff" class="ng-cloak" ng-controller="ctrl_validateUsers">
     <% if(name != "home" && name != "r-password") {%>
     <div class="filtr-controls d-none d-md-block m-top-filter-control" style="height: 29px;">
