@@ -1,6 +1,12 @@
-
-var app = angular.module("aplication", []).config(function ($sceProvider) {
-  // Completely disable SCE.  For demonstration purposes only!
-  // Do not use in new projects or libraries.
+var app = angular.module("aplication",['ui.bootstrap']).config(function ($sceProvider) {
   $sceProvider.enabled(false);
+});
+app.filter('pagination', function() {
+	return function(input, start) {
+		if (input) {
+			start = +start;
+			return input.slice(start);
+		}
+		return [];
+	}
 });

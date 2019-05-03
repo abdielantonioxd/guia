@@ -105,11 +105,11 @@ app.controller("ctrl_boutique", ['$scope', 'Dataservice', function ($scope, Data
       if (Option == "MP") {
          FilterMPrice()
       } else {
-         if (Option == "Popularidad") { } else {
+         if (Option == "Popularidad") {} else {
             if (Option == "Promociones") {
                $scope.promotion()
             } else {
-               if (Option == "Orden") { } else {
+               if (Option == "Orden") {} else {
                   Serv = Option;
                   subService = ""
                   FilterServices(Serv, subService)
@@ -223,8 +223,7 @@ app.controller("ctrl_boutique", ['$scope', 'Dataservice', function ($scope, Data
          }
       });
    }
-   /* ========================================== resulOfSearch
-   
+   /* ==========================================
               Function of  Load  Pages 
       ==========================================   */
 
@@ -246,6 +245,43 @@ app.controller("ctrl_boutique", ['$scope', 'Dataservice', function ($scope, Data
             Dataservice.GetToAllEstablecimiento().then(function (data) {
                $scope.NSelected = data.data.result.Database[0].Table.Row[0]
                $scope.Nresultado = $scope.NSelected.length;
+               $scope.datapaginations = data.data.result.Database[0].Table.Row[0]
+               $scope.NSelected = $scope.datapaginations
+      
+               $scope.currentPage = 0;
+               $scope.pageSize = 5;
+               $scope.pages = [];
+      
+      
+               $scope.pages.length = 0;
+               var ini = $scope.currentPage - 4;
+               var fin = $scope.currentPage + 5;
+               if (ini < 1) {
+                  ini = 1;
+                  if (Math.ceil($scope.datapaginations.length / $scope.pageSize) > 10)
+                     fin = 5;
+                  else
+                     fin = Math.ceil($scope.datapaginations.length / $scope.pageSize);
+               } else {
+                  if (ini >= Math.ceil($scope.datapaginations.length / $scope.pageSize) - 10) {
+                     ini = Math.ceil($scope.datapaginations.length / $scope.pageSize) - 10;
+                     fin = Math.ceil($scope.datapaginations.length / $scope.pageSize);
+                  }
+               }
+               if (ini < 1) ini = 1;
+               for (var i = ini; i <= fin; i++) {
+                  $scope.pages.push({
+                     no: i
+                  });
+               }
+      
+               if ($scope.currentPage >= $scope.pages.length)
+                  $scope.currentPage = $scope.pages.length - 1;
+      
+      
+               $scope.setPage = function (index) {
+                  $scope.currentPage = index - 1;
+               };
             })
          }
       }
