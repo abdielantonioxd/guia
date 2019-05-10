@@ -18,7 +18,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
     $scope.method = false;
   }
   function loadData(dataService) {
-    $scope.id = dataService.idestablecimiento;
+    $scope.id = dataService.establecimientID;
     document.getElementById("id").value = dataService.idestablecimiento;
     document.getElementById("nombre").value = dataService.Nombre_establecimiento;
     document.getElementById("telefono").value = dataService.Telefono;
@@ -47,8 +47,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       success: function (data) {
         var horarioApertura = data.result.Database[0].Table.Row[0];
         $scope.hoursLocal = horarioApertura;
-        console.log($scope.hoursLocal)
-        $scope.$digest();
+        $scope.$apply()
       },
       error: function (textStatus, err) {
         console.log(err + ' ' + textStatus)
@@ -59,42 +58,44 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   /**############################################## */
   //            PAGINATION SERVICES 
   /**############################################## */
-  Dataservice.GetToAllEstablecimientoUpdate().then(function (response) {
-    $scope.datosOfServices = response.data.result.Database[0].Table.Row[0];
-    $scope.datapaginations = response.data.result.Database[0].Table.Row[0];
-    $scope.NSelected = $scope.datapaginations
-    $scope.currentPage = 0;
-    $scope.pageSize = 5;
-    $scope.pages = [];
-    $scope.pages.length = 0;
-    var ini = $scope.currentPage - 10;
-    var fin = $scope.currentPage + 10;
-    if (ini < 1) {
-      ini = 1;
-      if (Math.ceil($scope.datapaginations.length / $scope.pageSize) > 10)
-        fin = 5;
-      else
-        fin = Math.ceil($scope.datapaginations.length / $scope.pageSize);
-    } else {
-      if (ini >= Math.ceil($scope.datapaginations.length / $scope.pageSize) - 10) {
-        ini = Math.ceil($scope.datapaginations.length / $scope.pageSize) - 10;
-        fin = Math.ceil($scope.datapaginations.length / $scope.pageSize);
+  function reloadDataEstablishment() {
+    Dataservice.GetToAllEstablecimientoUpdate().then(function (response) {
+      $scope.datosOfServices = response.data.result.Database[0].Table.Row[0];
+      $scope.datapaginations = response.data.result.Database[0].Table.Row[0];
+      $scope.NSelected = $scope.datapaginations
+      $scope.currentPage = 0;
+      $scope.pageSize = 5;
+      $scope.pages = [];
+      $scope.pages.length = 0;
+      var ini = $scope.currentPage - 10;
+      var fin = $scope.currentPage + 10;
+      if (ini < 1) {
+        ini = 1;
+        if (Math.ceil($scope.datapaginations.length / $scope.pageSize) > 10)
+          fin = 5;
+        else
+          fin = Math.ceil($scope.datapaginations.length / $scope.pageSize);
+      } else {
+        if (ini >= Math.ceil($scope.datapaginations.length / $scope.pageSize) - 10) {
+          ini = Math.ceil($scope.datapaginations.length / $scope.pageSize) - 10;
+          fin = Math.ceil($scope.datapaginations.length / $scope.pageSize);
+        }
       }
-    }
-    if (ini < 1) ini = 1;
-    for (var i = ini; i <= fin; i++) {
-      $scope.pages.push({
-        num: i
-      });
-    }
+      if (ini < 1) ini = 1;
+      for (var i = ini; i <= fin; i++) {
+        $scope.pages.push({
+          num: i
+        });
+      }
 
-    if ($scope.currentPage >= $scope.pages.length)
-      $scope.currentPage = $scope.pages.length - 1;
+      if ($scope.currentPage >= $scope.pages.length)
+        $scope.currentPage = $scope.pages.length - 1;
 
-    $scope.setPage = function (index) {
-      $scope.currentPage = index - 1;
-    };
-  })
+      $scope.setPage = function (index) {
+        $scope.currentPage = index - 1;
+      };
+    })
+  }
 
   /**############################################## */
   //                 UPDATE APIS ONE
@@ -266,10 +267,10 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   }
 
   if ($scope.Users != "" && $scope.Users != null) {
-    console.log("permiso");
+    // console.log("true");
   } else {
     location.href = "/"
-    console.log("no");
+    // console.log("");
   }
 
   function FuncValidateProduction(dataService) {
@@ -292,6 +293,18 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   };
 
   $scope.deleteLocalGuialook = function (id) {
+    deleteobj(id)
+  }
+
+  function deleteobj(id) {
+    for (const key in $scope.datosOfServices) {
+      if (id === $scope.datosOfServices[key].establecimientID) {
+        delete $scope.datosOfServices[key];
+        sendDelete(id)
+      }
+    }
+  }
+  function sendDelete(id) {
     $.ajax({
       type: "POST",
       url: UrlDeleteLocal,
@@ -304,11 +317,12 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Se elimino el local correctamente ');
         $("#deleteModal").modal("hide");
+        reloadDataEstablishment()
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
       }
     });
   }
-
+  reloadDataEstablishment()
 }]);
