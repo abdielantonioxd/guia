@@ -292,7 +292,6 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   };
 
   $scope.deleteLocalGuialook = function (id) {
-    // deleteobj(id)
     $.ajax({
       type: "POST",
       url: UrlDeleteLocal,
@@ -310,17 +309,6 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
         console.log(textStatus + "" + err);
       }
     });
-  }
-
-  function deleteobj(id) {
-    for (const dataObj of $scope.datosOfServices) {
-      if (id == dataObj.id) {
-        delete dataObj.id;
-        console.log(dataObj);
-        $scope.$digest();
-        $scope.$apply();
-      }
-    }
   }
 
 }]);
