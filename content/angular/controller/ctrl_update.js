@@ -10,17 +10,16 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   /**############################################## */
   $scope.getDataService = function (data) {
     var dataService = data.data;
-    loadData(dataService)
-    loadHours(dataService)
-    methodPay(dataService)
+    loadData(dataService);
+    loadHours(dataService);
     $scope.service = false;
     $scope.information = false;
     $scope.hours = false;
     $scope.method = false;
   }
   function loadData(dataService) {
-    document.getElementById("id").value = dataService.id;
-    $scope.id = dataService.id;
+    $scope.id = dataService.idestablecimiento;
+    document.getElementById("id").value = dataService.idestablecimiento;
     document.getElementById("nombre").value = dataService.Nombre_establecimiento;
     document.getElementById("telefono").value = dataService.Telefono;
     document.getElementById("direccion").value = dataService.Direccion;
@@ -30,23 +29,8 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
     document.getElementById("nameImagen").value = dataService.imagenPrincipal;
     document.getElementById("PrincipalService").value = dataService.servicioPrincipal;
     document.getElementById("services").value = dataService.servicios;
-    if (dataService.prod != 1) {
-      $("#Producion").prop('disabled', false);
-    } else {
-      $("#Producion").prop('disabled', true);
-
-    }
-
-    if (dataService.prod === 1) {
-      $("#QuitarProducion").prop('disabled', false);
-    } else {
-      $("#QuitarProducion").prop('disabled', true);
-    }
-
-  }
-
-  function LoadMethodPay(datosinfo) {
-    document.getElementById("methodPay").value = datosinfo[0].methodpay;
+    document.getElementById("methodPay").value = dataService.methodpay;
+    FuncValidateProduction(dataService);
   }
 
   /**############################################## */
@@ -58,33 +42,13 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       url: UrlHorario,
       timeout: 2000,
       data: {
-        id: dataService.id
+        id: dataService.idestablecimiento
       },
       success: function (data) {
         var horarioApertura = data.result.Database[0].Table.Row[0];
         $scope.hoursLocal = horarioApertura;
+        console.log($scope.hoursLocal)
         $scope.$digest();
-      },
-      error: function (textStatus, err) {
-        console.log(err + ' ' + textStatus)
-      }
-    });
-  }
-
-  /**############################################## */
-  //           METHOD OF PAY SERVICE
-  /**############################################## */
-  function methodPay(dataService) {
-    $.ajax({
-      type: "POST",
-      url: Urlinfo,
-      timeout: 2000,
-      data: {
-        _Id: dataService.id
-      },
-      success: function (data) {
-        var datosinfo = data.result.Database[0].Table.Row[0];
-        LoadMethodPay(datosinfo)
       },
       error: function (textStatus, err) {
         console.log(err + ' ' + textStatus)
@@ -98,6 +62,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   Dataservice.GetToAllEstablecimientoUpdate().then(function (response) {
     $scope.datosOfServices = response.data.result.Database[0].Table.Row[0];
     $scope.datapaginations = response.data.result.Database[0].Table.Row[0];
+    console.log($scope.datosOfServices)
     $scope.NSelected = $scope.datapaginations
     $scope.currentPage = 0;
     $scope.pageSize = 5;
@@ -206,7 +171,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
     var datos = {
       servicePrincipal: document.getElementById("PrincipalService").value,
       services: document.getElementById("services").value,
-      id: document.getElementById("id").value
+      id: $scope.id
     }
     sendUpdateServices(datos)
   }
@@ -235,7 +200,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   $scope.updateMethodPay = function () {
     var datos = {
       methodPay: document.getElementById("methodPay").value,
-      id: document.getElementById("id").value
+      id: $scope.id
     }
     sendMethodPay(datos)
   }
@@ -264,20 +229,20 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       timeout: 2000,
       data: {
         prod: 1,
-        id: document.getElementById("id").value
+        id: $scope.id
       },
       success: function (data) {
         data_app = data;
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Se Guardaron los datos correctamente ');
-        $("#Producion").prop('disabled', true)
+        $("#Producion").prop('disabled', true);
+        $("#QuitarProducion").prop('disabled', false);
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
       }
     });
   }
-
 
   $scope.ProductionEstablishmentQuit = function () {
     $.ajax({
@@ -302,10 +267,22 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   }
 
   if ($scope.Users != "" && $scope.Users != null) {
-    console.log("permiso")
+    console.log("permiso");
   } else {
     location.href = "/"
-    console.log("no")
+    console.log("no");
+  }
+  function FuncValidateProduction(dataService) {
+    if (dataService.prod != 1) {
+      $("#Producion").prop('disabled', false);
+    } else {
+      $("#Producion").prop('disabled', true);
+    }
+    if (dataService.prod === 1) {
+      $("#QuitarProducion").prop('disabled', false);
+    } else {
+      $("#QuitarProducion").prop('disabled', true);
+    }
   }
 
 }]);

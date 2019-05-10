@@ -12,10 +12,16 @@
               <div class="">
                 <h5 class="bold d-flex justify-content-center">Establecimientos </h5>
                 <table class="table table-hover mt-3">
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" ng-model="search" placeholder="Búsqueda Avanzada"
-                      aria-describedby="button-addon2">
-                    <div class="input-group-append">
+                  <div class="row">
+                    <div class="input-group mb-3 col-md-6">
+                      <input type="text" class="form-control" ng-model="search" placeholder="Búsqueda Avanzada"
+                        aria-describedby="button-addon2">
+                      <div class="input-group-append">
+                      </div>
+                    </div>
+                    <div class="input-group mb-3 col-md-6">
+                      <a class="btn btn-success btn-block" href="/create-service">Agregar Local <i
+                          class="fas fa-plus-circle"></i></a>
                     </div>
                   </div>
                   <thead>
@@ -29,7 +35,7 @@
                     <tr
                       ng-repeat="data in datosOfServices | filter : search  | pagination: currentPage * pageSize | limitTo: pageSize "
                       id="{{data.id}}" ng-click="getDataService(this)">
-                      <th scope="row" id="{{data.id}}">{{data.id}}</th>
+                      <th scope="row" id="{{data.id}}">{{data.idestablecimiento}}</th>
                       <td id="{{data.id}}">{{data.Nombre_establecimiento}}</td>
                       <td id="{{data.id}}">{{data.Telefono}}</td>
                     </tr>
@@ -100,8 +106,8 @@
                 class="btn btn-outline-success  btn-block text border  mt-3">Produción <i
                   class="fas fa-cloud-upload-alt"></i></button>
               <button type="button" id="QuitarProducion" ng-click="ProductionEstablishmentQuit()"
-                class="btn btn-outline-success  btn-block text border  mt-3">Quitar Produción <i
-                  class="fas fa-cloud-upload-alt"></i></button>
+                class="btn btn-outline-danger  btn-block text border  mt-3">Quitar Produción <i
+                  class="fas fa-user-times"></i></button>
             </div>
             <div class="card-body mt-3">
               <form>
