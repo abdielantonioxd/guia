@@ -128,7 +128,7 @@ plugdo.collector("mysqlSendLocal", {
   server: objConnect,
   queryType: "stored-procedure",
   query: "call spInsertEstablecimiento",
-  parameter: ["json:post.direction", "json:post.imagenPrincipal", "json:post.name", "json:post.price", "json:post.tel"]
+  parameter: ["json:post.direction", "json:post.imagenPrincipal", "json:post.name", "json:post.price", "json:post.tel", "json:post.mapa"]
 })
 
 plugdo.collector("mysqlSendService", {
@@ -207,3 +207,91 @@ plugdo.collector("mysqlSearch", {
   query: "call spSearchAdvanced",
   parameter: ["json:post.search"]
 })
+
+/*  ##############################################################################
+               UPDATE INTO DATABSE     ONE  NEW SERVICE
+    #############################################################################
+*/
+
+plugdo.collector("mysqlEsatablishmentUpdate", {
+  type: "db",
+  action: "mysql",
+  server: objConnect,
+  queryType: "stored-procedure",
+  query: "call spUpdateEstablishment",
+  parameter: ["json:post.id", "json:post.direction", "json:post.imagenPrincipal", "json:post.name", "json:post.price", "json:post.tel", "json:post.mapa", "json:post.promociones"]
+})
+
+
+
+plugdo.collector("mysqlUpdateHour", {
+  type: "db",
+  action: "mysql",
+  server: objConnect,
+  queryType: "stored-procedure",
+  query: "call spUpdateHour",
+  parameter: [
+    "json:post.LunesApertura",
+    "json:post.LunesCierre",
+    "json:post.MartesApertura",
+    "json:post.MartesCierre",
+    "json:post.MiercolesApertura",
+    "json:post.MiercolesCierre",
+    "json:post.JuevesApertura",
+    "json:post.JuevesCierre",
+    "json:post.ViernesApertura",
+    "json:post.ViernesCierre",
+    "json:post.SabadoApertura",
+    "json:post.SabadoCierre",
+    "json:post.DomingoApertura",
+    "json:post.DomingoCierre",
+    "json:post.id",
+  ]
+})
+
+
+plugdo.collector("mysqlUpdateServices", {
+  type: "db",
+  action: "mysql",
+  server: objConnect,
+  queryType: "stored-procedure",
+  query: "call spUpdateServices",
+  parameter: ["json:post.servicePrincipal", "json:post.services", "json:post.id"]
+})
+
+plugdo.collector("mysqlUpdateMethodPay", {
+  type: "db",
+  action: "mysql",
+  server: objConnect,
+  queryType: "stored-procedure",
+  query: "call spUpdateMethodPay",
+  parameter: ["json:post.methodPay", "json:post.id"]
+})
+
+
+plugdo.collector("mysqlGetallServicesUpdate", {
+  type: "db",
+  action: "mysql",
+  server: objConnect,
+  queryType: "stored-procedure",
+  query: "call spSelecServicesUpdate"
+});
+
+plugdo.collector("mysqlUpdateProduction", {
+  type: "db",
+  action: "mysql",
+  server: objConnect,
+  queryType: "stored-procedure",
+  query: "call spUpdateProduction",
+  parameter: ["json:post.prod", "json:post.id"]
+})
+
+plugdo.collector("mysqlUpdateQuitProduction", {
+  type: "db",
+  action: "mysql",
+  server: objConnect,
+  queryType: "stored-procedure",
+  query: "call spUpdateQuitProduction",
+  parameter: ["json:post.prod", "json:post.id"]
+})
+

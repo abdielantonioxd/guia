@@ -1,10 +1,16 @@
 app.factory("Dataservice", function ($http) {
   const all = "/api/get-services/json";
+  const allUpdate = "/api/get-dataUpdate/json";
   const desc = "/api/get-descuento/json"
   const recomendate = `/api/get-recomendate/json`
   var Dataservice = {
     GetToAllEstablecimiento: function () {
       return $http.get(all).then(function (data) {
+        return data
+      })
+    },
+    GetToAllEstablecimientoUpdate: function () {
+      return $http.get(allUpdate).then(function (data) {
         return data
       })
     },
@@ -24,7 +30,7 @@ app.factory("Dataservice", function ($http) {
           objectget[tmp[0]] = unescape(decodeURI(tmp[1]));
         }
         return objectget;
-      } else {}
+      } else { }
       return objectget
     },
     GetDay: function () {
@@ -66,7 +72,7 @@ app.factory("Dataservice", function ($http) {
           break;
       }
     },
-    Recomendate: function (){
+    Recomendate: function () {
       return $http.get(recomendate).then(function (data) {
         return data
       })

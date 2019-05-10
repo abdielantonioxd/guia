@@ -104,23 +104,8 @@ app.controller("ctrl_validateUsers", ["$scope", function ($scope) {
 
   $scope.rolAdmin = function () {
     if ($scope.idRol !== null) {
-      $.ajax({
-        type: "POST",
-        url: "/api/user-exist/json",
-        timeout: 2000,
-        data: {
-          id: $scope.idRol[0].id
-        },
-        success: function (data) {
-          $scope.result = data.result.Database[0].Table.Row[0];
-          var access = $scope.result[0].message
-          validateRol(access);
-        },
-        error: function (textStatus, err) {
-          console.log(textStatus + "" + err);
-        }
-      });
-
+      var rolAdmin = "rolCreate"
+      FunValidateUser(rolAdmin);
     } else {
       alertify.alert('Guia Look', 'Usted no tiene permiso para acceder a esta opcion ', function () {
         $('#sesion').modal("show")
@@ -128,9 +113,39 @@ app.controller("ctrl_validateUsers", ["$scope", function ($scope) {
     }
   }
 
-  function validateRol(access) {
+  $scope.rolAdminProfile = function () {
+    var rolAdmin = "rolProfile"
+    FunValidateUser(rolAdmin);
+  }
+
+  function FunValidateUser(rolAdmin) {
+    $.ajax({
+      type: "POST",
+      url: "/api/user-exist/json",
+      timeout: 2000,
+      data: {
+        id: $scope.idRol[0].id
+      },
+      success: function (data) {
+        $scope.result = data.result.Database[0].Table.Row[0];
+        var access = $scope.result[0].message
+        validateRol(access, rolAdmin);
+      },
+      error: function (textStatus, err) {
+        console.log(textStatus + "" + err);
+      }
+    });
+  }
+
+
+  function validateRol(access, rolAdmin) {
     if (access === 1) {
-      location.href = "/create-service"
+      if (rolAdmin === "rolCreate") {
+        location.href = "/create-service"
+        rolAdmin = "";
+      } else {
+        location.href = "/update-service"
+      }
     } else {
       alertify.alert('Guia Look', 'solo personas con acseso pueden ingresar a esta pagina !', function () {
         alertify.warning('Ok');

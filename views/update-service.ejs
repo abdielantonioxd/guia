@@ -1,0 +1,192 @@
+<% include ./partials/head%>
+
+<body class="ng-cloak">
+  <% include ./partials/option_nav/navbar%>
+  <div ng-controller="ctrl-update">
+    <div class="container-fluit m-4">
+      <div class="row">
+        <div>
+          <div class="card ">
+            <div class="card-body ">
+              <!-- d-none d-lg-block -->
+              <div class="">
+                <h5 class="bold d-flex justify-content-center">Establecimientos </h5>
+                <table class="table table-hover mt-3">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" ng-model="search" placeholder="Búsqueda Avanzada"
+                      aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                    </div>
+                  </div>
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Nombre </th>
+                      <th scope="col">Teléfono</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      ng-repeat="data in datosOfServices | filter : search  | pagination: currentPage * pageSize | limitTo: pageSize "
+                      id="{{data.id}}" ng-click="getDataService(this)">
+                      <th scope="row" id="{{data.id}}">{{data.id}}</th>
+                      <td id="{{data.id}}">{{data.Nombre_establecimiento}}</td>
+                      <td id="{{data.id}}">{{data.Telefono}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-center">
+                  <div class='btn-group d-flex'>
+                    <button type='button' class='btn btn-primary' ng-disabled='currentPage == 0'
+                      ng-click='currentPage = currentPage - 1'><i class="fas fa-backward"></i></button>
+                    <button type='button' class='btn btn-primary' ng-disabled='currentPage == page.num - 1'
+                      ng-click='setPage(page.num)' ng-repeat='page in pages'>{{page.num}}</button>
+                    <button type='button' class='btn btn-primary'
+                      ng-disabled='currentPage >= datosOfServices.length/pageSize - 1'
+                      ng-click='currentPage = currentPage + 1'><i class="fas fa-forward"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5">
+            <div class="card">
+              <div class="card-body">
+                <form>
+                  <h5 class="bold">Servicios del Establecimiento </h5>
+                  <hr>
+                  <div ng-hide="service">
+                    <div class="form-group mt-5">
+                      <label for="inputAddress">Servicio Principal </label>
+                      <input type="text" class="form-control" id="PrincipalService">
+                    </div>
+                    <div class="form-group">
+                      <label for="inputAddress2">Servicios</label>
+                      <input type="text" class="form-control" id="services"></input>
+                    </div>
+                  </div>
+                  <button type="submit" ng-click="UpdateServices()"
+                    class="btn btn-outline-light btn-lg  btn-block text border color-local">Actualizar
+                    Servicios </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class=" mt-5">
+            <div class="card">
+              <div class="card-body">
+                <form>
+                  <h5 class="bold">Metodos de pago del Establecimiento </h5>
+                  <hr>
+                  <div ng-hide="method">
+                    <div class="form-group mt-5">
+                      <label for="inputAddress2">Metodos de pago </label>
+                      <textarea class="form-control" id="methodPay" rows="3"></textarea>
+                    </div>
+                  </div>
+                  <button type="submit" ng-click="updateMethodPay()"
+                    class="btn btn-outline-light btn-lg  btn-block text border color-local">Actualizar
+                    Metodos </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+        <div class="col-sm-4 ">
+          <div class="card">
+            <div class="col-md-12">
+              <button type="button" id="Producion" ng-click="ProductionEstablishment()"
+                class="btn btn-outline-success  btn-block text border  mt-3">Produción <i
+                  class="fas fa-cloud-upload-alt"></i></button>
+              <button type="button" id="QuitarProducion" ng-click="ProductionEstablishmentQuit()"
+                class="btn btn-outline-success  btn-block text border  mt-3">Quitar Produción <i
+                  class="fas fa-cloud-upload-alt"></i></button>
+            </div>
+            <div class="card-body mt-3">
+              <form>
+                <div class="form-group">
+                  <label for="inputAddress">ID</label>
+                  <input type="text" class="form-control" id="id" disabled>
+                </div>
+
+                <h5 class="bold">Información del Establecimiento </h5>
+                <hr>
+                <div ng-hide="information">
+                  <div class="form-row mt-3">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Nombre</label>
+                      <input type="text" class="form-control" id="nombre">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">Teléfono</label>
+                      <input type="text" class="form-control" id="telefono">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputAddress">Direción</label>
+                    <textarea class="form-control" id="direccion" rows="3"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputAddress">Precio</label>
+                    <input type="text" class="form-control" id="precio">
+                  </div>
+                  <div class=" form-group">
+                    <label for="inputAddress2">Promoción</label>
+                    <input type="text" class="form-control" id="promocion">
+                  </div>
+                  <div class=" form-group">
+                    <label for="inputAddress2">Mapa</label>
+                    <input type="text" class="form-control" id="mapa">
+                  </div>
+                  <div class=" form-group">
+                    <label for="inputAddress2">Nombre de la Imagen</label>
+                    <input type="text" class="form-control" id="nameImagen">
+                  </div>
+                </div>
+                <button type="submit" ng-click="updateEstablishment()"
+                  class="btn btn-outline-light btn-lg  btn-block text border color-local">Actualizar
+                  Información</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 ">
+          <div class="card">
+            <div class="card-body mt-3">
+              <form id="horarios">
+                <h5 class="bold">Horario del Establecimiento </h5>
+                <hr>
+                <div ng-hide="hours">
+                  <div class="form-group">
+                    <label for="inputAddress">ID</label>
+                    <input type="text" class="form-control" name="id" value="{{id}}" disabled>
+                  </div>
+                  <div class="form-row mt-3" ng-repeat="horario in hoursLocal">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">{{horario.dia}} Apertura</label>
+                      <input type="text" class="form-control" name="{{horario.dia}}Apertura"
+                        value="{{horario.horaInicio}}">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">{{horario.dia}} Cierre</label>
+                      <input type="text" class="form-control" name="{{horario.dia}}Cierre"
+                        value="{{horario.horaFinal}}">
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" ng-click="updateHour()"
+                  class="btn btn-outline-light btn-lg  btn-block text border color-local">Actualizar
+                  Horario </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% include ./partials/script-create-service/script%>
+</body>
+
+</html>

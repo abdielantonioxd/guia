@@ -34,6 +34,14 @@ mvc.controller({
 }, "createService", function (req, createService) {
     return createService.returnAll();
 });
+mvc.controller({
+    name: "updateservice",
+    action: "update-service",
+    path: "/update-service",
+    view: "update-service.ejs"
+}, "updateService", function (req, updateService) {
+    return updateService.returnAll();
+});
 
 mvc.controller({
     name: "password",

@@ -48,6 +48,16 @@ mvc.dependencies.createService = {
   }
 }
 
+mvc.dependencies.updateService = {
+  "returnAll": function () {
+    return {
+      title: "Guia look-Edición de Locales ",
+      name: "update",
+      message: "Welcome to our web page!"
+    };
+  }
+}
+
 mvc.dependencies.privacityPolitic = {
   "returnAll": function () {
     return {

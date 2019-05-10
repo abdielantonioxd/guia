@@ -257,3 +257,102 @@ plugdo.integration("search-advanced", (message, send) => {
     }
   });
 })
+
+
+/*  ##############################################################################
+               UPDATE INTO DATABSE     ONE  NEW SERVICE
+    ############################################################################# */
+
+plugdo.integration("update-establecimiento", (message, send) => {
+  let response = {};
+  // console.log(message)
+  plugdo.collect("mysqlEsatablishmentUpdate").get(message, (data, err) => {
+    if (err) {
+      send({}, err);
+    } else {
+      response.result = data;
+      send(response);
+    }
+  });
+})
+
+
+plugdo.integration("update-hour", (message, send) => {
+  let response = {};
+  // console.log(message)
+  plugdo.collect("mysqlUpdateHour").get(message, (data, err) => {
+    if (err) {
+      send({}, err);
+    } else {
+      response.result = data;
+      send(response);
+    }
+  });
+})
+
+
+plugdo.integration("update-services", (message, send) => {
+  let response = {};
+  // console.log(message)
+  plugdo.collect("mysqlUpdateServices").get(message, (data, err) => {
+    if (err) {
+      send({}, err);
+    } else {
+      response.result = data;
+      send(response);
+    }
+  });
+})
+
+
+plugdo.integration("update-methodPay", (message, send) => {
+  let response = {};
+  // console.log(message)
+  plugdo.collect("mysqlUpdateMethodPay").get(message, (data, err) => {
+    if (err) {
+      send({}, err);
+    } else {
+      response.result = data;
+      send(response);
+    }
+  });
+})
+
+
+plugdo.integration("get-dataUpdate", (message, send) => {
+  let response = {};
+  plugdo.collect("mysqlGetallServicesUpdate").get(message, (data, err) => {
+    if (err) {
+      send({}, err);
+    } else {
+      response.result = data;
+      send(response);
+    }
+  });
+});
+
+
+plugdo.integration("update-production", (message, send) => {
+  let response = {};
+  plugdo.collect("mysqlUpdateProduction").get(message, (data, err) => {
+    if (err) {
+      send({}, err);
+    } else {
+      response.result = data;
+      send(response);
+    }
+  });
+});
+
+
+plugdo.integration("update-QuitProduction", (message, send) => {
+  let response = {};
+  plugdo.collect("mysqlUpdateQuitProduction").get(message, (data, err) => {
+    if (err) {
+      send({}, err);
+    } else {
+      response.result = data;
+      send(response);
+    }
+  });
+});

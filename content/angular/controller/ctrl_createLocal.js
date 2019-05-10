@@ -82,6 +82,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   $scope.obtainData = function (obj) {
     Name = document.getElementById("Name_local").value;
     telefono = document.getElementById("Tel").value;
+    mapa = document.getElementById("mapa").value;
     direction = obj.ubication.selectedOption.name + "," + document.getElementById("idInformation").value;
     $scope.imagesP = imagesP[0].images;
     promotion = "";
@@ -104,6 +105,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
           "name": Name,
           "direction": direction,
           "telefono": "507" + telefono,
+          "mapa": mapa,
           "promociones": "",
           "price": $scope.price,
           "imagenPrincipal": $scope.imagesP
@@ -349,7 +351,8 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
         name: dataUsers[0].name,
         price: dataUsers[0].price,
         promotion: "",
-        tel: dataUsers[0].telefono
+        tel: dataUsers[0].telefono,
+        mapa: dataUsers[0].mapa
       },
       success: function (data) {
         data_app = data.result.Database[0].Table.Row[0];
