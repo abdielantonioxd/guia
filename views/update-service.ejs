@@ -6,7 +6,7 @@
     <div class="container-fluit m-4">
       <div class="row">
         <div>
-          <div class="card ">
+          <div class="card card-1">
             <div class="card-body ">
               <!-- d-none d-lg-block -->
               <div class="">
@@ -20,8 +20,10 @@
                       </div>
                     </div>
                     <div class="input-group mb-3 col-md-6">
-                      <a class="btn btn-success btn-block" href="/create-service">Agregar Local <i
-                          class="fas fa-plus-circle"></i></a>
+                      <button type="button" class="btn btn-success  btn-sm ">
+                        <a class=" text-white" href="/create-service">Agregar Local <i
+                            class="fas fa-plus-circle"></i></a>
+                      </button>
                     </div>
                   </div>
                   <thead>
@@ -29,18 +31,42 @@
                       <th scope="col">ID</th>
                       <th scope="col">Nombre </th>
                       <th scope="col">Teléfono</th>
+                      <th scope="col">Eliminar</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr
                       ng-repeat="data in datosOfServices | filter : search  | pagination: currentPage * pageSize | limitTo: pageSize "
-                      id="{{data.id}}" ng-click="getDataService(this)">
-                      <th scope="row" id="{{data.id}}">{{data.idestablecimiento}}</th>
-                      <td id="{{data.id}}">{{data.Nombre_establecimiento}}</td>
-                      <td id="{{data.id}}">{{data.Telefono}}</td>
+                      id="{{data.id}}">
+                      <th scope="row" id="{{data.id}}" ng-click="getDataService(this)">{{data.idestablecimiento}}</th>
+                      <td id="{{data.id}}" ng-click="getDataService(this)">{{data.Nombre_establecimiento}}</td>
+                      <td id="{{data.id}}" ng-click="getDataService(this)">{{data.Telefono}}</td>
+                      <td id="{{data.id}}" data-toggle="modal" data-target="#exampleModalCenter"><i
+                          class="fas fa-user-times deleteEstablishment"></i></td>
                     </tr>
                   </tbody>
                 </table>
+                <!-- modal  -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p> Esta seguro que Desea Eliminar este Local</p>
+                        <button class="btn btn-danger">SI</button>
+                        <button class="btn btn-warning" data-dismiss="modal">NO</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <!-- end modal  -->
                 <div class="d-flex justify-content-center">
                   <div class='btn-group d-flex'>
                     <button type='button' class='btn btn-primary' ng-disabled='currentPage == 0'
@@ -56,7 +82,7 @@
             </div>
           </div>
           <div class="mt-5">
-            <div class="card">
+            <div class="card card-1">
               <div class="card-body">
                 <form>
                   <h5 class="bold">Servicios del Establecimiento </h5>
@@ -79,7 +105,7 @@
             </div>
           </div>
           <div class=" mt-5">
-            <div class="card">
+            <div class="card card-1">
               <div class="card-body">
                 <form>
                   <h5 class="bold">Metodos de pago del Establecimiento </h5>
@@ -100,7 +126,7 @@
           <br>
         </div>
         <div class="col-sm-4 ">
-          <div class="card">
+          <div class="card card-1">
             <div class="col-md-12">
               <button type="button" id="Producion" ng-click="ProductionEstablishment()"
                 class="btn btn-outline-success  btn-block text border  mt-3">Produción <i
@@ -158,7 +184,7 @@
           </div>
         </div>
         <div class="col-sm-4 ">
-          <div class="card">
+          <div class="card card-1">
             <div class="card-body mt-3">
               <form id="horarios">
                 <h5 class="bold">Horario del Establecimiento </h5>
@@ -190,6 +216,7 @@
         </div>
       </div>
     </div>
+
   </div>
 
   <% include ./partials/script-create-service/script%>
