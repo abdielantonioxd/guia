@@ -223,7 +223,6 @@ plugdo.collector("mysqlEsatablishmentUpdate", {
 })
 
 
-
 plugdo.collector("mysqlUpdateHour", {
   type: "db",
   action: "mysql",

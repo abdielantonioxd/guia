@@ -237,6 +237,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
         alertify.success('Se Guardaron los datos correctamente ');
         $("#Producion").prop('disabled', true);
         $("#QuitarProducion").prop('disabled', false);
+        reloadDataEstablishment()
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
@@ -259,6 +260,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
         alertify.success('Se Guardaron los datos correctamente ');
         $("#Producion").prop('disabled', false)
         $("#QuitarProducion").prop('disabled', true);
+        reloadDataEstablishment()
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
