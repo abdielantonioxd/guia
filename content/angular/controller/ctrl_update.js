@@ -292,24 +292,24 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   };
 
   $scope.deleteLocalGuialook = function (id) {
-    deleteobj(id)
-    // $.ajax({
-    //   type: "POST",
-    //   url: UrlDeleteLocal,
-    //   timeout: 2000,
-    //   data: {
-    //     id: id
-    //   },
-    //   success: function (data) {
-    //     data_app = data;
-    //     alertify.set('notifier', 'position', 'top-right');
-    //     alertify.success('Se elimino el local correctamente ');
-    //     $("#deleteModal").modal("hide");
-    //   },
-    //   error: function (textStatus, err) {
-    //     console.log(textStatus + "" + err);
-    //   }
-    // });
+    // deleteobj(id)
+    $.ajax({
+      type: "POST",
+      url: UrlDeleteLocal,
+      timeout: 2000,
+      data: {
+        id: id
+      },
+      success: function (data) {
+        data_app = data;
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Se elimino el local correctamente ');
+        $("#deleteModal").modal("hide");
+      },
+      error: function (textStatus, err) {
+        console.log(textStatus + "" + err);
+      }
+    });
   }
 
   function deleteobj(id) {
