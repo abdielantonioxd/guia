@@ -356,3 +356,22 @@ plugdo.integration("update-QuitProduction", (message, send) => {
     }
   });
 });
+
+
+/*  ##############################################################################
+                                      DELETE INTO DATABSE    
+    #############################################################################
+*/
+
+
+plugdo.integration("delete-establishment", (message, send) => {
+  let response = {};
+  plugdo.collect("mysqlDeleteEstablishment").get(message, (data, err) => {
+    if (err) {
+      send({}, err);
+    } else {
+      response.result = data;
+      send(response);
+    }
+  });
+});

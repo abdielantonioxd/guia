@@ -62,7 +62,6 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   Dataservice.GetToAllEstablecimientoUpdate().then(function (response) {
     $scope.datosOfServices = response.data.result.Database[0].Table.Row[0];
     $scope.datapaginations = response.data.result.Database[0].Table.Row[0];
-    console.log($scope.datosOfServices)
     $scope.NSelected = $scope.datapaginations
     $scope.currentPage = 0;
     $scope.pageSize = 5;
@@ -272,6 +271,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
     location.href = "/"
     console.log("no");
   }
+
   function FuncValidateProduction(dataService) {
     if (dataService.prod != 1) {
       $("#Producion").prop('disabled', false);
@@ -282,6 +282,44 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       $("#QuitarProducion").prop('disabled', false);
     } else {
       $("#QuitarProducion").prop('disabled', true);
+    }
+  }
+
+  $scope.modal = (name, id) => {
+    $("#deleteModal").modal("show");
+    $scope.name = name;
+    $scope.id = id;
+  };
+
+  $scope.deleteLocalGuialook = function (id) {
+    deleteobj(id)
+    // $.ajax({
+    //   type: "POST",
+    //   url: UrlDeleteLocal,
+    //   timeout: 2000,
+    //   data: {
+    //     id: id
+    //   },
+    //   success: function (data) {
+    //     data_app = data;
+    //     alertify.set('notifier', 'position', 'top-right');
+    //     alertify.success('Se elimino el local correctamente ');
+    //     $("#deleteModal").modal("hide");
+    //   },
+    //   error: function (textStatus, err) {
+    //     console.log(textStatus + "" + err);
+    //   }
+    // });
+  }
+
+  function deleteobj(id) {
+    for (const dataObj of $scope.datosOfServices) {
+      if (id == dataObj.id) {
+        delete dataObj.id;
+        console.log(dataObj);
+        $scope.$digest();
+        $scope.$apply();
+      }
     }
   }
 

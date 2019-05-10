@@ -295,3 +295,17 @@ plugdo.collector("mysqlUpdateQuitProduction", {
   parameter: ["json:post.prod", "json:post.id"]
 })
 
+/*  ##############################################################################
+              DELETE  INTO DATABSE     ONE   ESTABLISHMENT 
+    #############################################################################
+*/
+
+
+plugdo.collector("mysqlDeleteEstablishment", {
+  type: "db",
+  action: "mysql",
+  server: objConnect,
+  queryType: "stored-procedure",
+  query: "call spDeleteEstablishment",
+  parameter: ["json:post.id"]
+})
