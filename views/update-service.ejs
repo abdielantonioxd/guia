@@ -10,27 +10,24 @@
             <div class="card-body ">
               <!-- d-none d-lg-block -->
               <div class="">
+                <div class="input-group mb-3 col-md-8 ">
+                  <a class="btn-gradiant-guialook text-white card-1" href="/create-service">Agregar Local <i
+                      class="fas fa-plus"></i> </a>
+                </div>
                 <h5 class="bold d-flex justify-content-center">Establecimientos </h5>
                 <table class="table table-hover mt-3">
-                  <div class="row">
-                    <div class="input-group mb-3 col-md-6">
+                  <div class="row d-flex justify-content-center">
+                    <div class="input-group mb-3 col-md-8">
                       <input type="text" class="form-control" ng-model="search" placeholder="Búsqueda Avanzada"
                         aria-describedby="button-addon2">
                       <div class="input-group-append">
                       </div>
-                    </div>
-                    <div class="input-group mb-3 col-md-6">
-                      <button type="button" class="btn btn-success  btn-sm ">
-                        <a class=" text-white" href="/create-service">Agregar Local <i
-                            class="fas fa-plus-circle"></i></a>
-                      </button>
                     </div>
                   </div>
                   <thead>
                     <tr>
                       <th scope="col">ID</th>
                       <th scope="col">Nombre </th>
-                      <th scope="col">Teléfono</th>
                       <th scope="col">Eliminar</th>
                     </tr>
                   </thead>
@@ -42,7 +39,6 @@
                         {{data.idestablecimiento}}</th>
                       <td id="{{data.idestablecimiento}}" ng-click="getDataService(this)">
                         {{data.Nombre_establecimiento}}</td>
-                      <td id="{{data.idestablecimiento}}" ng-click="getDataService(this)">{{data.Telefono}}</td>
                       <td id="{{data.idestablecimiento}}" data-toggle="modal" data-target="#deleteModal"
                         ng-click="modal(data.Nombre_establecimiento,data.establecimientID)"><i
                           class="fas fa-user-times deleteEstablishment"></i></td>
@@ -80,48 +76,31 @@
                       ng-click='currentPage = currentPage + 1'><i class="fas fa-forward"></i></button>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="mt-5">
-            <div class="card card-1">
-              <div class="card-body">
-                <form>
-                  <h5 class="bold">Servicios del Establecimiento </h5>
-                  <hr>
-                  <div ng-hide="service">
-                    <div class="form-group mt-5">
-                      <label for="inputAddress">Servicio Principal </label>
-                      <input type="text" class="form-control" id="PrincipalService">
-                    </div>
-                    <div class="form-group">
-                      <label for="inputAddress2">Servicios</label>
-                      <input type="text" class="form-control" id="services"></input>
-                    </div>
-                  </div>
-                  <button type="submit" ng-click="UpdateServices()"
-                    class="btn btn-outline-light btn-lg  btn-block text border color-local">Actualizar
-                    Servicios </button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div class=" mt-5">
-            <div class="card card-1">
-              <div class="card-body">
-                <form>
-                  <h5 class="bold">Metodos de pago del Establecimiento </h5>
-                  <hr>
-                  <div ng-hide="method">
-                    <div class="form-group mt-5">
-                      <label for="inputAddress2">Metodos de pago </label>
-                      <textarea class="form-control" id="methodPay" rows="3"></textarea>
+                <div class="">
+                  <div class="mt-5">
+                    <div class="card card-1">
+                      <div class="card-body">
+                        <form>
+                          <h5 class="bold">Servicios del Establecimiento </h5>
+                          <hr>
+                          <div ng-hide="service">
+                            <div class="form-group mt-5">
+                              <label for="inputAddress">Servicio Principal </label>
+                              <input type="text" class="form-control" id="PrincipalService">
+                            </div>
+                            <div class="form-group">
+                              <label for="inputAddress2">Servicios</label>
+                              <textarea class="form-control" id="services" rows="3"></textarea>
+                            </div>
+                          </div>
+                          <button type="submit" id="updateServicesId" ng-click="UpdateServices()"
+                            class="btn btn-outline-light btn-lg  btn-block text border color-local">Actualizar
+                            Servicios </button>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                  <button type="submit" ng-click="updateMethodPay()"
-                    class="btn btn-outline-light btn-lg  btn-block text border color-local">Actualizar
-                    Metodos </button>
-                </form>
+                </div>
               </div>
             </div>
           </div>
@@ -138,7 +117,7 @@
                   class="fas fa-user-times"></i></button>
             </div>
             <div class="card-body mt-3">
-              <form>
+              <div>
                 <div class="form-group">
                   <label for="inputAddress">ID</label>
                   <input type="text" class="form-control" id="id" disabled>
@@ -167,21 +146,52 @@
                   </div>
                   <div class=" form-group">
                     <label for="inputAddress2">Promoción</label>
-                    <input type="text" class="form-control" id="promocion">
+                    <input type="text" class="form-control" id="promocion" disabled>
                   </div>
                   <div class=" form-group">
                     <label for="inputAddress2">Mapa</label>
                     <input type="text" class="form-control" id="mapa">
                   </div>
-                  <div class=" form-group">
-                    <label for="inputAddress2">Nombre de la Imagen</label>
-                    <input type="text" class="form-control" id="nameImagen">
+                  <div class="form-row mt-3">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Images</label>
+                      <input type="text" class="form-control" id="nameImagen" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">Opción</label>
+                      <button class=" form-control btn btn-warning" ng-click="showFormImgPrincipal()">Actualizar <i
+                          class="fas fa-edit"></i></button>
+                    </div>
+                  </div>
+                  <div ng-hide="imagePrincipal">
+                    <form method="POST" id="imagesP" enctype="multipart/form-data">
+                      <div class="container">
+                        <label class="h6 bold"> Imagen Principal </label>
+                        <hr>
+                        <div class="custom-file">
+                          <input type="file" id="file-upload" name="image" class="custom-file-input" id="customFileLang"
+                            lang="es" onchange="updateImgFile('imagesP','file-upload','preview','nameImagen')">
+                          <label class="custom-file-label" for="customFileLang" id="namefile">Ingrese Imagen
+                            Principal</label>
+                        </div>
+                      </div>
+                      <div class="rounded mx-auto d-block mt-2" id="preview" ng-hide="hidePriview">
+                      </div>
+                      <div class="mt-3 messageEdit ">
+                        <label>Desea guardar esta Imagen </label>
+                        <button class=" mt-2 btn btn-outline-primary btn-md  btn-sm border Save"
+                          onclick="saveImagesInServer('yes','updateInformationId','preview','namefile','file-upload','imagesP')">Guardar
+                          <i class="far fa-save"></i></button>
+                        <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImage"
+                          onclick="saveImagesInServer('no')"> Elegir Otra <i class="far fa-edit"></i> </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
-                <button type="submit" ng-click="updateEstablishment()"
-                  class="btn btn-outline-light btn-lg  btn-block text border color-local">Actualizar
+                <button type="submit" id="updateInformationId" ng-click="updateEstablishment()"
+                  class="btn btn-outline-light btn-lg  btn-block text border color-local mt-3">Actualizar
                   Información</button>
-              </form>
+              </div>
             </div>
           </div>
         </div>
@@ -209,7 +219,7 @@
                     </div>
                   </div>
                 </div>
-                <button type="submit" ng-click="updateHour()"
+                <button type="submit" id="updateHoursId" ng-click="updateHour()"
                   class="btn btn-outline-light btn-lg  btn-block text border color-local">Actualizar
                   Horario </button>
               </form>
@@ -217,9 +227,95 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="card card-1">
+            <div class="card-body">
+              <form>
+                <h5 class="bold">Metodos de pago del Establecimiento </h5>
+                <hr>
+                <div ng-hide="method">
+                  <div class="form-group mt-5">
+                    <label for="inputAddress2">Metodos de pago </label>
+                    <textarea class="form-control" id="methodPay" rows="3"></textarea>
+                  </div>
+                </div>
+                <button type="submit" id="updateMethodId" ng-click="updateMethodPay()"
+                  class="btn btn-outline-light btn-lg  btn-block text border color-local">Actualizar
+                  Metodos </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-8 ">
+          <div class="card card-1">
+            <div class="card-body mt-3">
+              <h5 class="bold d-flex justify-content-center">Imagenes del Establecimiento</h3>
+                <div ng-hide="formImages">
+                  <div class="form-row mt-3">
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="updateImagesOne" disabled>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <button class=" form-control btn btn-danger" ng-click="showImagesOne()">Actualizar <i
+                          class="fas fa-edit"></i></button>
+                    </div>
+                  </div>
+                  <!-- images 2  -->
+                  <div class="form-row mt-3">
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="updateImagesTwo" disabled>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <button class=" form-control btn btn-danger" ng-click="showImagesTwo()">Actualizar <i
+                          class="fas fa-edit"></i></button>
+                    </div>
+                  </div>
+                </div>
+                <form method="POST" id="imagesOne" enctype="multipart/form-data" class="mt-3" ng-hide="imagesOne">
+                  <div class="custom-file">
+                    <input type="file" id="file-uploadOne" name="image" class="custom-file-input" id="customFileLang"
+                      lang="es" onchange="updateImgFile('file-uploadOne','previewTwo','updateImagesOne')">
+                    <label class="custom-file-label" for="customFileLang" id="namefileOne">Ingrese Imagen 1 </label>
+                  </div>
+                  <div class="rounded mx-auto d-block mt-2" id="previewTwo"></div>
+                  <div class="mt-3 messageEdit">
+                    <label>Desea guardar esta Imagen </label>
+                    <button class=" mt-2 btn btn-outline-primary btn-md btn-sm border Save"
+                      onclick="saveImagesInServer('yes','updateImageId','previewTwo','namefileOne','file-uploadOne','imagesOne','updateImagesOne')">Guardar
+                      <i class="far fa-save"></i></button>
+                    <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImage"
+                      onclick="saveImagesInServer('no')"> Elegir Otra <i class="far fa-edit"></i> </button>
+                  </div>
+                </form>
+
+                <form method="POST" id="imagesTwoUpdate" enctype="multipart/form-data" class="mt-3"
+                  ng-hide="imagesTwoHide">
+                  <div class="custom-file mt-3">
+                    <input type="file" id="fileUploadTwoUpdate" name="image" class="custom-file-input"
+                      id="customFileLang" lang="es"
+                      onchange="updateImgFile('fileUploadTwoUpdate','previewThree','updateImagesTwo')">
+                    <label class="custom-file-label" for="customFileLang" id="namefileTwo">Ingrese Imagen 2</label>
+                  </div>
+                  <div class="rounded mx-auto d-block mt-2" id="previewThree"></div>
+                  <div class="mt-3 messageEdit">
+                    <label>Desea guardar esta Imagen </label>
+                    <button class=" mt-2 btn btn-outline-primary  btn-md  btn-sm  border Save"
+                      onclick="saveImagesInServer('yes','updateImageId','previewThree','namefileTwo','fileUploadTwoUpdate','imagesTwoUpdate','updateImagesTwo')">Guardar
+                      <i class="far fa-save"></i></button>
+                    <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImageTwo"
+                      onclick="saveImagesInServer('no')"> Elegir Otra <i class="far fa-edit"></i> </button>
+                  </div>
+                </form>
+                <button type="submit" id="updateImageId" ng-click="updateHour()"
+                  class="btn btn-outline-light btn-lg  btn-block text border color-local">Actualizar
+                  Imagenes </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
   <% include ./partials/script-create-service/script%>
 </body>
 

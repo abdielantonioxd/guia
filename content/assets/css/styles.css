@@ -1545,3 +1545,21 @@ input[type="radio"]:checked~.start {
 .deleteEstablishment:hover {
   color: red !important;
 }
+
+.btn-gradiant-guialook {
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#15b2eb', endColorstr='#1a7fa3',GradientType=0);
+	background-color:#15b2eb;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:12px;
+	font-weight:bold;
+	padding:8px 46px;
+	text-decoration:none;
+	text-shadow:0px 1px 19px #3d768a;
+}
+.btn-gradiant-guialook:active {
+	position:relative;
+	top:1px;
+}

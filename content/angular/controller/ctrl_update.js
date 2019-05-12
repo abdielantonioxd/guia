@@ -4,20 +4,30 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   $scope.hours = true;
   $scope.method = true;
   $scope.production = true;
+  $scope.imagePrincipal = true;
+  $scope.hidePriview = false;
+  $scope.imagesOne = true;
+  $scope.imagesTwoHide=true;
+  $scope.formImages=true;
   $scope.Users = objUserAdminRolOne;
+
   /**############################################## */
   //           SET VALUE  IN  FORM 
   /**############################################## */
   $scope.getDataService = function (data) {
     var dataService = data.data;
+    $scope.imagePrincipal = true;
     loadData(dataService);
     loadHours(dataService);
     $scope.service = false;
     $scope.information = false;
     $scope.hours = false;
     $scope.method = false;
+    $scope.formImages=false;
   }
+
   function loadData(dataService) {
+    console.log(dataService)
     $scope.id = dataService.establecimientID;
     document.getElementById("id").value = dataService.idestablecimiento;
     document.getElementById("nombre").value = dataService.Nombre_establecimiento;
@@ -31,6 +41,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
     document.getElementById("services").value = dataService.servicios;
     document.getElementById("methodPay").value = dataService.methodpay;
     FuncValidateProduction(dataService);
+    disabledButtons(false)
   }
 
   /**############################################## */
@@ -64,7 +75,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       $scope.datapaginations = response.data.result.Database[0].Table.Row[0];
       $scope.NSelected = $scope.datapaginations
       $scope.currentPage = 0;
-      $scope.pageSize = 5;
+      $scope.pageSize = 6;
       $scope.pages = [];
       $scope.pages.length = 0;
       var ini = $scope.currentPage - 10;
@@ -123,6 +134,8 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       data: datos,
       success: function (data) {
         data_app = data;
+        $scope.imagePrincipal = false;
+        reloadDataEstablishment()
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Se Guardaron los datos correctamente ');
       },
@@ -138,7 +151,10 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
 
   $scope.updateHour = function () {
     var datos = $('#horarios').serializeArray()
-    datos.push({ name: "id", value: $scope.id });
+    datos.push({
+      name: "id",
+      value: $scope.id
+    });
     var obj = new Object();
     for (const i in datos) {
       obj[datos[i].name] = datos[i].value;
@@ -146,6 +162,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
 
     sendUpdateHour(obj)
   }
+
   function sendUpdateHour(obj) {
     $.ajax({
       type: "POST",
@@ -154,6 +171,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       data: obj,
       success: function (data) {
         data_app = data;
+        reloadDataEstablishment()
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Se Guardaron los datos correctamente ');
       },
@@ -175,6 +193,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
     }
     sendUpdateServices(datos)
   }
+
   function sendUpdateServices(datos) {
     $.ajax({
       type: "POST",
@@ -183,6 +202,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       data: datos,
       success: function (data) {
         data_app = data;
+        reloadDataEstablishment()
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Se Guardaron los datos correctamente ');
       },
@@ -213,6 +233,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       data: datos,
       success: function (data) {
         data_app = data;
+        reloadDataEstablishment()
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Se Guardaron los datos correctamente ');
       },
@@ -306,6 +327,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       }
     }
   }
+
   function sendDelete(id) {
     $.ajax({
       type: "POST",
@@ -325,6 +347,16 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
         console.log(textStatus + "" + err);
       }
     });
+  }
+  $scope.showFormImgPrincipal = function () {
+    $scope.imagePrincipal = false;
+    resetImages();
+  }
+  $scope.showImagesOne = function () {
+    $scope.imagesOne = false;
+  }
+  $scope.showImagesTwo= function () {
+    $scope.imagesTwoHide = false;
   }
   reloadDataEstablishment()
 }]);
