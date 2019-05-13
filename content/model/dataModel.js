@@ -58,8 +58,8 @@ var objServices = [{
   id: "Estética"
 },
 {
-  Service: "Clínicas Dentales",
-  id: "Clínicas Dentales"
+  Service: "Clínicas",
+  id: "Clínicas"
 },
 {
   Service: "Functional Training",
@@ -246,6 +246,18 @@ var objsubServiceClinicas = [{
 {
   Service: "Implantología",
   id: "Implantología"
+},
+{
+  Service: "Consulta Médica",
+  id: "Consulta Médica "
+},
+{
+  Service: "Nutrición",
+  id: "Nutrición"
+},
+{
+  Service: "ginecología",
+  id: "ginecología"
 }
 ];
 
@@ -348,8 +360,8 @@ var objsubServiceMasajesEspa = [{
       name: 'Estética'
     },
     {
-      id: 'Clínicas Dentales',
-      name: 'Clínicas Dentales'
+      id: 'Clínicas',
+      name: 'Clínicas'
     },
     {
       id: 'Functional Training',

@@ -333,7 +333,7 @@ app.controller("ctrl_boutique", ['$scope', 'Dataservice', function ($scope, Data
          case "Estética":
             $scope.subservices = objsubServiceEstetica;
             break;
-         case "Clínicas Dentales":
+         case "Clínicas":
             $scope.subservices = objsubServiceClinicas;
             break;
          case "Functional Training":
