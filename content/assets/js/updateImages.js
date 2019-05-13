@@ -71,13 +71,13 @@ function updateImagesInTheServer(formData) {
 
 function resetImages() {
   $("#preview").hide();
-  $("#previewTwo").hide();
-  $("#previewThree").hide();
+  // $("#previewTwo").hide();
+  // $("#previewThree").hide();
   $(".messageEdit").hide();
   $("#updateInformationId").attr("disabled", true);
   document.getElementById('preview').innerHTML = "";
-  document.getElementById('previewTwo').innerHTML = "";
-  document.getElementById('previewThree').innerHTML = "";
+  // document.getElementById('previewTwo').innerHTML = "";
+  // document.getElementById('previewThree').innerHTML = "";
   document.getElementById("namefile").innerHTML = "Elija  una Imagen"
 }
 hideImage();

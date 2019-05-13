@@ -170,7 +170,7 @@
                         <hr>
                         <div class="custom-file">
                           <input type="file" id="file-upload" name="image" class="custom-file-input" id="customFileLang"
-                            lang="es" onchange="updateImgFile('imagesP','file-upload','preview','nameImagen')">
+                            lang="es" onchange="updateImgFile('file-upload','preview','nameImagen')">
                           <label class="custom-file-label" for="customFileLang" id="namefile">Ingrese Imagen
                             Principal</label>
                         </div>
@@ -180,7 +180,7 @@
                       <div class="mt-3 messageEdit ">
                         <label>Desea guardar esta Imagen </label>
                         <button class=" mt-2 btn btn-outline-primary btn-md  btn-sm border Save"
-                          onclick="saveImagesInServer('yes','updateInformationId','preview','namefile','file-upload','imagesP')">Guardar
+                          onclick="saveImagesInServer('yes','updateInformationId','preview','namefile','file-upload','imagesP','nameImagen')">Guardar
                           <i class="far fa-save"></i></button>
                         <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImage"
                           onclick="saveImagesInServer('no')"> Elegir Otra <i class="far fa-edit"></i> </button>
