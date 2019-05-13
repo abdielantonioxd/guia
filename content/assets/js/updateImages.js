@@ -21,12 +21,11 @@ function updateImgFile(idInput, idPreview, idinputUpdate) {
   innerImages = document.getElementById(idinputUpdate).innerHTML = imagesName;
 }
 
-
 function saveImagesInServer(op, idSendUpdate, idPreview, idInputUpload, idInput, idForm,idChangeValue) {
   switch (op) {
     case "yes":
-      $("#" + idSendUpdate).attr('disabled', false);
-      $("#" + idPreview).hide();
+      $("#" +idSendUpdate).attr('disabled', false);
+      $("#"+idPreview).hide();
       hideImage()
       saveImages(idPreview, idInputUpload, idInput, idForm,idChangeValue)
       break;
@@ -72,9 +71,13 @@ function updateImagesInTheServer(formData) {
 
 function resetImages() {
   $("#preview").hide();
+  $("#previewTwo").hide();
+  $("#previewThree").hide();
   $(".messageEdit").hide();
   $("#updateInformationId").attr("disabled", true);
   document.getElementById('preview').innerHTML = "";
+  document.getElementById('previewTwo').innerHTML = "";
+  document.getElementById('previewThree').innerHTML = "";
   document.getElementById("namefile").innerHTML = "Elija  una Imagen"
 }
 hideImage();

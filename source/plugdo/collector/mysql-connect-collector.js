@@ -294,11 +294,28 @@ plugdo.collector("mysqlUpdateQuitProduction", {
   parameter: ["json:post.prod", "json:post.id"]
 })
 
+
+plugdo.collector("mysqlUpdateImages", {
+  type: "db",
+  action: "mysql",
+  server: objConnect,
+  queryType: "stored-procedure",
+  query: "call spUpdateImages",
+  parameter: ["json:post.id"]
+})
+
+plugdo.collector("mysqlUpdateImagesEstablishment", {
+  type: "db",
+  action: "mysql",
+  server: objConnect,
+  queryType: "stored-procedure",
+  query: "call UpdateImagesEstablishment",
+  parameter: ["json:post.imagesOne","json:post.imagesTwo","json:post.idOne","json:post.idTwo"]
+})
 /*  ##############################################################################
               DELETE  INTO DATABSE     ONE   ESTABLISHMENT 
     #############################################################################
 */
-
 
 plugdo.collector("mysqlDeleteEstablishment", {
   type: "db",

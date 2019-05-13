@@ -2,7 +2,7 @@ const setting = {
   dev: {
     db: {
       user: "root",
-      password: "19971997",
+      password: "1997",
       host: "localhost",
       database: "guialook"
     }

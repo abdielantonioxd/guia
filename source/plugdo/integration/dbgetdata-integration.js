@@ -358,6 +358,30 @@ plugdo.integration("update-QuitProduction", (message, send) => {
 });
 
 
+plugdo.integration("update-images", (message, send) => {
+  let response = {};
+  plugdo.collect("mysqlUpdateImages").get(message, (data, err) => {
+    if (err) {
+      send({}, err);
+    } else {
+      response.result = data;
+      send(response);
+    }
+  });
+});
+
+plugdo.integration("update-imagesEstablishment", (message, send) => {
+  let response = {};
+  plugdo.collect("mysqlUpdateImagesEstablishment").get(message, (data, err) => {
+    if (err) {
+      send({}, err);
+    } else {
+      response.result = data;
+      send(response);
+    }
+  });
+});
+
 /*  ##############################################################################
                                       DELETE INTO DATABSE    
     #############################################################################
