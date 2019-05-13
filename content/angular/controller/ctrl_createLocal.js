@@ -30,6 +30,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   $scope.edit = true
   $scope.buttonEdit = true;
   $scope.HourDay = true;
+  $scope.DoneEstablishment = true ; 
   /* ==========================================
               Get subServices  
      ==========================================   */
@@ -247,8 +248,8 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
           InsertHour();
         }, 2000);
         $scope.addHours = true
-        alert("datos Guardados");
         $scope.uploadImagesServer = false
+        $scope.DoneEstablishment = false ; 
         break;
       case 'S':
         LunesSabado();
@@ -256,7 +257,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
           InsertHour();
         }, 2000);
         $scope.addHours = true
-        alert("datosGuardados");
+        $scope.DoneEstablishment = false ; 
         $scope.uploadImagesServer = false
         break;
       default:
@@ -308,6 +309,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       "D_cierre": objHoursEstablishment[5].horario.horaCierre + ":00",
       id: $scope.idUser[0].id
     }
+ 
     $.ajax({
       type: "POST",
       url: UrlInsertHour,
@@ -316,7 +318,8 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       success: function (data) {
         data_app = data.result.Database[0].Table.Row[0];
         $scope.idUser = data_app;
-        doneInsert()
+        $scope.DoneEstablishment = false ; 
+        doneInsert() 
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
@@ -398,8 +401,9 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       timeout: 2000,
       data: $scope.Horario[0],
       success: function (data) {
+        console.log(data)
         data_app = data.result.Database[0].Table.Row[0];
-        $scope.idUser = data_app;
+        $scope.idUser = data_app; 
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
