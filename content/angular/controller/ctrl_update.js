@@ -27,7 +27,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   }
 
   function loadData(dataService) {
-    console.log(dataService)
+ 
     $scope.id = dataService.establecimientID;
     document.getElementById("id").value = dataService.idestablecimiento;
     document.getElementById("nombre").value = dataService.Nombre_establecimiento;
@@ -74,7 +74,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
     Dataservice.GetToAllEstablecimientoUpdate().then(function (response) {
       $scope.datosOfServices = response.data.result.Database[0].Table.Row[0];
       $scope.datapaginations = response.data.result.Database[0].Table.Row[0];
-      console.log(response.data.result.Database[0].Table.Row[0])
+ 
       $scope.NSelected = $scope.datapaginations
       $scope.currentPage = 0;
       $scope.pageSize = 6;
@@ -304,7 +304,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
     },
     success: function (data) {
       $scope.images= data.result.Database[0].Table.Row[0];
-      console.log(data.result.Database[0].Table.Row[0])
+  
       alertify.set('notifier', 'position', 'top-right');
       alertify.success('Datos Encontrados ');
       document.getElementById("updateImagesOne").value=$scope.images[0].imagenesEstablecimiento;
@@ -322,7 +322,7 @@ $scope.SendupdateImages = function (){
     idOne:$scope.images[0].id,
     idTwo:$scope.images[1].id
   }
-  console.log(data)
+
   $.ajax({
     type: "POST",
     url:UrlUpdateEstablishmentImages,
