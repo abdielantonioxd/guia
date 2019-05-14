@@ -30,7 +30,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   $scope.edit = true
   $scope.buttonEdit = true;
   $scope.HourDay = true;
-  $scope.DoneEstablishment = true ; 
+  $scope.DoneEstablishment = true;
   /* ==========================================
               Get subServices  
      ==========================================   */
@@ -73,7 +73,8 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
         $scope.subservice = objsubServiceMasajesEspa
         break;
       default:
-        alert("a ocurrido un error Contacte al administrador de la Pagina")
+        alertify.set('notifier', 'position', 'top-left');
+        alertify.error('A ocurrido un error, sus datos no se estan Guardando Correctamente  Vuelva a Intentarlos o contacte al administrador de este sitio.');
         break;
     }
   }
@@ -178,7 +179,6 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
         },
         success: function (data) {
           data_app = data;
-          console.log(data_app);
         },
         error: function (textStatus, err) {
           console.log(textStatus + "" + err);
@@ -249,7 +249,9 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
         }, 2000);
         $scope.addHours = true
         $scope.uploadImagesServer = false
-        $scope.DoneEstablishment = false ; 
+        $scope.DoneEstablishment = false;
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Se Guardaron los datos correctamente ');
         break;
       case 'S':
         LunesSabado();
@@ -257,8 +259,10 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
           InsertHour();
         }, 2000);
         $scope.addHours = true
-        $scope.DoneEstablishment = false ; 
+        $scope.DoneEstablishment = false;
         $scope.uploadImagesServer = false
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Se Guardaron los datos correctamente ');
         break;
       default:
         alert("A ocurrido un eror contacte al admin de la pagina ")
@@ -309,7 +313,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       "D_cierre": objHoursEstablishment[5].horario.horaCierre + ":00",
       id: $scope.idUser[0].id
     }
- 
+
     $.ajax({
       type: "POST",
       url: UrlInsertHour,
@@ -318,8 +322,10 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       success: function (data) {
         data_app = data.result.Database[0].Table.Row[0];
         $scope.idUser = data_app;
-        $scope.DoneEstablishment = false ; 
-        doneInsert() 
+        $scope.DoneEstablishment = false;
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Se Guardaron los datos correctamente ');
+        doneInsert()
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
@@ -336,14 +342,14 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
     $scope.uploadImagesServer = false
   }
   if ($scope.Users != "" && $scope.Users != null) {
-    console.log("permiso")
+    // console.log("permiso")
   } else {
     location.href = "/"
-    console.log("no")
+    // console.log("no")
   }
 
   function InserDataPersonal(dataUsers) {
-    console.log(dataUsers)
+    // console.log(dataUsers)
     $.ajax({
       type: "POST",
       url: UrlLocalInsert,
@@ -384,7 +390,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       },
       success: function (data) {
         data_app = data;
-        console.log(data_app);
+        // console.log(data_app);
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Se Guardaron los datos correctamente ');
       },
@@ -401,9 +407,11 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       timeout: 2000,
       data: $scope.Horario[0],
       success: function (data) {
-        console.log(data)
+        // console.log(data)
         data_app = data.result.Database[0].Table.Row[0];
-        $scope.idUser = data_app; 
+        $scope.idUser = data_app;
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Se Guardaron los datos correctamente ');
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
@@ -422,7 +430,9 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       },
       success: function (data) {
         data_app = data.result.Database[0].Table.Row[0];
-        console.log(data_app)
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Se Guardaron los datos correctamente ');
+        // console.log(data_app)
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);

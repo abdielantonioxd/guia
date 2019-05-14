@@ -7,8 +7,8 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   $scope.imagePrincipal = true;
   $scope.hidePriview = false;
   $scope.imagesOne = true;
-  $scope.imagesTwoHide=true;
-  $scope.formImages=true;
+  $scope.imagesTwoHide = true;
+  $scope.formImages = true;
   $scope.Users = objUserAdminRolOne;
 
   /**############################################## */
@@ -23,11 +23,11 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
     $scope.information = false;
     $scope.hours = false;
     $scope.method = false;
-    $scope.formImages=false;
+    $scope.formImages = false;
   }
 
   function loadData(dataService) {
- 
+    $scope.nameEstablishment = dataService.Nombre_establecimiento;
     $scope.id = dataService.establecimientID;
     document.getElementById("id").value = dataService.idestablecimiento;
     document.getElementById("nombre").value = dataService.Nombre_establecimiento;
@@ -74,7 +74,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
     Dataservice.GetToAllEstablecimientoUpdate().then(function (response) {
       $scope.datosOfServices = response.data.result.Database[0].Table.Row[0];
       $scope.datapaginations = response.data.result.Database[0].Table.Row[0];
- 
+
       $scope.NSelected = $scope.datapaginations
       $scope.currentPage = 0;
       $scope.pageSize = 6;
@@ -139,7 +139,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
         $scope.imagePrincipal = false;
         reloadDataEstablishment()
         alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Se Guardaron los datos correctamente ');
+        alertify.success('Se ha actualizado ' + `<b>${$scope.nameEstablishment}</b>`);
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
@@ -175,7 +175,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
         data_app = data;
         reloadDataEstablishment()
         alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Se Guardaron los datos correctamente ');
+        alertify.success('Se ha actualizado el horario  del local ' + `<b>${$scope.nameEstablishment}</b>`);
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
@@ -206,7 +206,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
         data_app = data;
         reloadDataEstablishment()
         alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Se Guardaron los datos correctamente ');
+        alertify.success('Se ha actualizado Los sericios  del local ' + `<b>${$scope.nameEstablishment}</b>`);
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
@@ -237,7 +237,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
         data_app = data;
         reloadDataEstablishment()
         alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Se Guardaron los datos correctamente ');
+        alertify.success('Se ha actualizado el metod de pago del local ' + `<b>${$scope.nameEstablishment}</b>`);
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
@@ -257,7 +257,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       success: function (data) {
         data_app = data;
         alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Se Guardaron los datos correctamente ');
+        alertify.success('Se ha puesto en Produción el local ' + `<b>${$scope.nameEstablishment}</b>`);
         $("#Producion").prop('disabled', true);
         $("#QuitarProducion").prop('disabled', false);
         reloadDataEstablishment()
@@ -280,7 +280,7 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
       success: function (data) {
         data_app = data;
         alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Se Guardaron los datos correctamente ');
+        alertify.success('Se ha quitado de  Produción el local ' + `<b>${$scope.nameEstablishment}</b>`);
         $("#Producion").prop('disabled', false)
         $("#QuitarProducion").prop('disabled', true);
         reloadDataEstablishment()
@@ -294,51 +294,51 @@ app.controller("ctrl-update", ['$scope', 'Dataservice', function ($scope, Datase
   //                 UPDATE APIS IMAGES
   /**############################################## */
 
- function UpdateImages(){
-  $.ajax({
-    type: "POST",
-    url:UrlimagesUpdate,
-    timeout: 2000,
-    data: {
-      id: document.getElementById("id").value
-    },
-    success: function (data) {
-      $scope.images= data.result.Database[0].Table.Row[0];
-  
-      alertify.set('notifier', 'position', 'top-right');
-      alertify.success('Datos Encontrados ');
-      document.getElementById("updateImagesOne").value=$scope.images[0].imagenesEstablecimiento;
-      document.getElementById("updateImagesTwo").value=value=$scope.images[1].imagenesEstablecimiento;
-    },
-    error: function (textStatus, err) {
-      console.log(textStatus + "" + err);
-    }
-  });
- }
-$scope.SendupdateImages = function (){
-  var data = {
-    imagesOne: document.getElementById("updateImagesOne").value,
-    imagesTwo: document.getElementById("updateImagesTwo").value,
-    idOne:$scope.images[0].id,
-    idTwo:$scope.images[1].id
-  }
+  function UpdateImages() {
+    $.ajax({
+      type: "POST",
+      url: UrlimagesUpdate,
+      timeout: 2000,
+      data: {
+        id: document.getElementById("id").value
+      },
+      success: function (data) {
+        $scope.images = data.result.Database[0].Table.Row[0];
 
-  $.ajax({
-    type: "POST",
-    url:UrlUpdateEstablishmentImages,
-    timeout: 2000,
-    data:data,
-    success: function (data) {
-      alertify.set('notifier', 'position', 'top-right');
-      alertify.success('Images Actualizadas  Correctamente  ');
-      $("#imagesTwoUpdate").hide();
-      $("#imagesOne").hide()
-    },
-    error: function (textStatus, err) {
-      console.log(textStatus + "" + err);
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Se ha actualizado las Imagenes del local ' + `<b>${$scope.nameEstablishment}</b>`);
+        document.getElementById("updateImagesOne").value = $scope.images[0].imagenesEstablecimiento;
+        document.getElementById("updateImagesTwo").value = value = $scope.images[1].imagenesEstablecimiento;
+      },
+      error: function (textStatus, err) {
+        console.log(textStatus + "" + err);
+      }
+    });
+  }
+  $scope.SendupdateImages = function () {
+    var data = {
+      imagesOne: document.getElementById("updateImagesOne").value,
+      imagesTwo: document.getElementById("updateImagesTwo").value,
+      idOne: $scope.images[0].id,
+      idTwo: $scope.images[1].id
     }
-  });
-}
+
+    $.ajax({
+      type: "POST",
+      url: UrlUpdateEstablishmentImages,
+      timeout: 2000,
+      data: data,
+      success: function (data) {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Imagenes Actualizadas Para el local  ' + `<b>${$scope.nameEstablishment}</b>`);
+        $("#imagesTwoUpdate").hide();
+        $("#imagesOne").hide()
+      },
+      error: function (textStatus, err) {
+        console.log(textStatus + "" + err);
+      }
+    });
+  }
   if ($scope.Users != "" && $scope.Users != null) {
     // console.log("true");
   } else {
@@ -389,7 +389,7 @@ $scope.SendupdateImages = function (){
       success: function (data) {
         data_app = data;
         alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Se elimino el local correctamente ');
+        alertify.success('Se ha Eliminado el local ' + `<b>${$scope.nameEstablishment}</b> ` + ' de la base de datos ');
         $("#deleteModal").modal("hide");
         reloadDataEstablishment()
       },
@@ -398,19 +398,23 @@ $scope.SendupdateImages = function (){
       }
     });
   }
+
   $scope.showFormImgPrincipal = function () {
     $scope.imagePrincipal = false;
     resetImages();
   }
+
   $scope.showImagesOne = function () {
     $scope.imagesOne = false;
     $("#imagesOne").show()
     preview.innerHTML = '';
   }
-  $scope.showImagesTwo= function () {
+
+  $scope.showImagesTwo = function () {
     $scope.imagesTwoHide = false;
     $("#imagesTwoUpdate").show();
     preview.innerHTML = '';
   }
+
   reloadDataEstablishment();
 }]);
