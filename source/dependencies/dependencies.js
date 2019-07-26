@@ -3,7 +3,7 @@ mvc.dependencies.homePages = {
     return {
       title: "Guia look",
       name: "home",
-      message: "Welcome to our web page!",
+      message: "Welcome to our ",
     };
   }
 }
