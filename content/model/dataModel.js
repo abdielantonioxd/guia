@@ -26,11 +26,11 @@ var methodPay = [{
   id: 'Efectivo',
 },
 {
-  method: "Tarjeta Debiro",
-  id: "Tarjeta Debiro",
+  method: "Tarjeta Debito",
+  id: "Tarjeta Debito",
 },
 {
-  method: "Tarjeta creadito",
+  method: "Tarjeta credito",
   id: "Tarjeta credito",
 },
 {
