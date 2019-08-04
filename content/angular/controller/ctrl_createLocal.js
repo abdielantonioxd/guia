@@ -48,7 +48,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
         $scope.serviceoptional = false;
         $scope.subservice = objsubServiceEstetica;
         break;
-      case "Clínicas Dentales":
+      case "Clínicas":
         $scope.serviceoptional = false;
         $scope.subservice = objsubServiceClinicas
         break;

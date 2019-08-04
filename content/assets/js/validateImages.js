@@ -158,7 +158,7 @@ function saveImages(op) {
 
   function SaveImagesInTheServer(formData) {
     $.ajax({
-      url: "/images/upload",
+      url: "/upload",
       type: "post",
       dataType: "html",
       data: formData,

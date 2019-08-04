@@ -158,7 +158,7 @@ var objsubServiceEstetica = [{
 },
 {
   Service: "Depilación",
-  id: "Depilación"
+  id: "Depilación2"
 },
 {
   Service: "Faciales",
@@ -437,7 +437,20 @@ var objectUbication = {
   }, {
     id: 1345,
     name: "Via Argentina"
+  },
+  {
+    id: 12454,
+    name: "Via España"
   }, {
+    id:97886,
+    name:"Costa del Este"
+  },{
+    id:89866,
+    name:"Brisas del Golf"
+  },{
+    id:0997,
+    name:"Chame"
+  },{
     id: 9980,
     name: "Multiplaza"
   },
