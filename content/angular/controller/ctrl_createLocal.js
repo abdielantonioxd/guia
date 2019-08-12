@@ -420,6 +420,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   }
 
   function insertMethodPay(objMethodPay) {
+    console.log($scope.idUser[0].id)
     $.ajax({
       type: "POST",
       url: UrlPayMethod,
