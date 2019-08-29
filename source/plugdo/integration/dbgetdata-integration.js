@@ -262,7 +262,18 @@ plugdo.integration("search-advanced", (message, send) => {
 /*  ##############################################################################
                UPDATE INTO DATABSE     ONE  NEW SERVICE
     ############################################################################# */
-
+    plugdo.integration("getdata-update", (message, send) => {
+      let response = {};
+      // console.log(message)
+      plugdo.collect("selectDataUpdate").get(message, (data, err) => {
+        if (err) {
+          send({}, err);
+        } else {
+          response.result = data;
+          send(response);
+        }
+      });
+    })
 plugdo.integration("update-establecimiento", (message, send) => {
   let response = {};
   // console.log(message)

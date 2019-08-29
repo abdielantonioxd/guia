@@ -1,4 +1,5 @@
 app.controller("ctrl_validateUsers", ["$scope", function ($scope) {
+  $scope.sessionInit = false;
   $scope.data_app = "";
   $scope.sesionli = false;
   $scope.useradmin = true;
@@ -7,15 +8,39 @@ app.controller("ctrl_validateUsers", ["$scope", function ($scope) {
   $scope.firstuser = "";
   $scope.idRol = JSON.parse(users);
   /* get values of the input  */
-  $scope.validateuser = function () {
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
-    if (email != "" && password != "") {
-      var dataUser = {
-        email: email,
-        password: password
+  $scope.hideModalSession = function () {
+    $('#sesion').modal('hide');
+  }
+
+  $scope.validateuser = function (op) {
+    if (op === "register") {
+      var name = document.getElementById("name").value;
+      var apellido = document.getElementById("apellido").value;
+      var email = document.getElementById("emailr").value;
+      var password = document.getElementById("passwordr").value;
+      if (email != "" && password != "" && name != "") {
+        var dataUser = {
+          name: name,
+          lastName: apellido,
+          email: email,
+          password: password,
+          option: "register"
+        }
+        sendInformationUser(dataUser);
       }
-      sendInformationUser(dataUser);
+    } else {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      if (email != "" && password != "") {
+        var dataUser = {
+          name: "",
+          lastName: "",
+          email: email,
+          password: password,
+          option: "guialook"
+        }
+        sendInformationUser(dataUser);
+      }
     }
   }
 
@@ -119,6 +144,7 @@ app.controller("ctrl_validateUsers", ["$scope", function ($scope) {
   }
 
   function FunValidateUser(rolAdmin) {
+    console.log(rolAdmin)
     $.ajax({
       type: "POST",
       url: "/api/user-exist/json",
@@ -152,7 +178,6 @@ app.controller("ctrl_validateUsers", ["$scope", function ($scope) {
       });
     }
   }
-
 
   userSesionExist();
   UserinteractingActive()

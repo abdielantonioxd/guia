@@ -10,7 +10,7 @@ $(function () {
     check_Tel();
   });
   $("#mySelect").focusout(function () {
-    check_ubication();
+    // check_ubication();
   });
   $("#Email").focusout(function () {
     check_Email();
@@ -55,19 +55,19 @@ function check_Tel() {
 }
 
 function check_ubication() {
-  var mySelect = $("#mySelect").val();
-  console.log(mySelect)
-  if (mySelect !== "Ubication") {
-    $("#mySelect_error_message").hide();
-    $("#mySelect").css("border-bottom", "2px solid #c39c00");
-  } else {
-    $("#mySelect_error_message").html(" * Este campo es obligatorio");
-    $("#mySelect_error_message").show();
-    $("#mySelect").css("border-bottom", "2px solid #911D04");
-    $(".error_mySelect").css("font-size", "12px");
-    $(".error_mySelect").css("color", "#911D04");
-    //check_Cname();
-  }
+  // var mySelect = $("#mySelect").val();
+  // console.log(mySelect)
+  // if (mySelect !== "Ubication") {
+  //   $("#mySelect_error_message").hide();
+  //   $("#mySelect").css("border-bottom", "2px solid #c39c00");
+  // } else {
+  //   $("#mySelect_error_message").html(" * Este campo es obligatorio");
+  //   $("#mySelect_error_message").show();
+  //   $("#mySelect").css("border-bottom", "2px solid #911D04");
+  //   $(".error_mySelect").css("font-size", "12px");
+  //   $(".error_mySelect").css("color", "#911D04");
+  //   //check_Cname();
+  // }
 }
 
 function check_Email() {

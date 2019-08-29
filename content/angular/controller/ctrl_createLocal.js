@@ -2,7 +2,6 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   /* ==========================================
               Global var  
      ==========================================   */
-  $scope.ubication = objectUbication;
   $scope.weekdays = objectweekdays;
   $scope.Services = objServices;
   $scope.daysweek = daysweek;
@@ -11,26 +10,41 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   $scope.subservice = "";
   $scope.price = "";
   $scope.service = "";
-  $scope.serviceoptional = true;
-  $scope.personalInformation = false;
-  $scope.typeService = true;
-  $scope.imageslocal = true;
-  $scope.methodP = true;
-  $scope.addHours = true;
-  $scope.responseUser = true;
-  $scope.personalinfomationdone = true;
-  $scope.servicedone = true;
-  $scope.lunesViernes = false;
-  $scope.lunesSabado = false;
-  $scope.Personalisation = false;
   $scope.imgOfLocal = objImagesLocal;
   $scope.Users = objUserAdminRolOne;
   $scope.Horario = horario;
-  $scope.uploadImagesServer = false
-  $scope.edit = true
-  $scope.buttonEdit = true;
-  $scope.HourDay = true;
-  $scope.DoneEstablishment = true;
+
+  /* ==========================================
+           GET GENERAL DATA IN LOCAL   
+   ==========================================   */
+  $scope.obtainData = function (obj) {
+    email = document.getElementById('email_local').value;
+    Name = document.getElementById("Name_local").value;
+    telefono = document.getElementById("Tel").value;
+    mapa = document.getElementById("mapa").value;
+    direction = obj.ubication.selectedOption.name + "," + document.getElementById("idInformation").value;
+    if ($scope.dataInGeneral != undefined) {
+      if ($scope.dataInGeneral.imagenPrincipal != "") {
+        imagesP.push({ name: $scope.dataInGeneral.imagenPrincipal })
+        $scope.imagesP = imagesP[0].name;
+      }
+    } else {
+      $scope.imagesP = imagesP[0].name;
+    }
+    promotion = "";
+
+    Name && telefono && direction && $scope.imagesP != "" ?
+      responseTrue() : responseFalse();
+
+    function responseTrue() {
+      $scope.validateresponseUser('yes');
+    }
+    function responseFalse() {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error('Todos los Campos son Obligatorios')
+    }
+  }
+
   /* ==========================================
               Get subServices  
      ==========================================   */
@@ -81,36 +95,37 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   /* ==========================================
                get to all data part 1  
     ==========================================   */
-  $scope.obtainData = function (obj) {
-    Name = document.getElementById("Name_local").value;
-    telefono = document.getElementById("Tel").value;
-    mapa = document.getElementById("mapa").value;
-    direction = obj.ubication.selectedOption.name + "," + document.getElementById("idInformation").value;
-    $scope.imagesP = imagesP[0].images;
-    promotion = "";
-    Name && telefono && direction && $scope.imagesP != "" ?
-      responseTrue() : responseFalse();
-    function responseTrue() {
-      $scope.responseUser = false
-      $scope.validateresponseUser('yes')
-    }
-    function responseFalse() {
-      alertify.set('notifier', 'position', 'top-right');
-      alertify.error('Todos los Campos son Obligatorios')
-    }
+
+  $scope.getIdPrice = function (obj) {
+    Price = obj.p.Price;
+    $scope.price = Price;
   }
 
   $scope.validateresponseUser = function (opc) {
     if (opc == "yes") {
+
+      if ($scope.price === "") {
+        if ($scope.dataInGeneral.Precio != undefined && $scope.dataInGeneral.Precio != "") {
+          $scope.price = $scope.dataInGeneral.Precio;
+        } else {
+          $scope.price = 10;
+        }
+      }
+
+      if ($scope.dataInGeneral.Promociones != undefined && $scope.dataInGeneral.Promociones != "") {
+        var promo = $scope.dataInGeneral.Promociones;
+      }
       objdataform.push(
         infoServ = [{
-          "name": Name,
-          "direction": direction,
-          "telefono": "507" + telefono,
-          "mapa": mapa,
-          "promociones": "",
-          "price": $scope.price,
-          "imagenPrincipal": $scope.imagesP
+          name: Name,
+          email: email,
+          direction: direction,
+          telefono: "507" + telefono,
+          mapa: mapa,
+          promociones: promo,
+          price: $scope.price,
+          imagenPrincipal: $scope.imagesP,
+          idPerfil: $scope.dataOfUserSession[0].id
         }]
       );
       var dataUsers = objdataform[0];
@@ -118,10 +133,6 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       $scope.typeService = false;
       InserDataPersonal(dataUsers);
     } else { }
-  }
-  $scope.getIdPrice = function (obj) {
-    Price = obj.p.Price;
-    $scope.price = Price;
   }
   /* ==========================================
                 get data subservices 
@@ -341,11 +352,12 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
     $scope.addHours = true;
     $scope.uploadImagesServer = false
   }
+
   if ($scope.Users != "" && $scope.Users != null) {
-    // console.log("permiso")
+    $scope.dataOfUserSession = JSON.parse($scope.Users);
+    console.log($scope.dataOfUserSession)
   } else {
     location.href = "/"
-    // console.log("no")
   }
 
   function InserDataPersonal(dataUsers) {
@@ -358,8 +370,10 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
         direction: dataUsers[0].direction,
         imagenPrincipal: dataUsers[0].imagenPrincipal,
         name: dataUsers[0].name,
+        email: dataUsers[0].email,
+        idPerfil: dataUsers[0].idPerfil,
         price: dataUsers[0].price,
-        promotion: "",
+        promotion: 1,
         tel: dataUsers[0].telefono,
         mapa: dataUsers[0].mapa
       },
@@ -441,4 +455,75 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
     });
   }
 
+  /*
+     #####################################################################################
+     #                    API UPDATE ESTABLECIMIENTO                                     #
+     #####################################################################################
+    */
+
+  function getDaGeneral() {
+    $.ajax({
+      type: "POST",
+      url: "api/getdata-update/json",
+      timeout: 2000,
+      data: {
+        id: $scope.dataOfUserSession[0].id
+      },
+      success: function (data) {
+        var dataGeneral = data.result.Database[0].Table.Row[0][0];
+        $scope.dataInGeneral = dataGeneral;
+        if (dataGeneral != undefined) {
+          setDataGeneral(dataGeneral)
+        }
+      },
+      error: function (textStatus, err) {
+        console.log(textStatus + "" + err);
+      }
+    });
+  }
+
+  function setDataGeneral(dataGeneral) {
+    $scope.ubication = objectUbication;
+    if (dataGeneral.Nombre_establecimiento != "") {
+      document.getElementById("Name_local").value = dataGeneral.Nombre_establecimiento;
+    }
+
+    if (dataGeneral.email != "") {
+      document.getElementById("email_local").value = dataGeneral.email;
+    }
+    if (dataGeneral.Telefono != "") {
+      document.getElementById("Tel").value = dataGeneral.Telefono;
+    }
+    if (dataGeneral.Direccion != "") {
+      document.getElementById("idInformation").value = dataGeneral.Direccion;
+    }
+
+    if (dataGeneral.mapa != "") {
+      document.getElementById("mapa").value = dataGeneral.mapa;
+    }
+
+    if (dataGeneral.imagenPrincipal != "") {
+      document.getElementById("chamgeImages").src = "/public/images/" + dataGeneral.imagenPrincipal;
+      $('#imagespView').show()
+    }
+    var sliceDirection = dataGeneral.Direccion.split(',', 9)
+    for (const key in $scope.ubication.Panama) {
+      if ($scope.ubication.Panama[key].name === sliceDirection[0]) {
+        $scope.$watch($scope.ubication.selectedOption.id = $scope.ubication.Panama[key].id,
+          $scope.ubication.selectedOption.name = $scope.ubication.Panama[key].name
+        )
+      }
+    }
+
+    for (const prc in $scope.Price) {
+      if ($scope.Price[prc].Price === dataGeneral.Precio) {
+        var id = $scope.Price[prc].id
+        document.getElementById(id).checked = true;
+      }
+    }
+  }
+
+
+
+  getDaGeneral();
 }]);

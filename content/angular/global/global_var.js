@@ -74,3 +74,39 @@ var ObjSearchAdvanced = []
 var ObjectSearchAdvanced = [];
 var S = "";
 var reader = new FileReader();
+// configuration Images Global 
+var config = [{
+  contentImput: "image-upload-input-wrap",
+  idInput: "file-upload-input",
+  contentUpload: "file-upload-content",
+  viewImages: "file-upload-image",
+  titleImages: "image-title",
+  idErr: "errMessage",
+  templateErr: "",
+  nameForm: "imagesPrincipal",
+  size: 1024 * 1024,
+  validateSize: false,
+  validateFormats: true,
+  validateSpace: true,
+  preview: true,
+  useSweetAlert: false,
+  useAlertify: true,
+}];
+
+var configId = [{
+  contentImput: "image-upload-input-wrap-Id",
+  idInput: "file-upload-input-Id",
+  contentUpload: "file-upload-content-Id",
+  viewImages: "file-upload-image-Id",
+  titleImages: "image-title-Id",
+  idErr: "errMessage-Id",
+  templateErr: "",
+  nameForm: "imagesId",
+  size: 1024 * 1024,
+  validateSize: false,
+  validateFormats: true,
+  validateSpace: true,
+  preview: true,
+  useSweetAlert: false,
+  useAlertify: true,
+}];

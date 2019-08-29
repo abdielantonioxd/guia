@@ -98,7 +98,7 @@ plugdo.collector("mysqlGetuser", {
   server: objConnect,
   queryType: "stored-procedure",
   query: "call validateUser",
-  parameter: ["json:post.email", "json:post.password", "json:header.token", "json:header.host"]
+  parameter: ["json:post.name", "json:post.lastName", "json:post.email", "json:post.password", "json:post.option", "json:header.token", "json:header.host"]
 })
 
 plugdo.collector("mysqlCloseSesion", {
@@ -128,7 +128,7 @@ plugdo.collector("mysqlSendLocal", {
   server: objConnect,
   queryType: "stored-procedure",
   query: "call spInsertEstablecimiento",
-  parameter: ["json:post.direction", "json:post.imagenPrincipal", "json:post.name", "json:post.price", "json:post.tel", "json:post.mapa"]
+  parameter: ["json:post.direction", "json:post.imagenPrincipal", "json:post.name", "json:post.email" ,"json:post.idPerfil",,"json:post.price", "json:post.tel", "json:post.mapa"]
 })
 
 plugdo.collector("mysqlSendService", {
@@ -212,6 +212,16 @@ plugdo.collector("mysqlSearch", {
                UPDATE INTO DATABSE     ONE  NEW SERVICE
     #############################################################################
 */
+
+plugdo.collector("selectDataUpdate", {
+  type: "db",
+  action: "mysql",
+  server: objConnect,
+  queryType: "stored-procedure",
+  query: "call SP_selectDataUpdate",
+  parameter: ["json:post.id"]
+})
+
 
 plugdo.collector("mysqlEsatablishmentUpdate", {
   type: "db",
@@ -310,7 +320,7 @@ plugdo.collector("mysqlUpdateImagesEstablishment", {
   server: objConnect,
   queryType: "stored-procedure",
   query: "call UpdateImagesEstablishment",
-  parameter: ["json:post.imagesOne","json:post.imagesTwo","json:post.idOne","json:post.idTwo"]
+  parameter: ["json:post.imagesOne", "json:post.imagesTwo", "json:post.idOne", "json:post.idTwo"]
 })
 /*  ##############################################################################
               DELETE  INTO DATABSE     ONE   ESTABLISHMENT 
