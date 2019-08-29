@@ -22,7 +22,19 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
     Name = document.getElementById("Name_local").value;
     telefono = document.getElementById("Tel").value;
     mapa = document.getElementById("mapa").value;
-    direction = obj.ubication.selectedOption.name + "," + document.getElementById("idInformation").value;
+    if ($scope.dataInGeneral.Direccion != undefined && $scope.dataInGeneral.Direccion != "") {
+      if ($scope.dataInGeneral.Direccion === obj.ubication.selectedOption.name) {
+        direction = document.getElementById("idInformation").value;
+      } else {
+        var direccionOld = document.getElementById("idInformation").value;
+        var splitOldValue = direccionOld.split(',', 9)
+        console.log(splitOldValue);
+        direction = obj.ubication.selectedOption.name + "," + splitOldValue[1]
+      }
+    } else {
+      direction = obj.ubication.selectedOption.name + "," + document.getElementById("idInformation").value;
+    }
+
     if ($scope.dataInGeneral != undefined) {
       if ($scope.dataInGeneral.imagenPrincipal != "") {
         imagesP.push({ name: $scope.dataInGeneral.imagenPrincipal })
@@ -120,7 +132,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
           name: Name,
           email: email,
           direction: direction,
-          telefono: "507" + telefono,
+          telefono: telefono,
           mapa: mapa,
           promociones: promo,
           price: $scope.price,
@@ -129,6 +141,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
         }]
       );
       var dataUsers = objdataform[0];
+      console.log(dataUsers)
       $scope.personalInformation = true;
       $scope.typeService = false;
       InserDataPersonal(dataUsers);
