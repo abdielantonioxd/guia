@@ -5,7 +5,7 @@
   <div class="container " ng-controller="ctrl-create">
     <div class="row d-flex justify-content-center">
 
-      <div class="col-12 mt-4">   
+      <div class="col-12 mt-4">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="data-general" data-toggle="tab" href="#data-gene" role="tab"
@@ -13,7 +13,11 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" id="type-service" data-toggle="tab" href="#service" role="tab" aria-controls="service"
-              aria-selected="false">Tipos de servicios</a>
+              aria-selected="false">Datos Extras</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image"
+              aria-selected="false">Imagenes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="hours-tab" data-toggle="tab" href="#hours" role="tab" aria-controls="hours"
@@ -127,15 +131,15 @@
                   <span class="highlight"></span>
                   <span class="highlight-err"></span>
                 </div>
-              <div class="container">
-                <div class="row">
+                <div class="container">
+                  <div class="row">
                     <div class="col-md-8" id="imagespView">
-                        <img class="rounded mx-auto d-block w-50" id="chamgeImages" src="#">
-                    </div> 
+                      <img class="rounded mx-auto d-block w-50" id="chamgeImages" src="#">
+                    </div>
+                  </div>
                 </div>
-              </div>  
-                <div class="col-md-12 d-flex justify-content-center" id="idForm">              
-                   <form method="POST" id="imagesPrincipal" enctype="multipart/form-data">
+                <div class="col-md-12 d-flex justify-content-center" id="idForm">
+                  <form method="POST" id="imagesPrincipal" enctype="multipart/form-data">
                     <div id="errMessage"></div>
                     <div class="image-upload-wrap" id="image-upload-input-wrap">
                       <input type='file' class="file-upload-input" id="file-upload-input" name="image"
@@ -175,118 +179,120 @@
               </div>
             </div>
           </div>
-
+          <!-- ##### Servicios  local  ##### -->
           <div class="tab-pane fade" id="service" role="tabpanel" aria-labelledby="service-tab">
             <div class="col-md-8">
-              <div class="col-md-8 mt-4" id="message">
+              <div class="container mt-4">
+                <hr>
+                <h6 class="bold">Servicios </h6>
+                <hr />
                 <div>
-
-                  <div ng-repeat="s in Services">
-                    <div class="custom-control custom-switch">
-                      <input type="radio" class="custom-control-input" name="micheckbox" id="{{s.id}}"
-                        value="{{s.Service}}" ng-model="s.isChecked" ng-click="getIdServ(this)"
-                        ng-dblclick="EditServ()">
-                      <label class="custom-control-label" for="{{s.id}}">{{s.Service}}</label>
+                  <div class="col-md-8 mt-4" id="message">
+                    <div ng-repeat="s in Services">
+                      <div class="custom-control custom-switch">
+                        <input type="radio" class="custom-control-input" name="micheckbox" id="{{s.id}}"
+                          value="{{s.Service}}" ng-model="s.isChecked" ng-click="getIdServ(this)">
+                        <label class="custom-control-label" for="{{s.id}}">{{s.Service}}</label>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class=" mt-5">
-                    <div class="mt-3">
-                      <div ng-repeat="subserv in subservice">
-                        <div class="custom-control custom-switch">
-                          <input type="checkbox" class="custom-control-input" name="subservice" id="{{subserv.id}}"
-                            value="{{subserv.Service}}" ng-model="s.isChecked" ng-click="getsubservice(this)">
-                          <label class="custom-control-label" for="{{subserv.id}}">{{subserv.Service}}</label>
+                    <div class=" mt-5">
+                      <div class="mt-3">
+                        <div ng-repeat="subserv in subservice">
+                          <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" name="subservice" id="{{subserv.id}}"
+                              value="{{subserv.Service}}" ng-model="s.isChecked" ng-click="getsubservice(this)">
+                            <label class="custom-control-label" for="{{subserv.id}}">{{subserv.Service}}</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group mt-5 container col-md-8">
+                      <div class="form-row">
+                        <div class="col">
+                          <button class="mt-2 btn btn-outline-primary btn-lg btn-block border" type="submit"
+                            ng-click="pushServiceAndSub()">Agregar
+                            Servicios
+                            <i class="fa fa-chevron-circle-right"></i>
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <div class="form-group mt-5 container col-md-8">
-                    <div class="form-row">
-                      <div class="col">
-                        <button class="mt-2 btn btn-outline-primary btn-lg btn-block border" type="submit"
-                          ng-click="pushServiceAndSub()">Agregar
-                          Servicios
-                          <i class="fa fa-chevron-circle-right"></i>
-                        </button>
+                  <hr />
+                  <div class="mt-4">
+                    <h6 class="bold">Métodos de Pago </h6>
+                    <hr />
+                    <div>
+                      <div class="form-group mx-sm-3 mb-2" ng-repeat="Pay in methodPay">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input" id="{{Pay.id}}" value="{{Pay.id}}"
+                            ng-click="getmethodPay(this)">
+                          <label class="custom-control-label" for="{{Pay.id}}">{{Pay.method}}</label>
+                        </div>
                       </div>
+                      <button class="mt-2 btn btn-outline-primary btn-lg btn-block border" type="submit"
+                        ng-click="sendMethod()">Añadir Método</button>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <!-- ##### Images local  ##### -->
-              <div class="container mt-5">
-                <h6 class="bold">Imagenes del Local </h6>
-                <hr />
-                <div class=" row mt-5">
-                  <div class="col-md-12">
-                    <form method="POST" id="imagesOne" enctype="multipart/form-data">
-                      <div class="custom-file">
-                        <input type="file" id="file-uploadOne" name="image" class="custom-file-input"
-                          id="customFileLang" lang="es" onchange="imgFileAlOne(this)">
-                        <label class="custom-file-label" for="customFileLang" id="namefileOne">Ingrese Imagen 1</label>
-                      </div>
-                      <div class="rounded mx-auto d-block mt-2" id="previewTwo"></div>
-                      <div class="mt-3 messageEdit">
-                        <label>Desea guardar esta Imagen </label>
-                        <button class=" mt-2 btn btn-outline-primary btn-md btn-sm border Save"
-                          onclick="saveImagesInServer('OneTrue')">Guardar
-                          <i class="far fa-save"></i></button>
-                        <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImage"
-                          onclick="saveImagesInServer('OneFalse')"> Elegir Otra <i class="far fa-edit"></i> </button>
-                      </div>
-                    </form>
-                    <form method="POST" id="imagesTwo" enctype="multipart/form-data">
-                      <div class="custom-file mt-3">
-                        <input type="file" id="file-uploadTwo" name="image" class="custom-file-input"
-                          id="customFileLang" lang="es" onchange="imgFileAlTwo(this)">
-                        <label class="custom-file-label" for="customFileLang" id="namefileTwo">Ingrese Imagen 2</label>
-                      </div>
-                      <div class="rounded mx-auto d-block mt-2" id="previewThree"></div>
-                      <div class="mt-3 messageEdit">
-                        <label>Desea guardar esta Imagen </label>
-                        <button class=" mt-2 btn btn-outline-primary  btn-md  btn-sm  border Save"
-                          onclick="saveImagesInServer('TwoTrue')">Guardar
-                          <i class="far fa-save"></i></button>
-                        <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImageTwo"
-                          onclick="saveImagesInServer('TwoFalse')"> Elegir Otra <i class="far fa-edit"></i> </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div class="form-row mt-3">
-                  <div class="col">
-                    <button class="mt-2 btn btn-outline-primary btn-lg btn-block border btnEstablishment" type="submit"
-                      onclick="validateImages()" ng-click="ValidateImages()"> Validar Imagenes
-                      <i class="fa fa-chevron-circle-right"></i></button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- ##### table undefines method of payment  ##### -->
-              <div class="mt-4" ng-hide="methodP">
-                <h6 class="bold">Métodos de Pago </h6>
-                <hr />
-                <div>
-                  <div class="form-group mx-sm-3 mb-2" ng-repeat="Pay in methodPay">
-                    <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="{{Pay.id}}" value="{{Pay.id}}"
-                        ng-click="getmethodPay(this)">
-                      <label class="custom-control-label" for="{{Pay.id}}">{{Pay.method}}</label>
-                    </div>
-                  </div>
-                  <button class="mt-2 btn btn-outline-primary btn-lg btn-block border" type="submit"
-                    ng-click="sendMethod()">Añadir Método</button>
-                </div>
-              </div>
-
             </div>
           </div>
-
+          <!-- ##### Images local  ##### -->
+          <div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
+            <div class="container mt-5">
+              <h6 class="bold">Imagenes del Local </h6>
+              <hr />
+              <div class=" row mt-5">
+                <div class="col-md-12">
+                  <form method="POST" id="imagesOne" enctype="multipart/form-data">
+                    <div class="custom-file">
+                      <input type="file" id="file-uploadOne" name="image" class="custom-file-input" id="customFileLang"
+                        lang="es" onchange="imgFileAlOne(this)">
+                      <label class="custom-file-label" for="customFileLang" id="namefileOne">Ingrese Imagen
+                        1</label>
+                    </div>
+                    <div class="rounded mx-auto d-block mt-2" id="previewTwo"></div>
+                    <div class="mt-3 messageEdit">
+                      <label>Desea guardar esta Imagen </label>
+                      <button class=" mt-2 btn btn-outline-primary btn-md btn-sm border Save"
+                        onclick="saveImagesInServer('OneTrue')">Guardar
+                        <i class="far fa-save"></i></button>
+                      <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImage"
+                        onclick="saveImagesInServer('OneFalse')"> Elegir Otra <i class="far fa-edit"></i> </button>
+                    </div>
+                  </form>
+                  <form method="POST" id="imagesTwo" enctype="multipart/form-data">
+                    <div class="custom-file mt-3">
+                      <input type="file" id="file-uploadTwo" name="image" class="custom-file-input" id="customFileLang"
+                        lang="es" onchange="imgFileAlTwo(this)">
+                      <label class="custom-file-label" for="customFileLang" id="namefileTwo">Ingrese Imagen
+                        2</label>
+                    </div>
+                    <div class="rounded mx-auto d-block mt-2" id="previewThree"></div>
+                    <div class="mt-3 messageEdit">
+                      <label>Desea guardar esta Imagen </label>
+                      <button class=" mt-2 btn btn-outline-primary  btn-md  btn-sm  border Save"
+                        onclick="saveImagesInServer('TwoTrue')">Guardar
+                        <i class="far fa-save"></i></button>
+                      <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImageTwo"
+                        onclick="saveImagesInServer('TwoFalse')"> Elegir Otra <i class="far fa-edit"></i> </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="form-row mt-3">
+                <div class="col">
+                  <button class="mt-2 btn btn-outline-primary btn-lg btn-block border btnEstablishment" type="submit"
+                    onclick="validateImages()" ng-click="ValidateImages()"> Validar Imagenes
+                    <i class="fa fa-chevron-circle-right"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ##### Horario del local  ##### -->
           <div class="tab-pane fade" id="hours" role="tabpanel" aria-labelledby="hours-tab">
-            <!-- ##### data of schedules   ##### -->
             <div class=" col-md-12 mt-2">
               <h6 class="bold"><i class="fa fa-calendar-minus-o bold"></i> Opciones de Horario </h6>
               <hr />
@@ -446,7 +452,7 @@
   </div>
   </div>
   </div>
-
+  <% include ./partials/script-create-service/script%>
   <% include ./partials/script-create-service/script%>
 </body>
 

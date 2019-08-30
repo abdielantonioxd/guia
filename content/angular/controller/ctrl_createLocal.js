@@ -1,6 +1,6 @@
 app.controller("ctrl-create", ['$scope', function ($scope) {
   /* ==========================================
-              Global var  
+            GLOBAL ANGULAR VARS  
      ==========================================   */
   $scope.weekdays = objectweekdays;
   $scope.Services = objServices;
@@ -15,8 +15,8 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   $scope.Horario = horario;
 
   /* ==========================================
-           GET GENERAL DATA IN LOCAL   
-   ==========================================   */
+        GET DATA GENERAL OF ESTABLISHMENT 
+     ==========================================   */
   $scope.obtainData = function (obj) {
     email = document.getElementById('email_local').value;
     Name = document.getElementById("Name_local").value;
@@ -28,7 +28,6 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       } else {
         var direccionOld = document.getElementById("idInformation").value;
         var splitOldValue = direccionOld.split(',', 9)
-        console.log(splitOldValue);
         direction = obj.ubication.selectedOption.name + "," + splitOldValue[1]
       }
     } else {
@@ -44,10 +43,8 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       $scope.imagesP = imagesP[0].name;
     }
     promotion = "";
-
     Name && telefono && direction && $scope.imagesP != "" ?
       responseTrue() : responseFalse();
-
     function responseTrue() {
       $scope.validateresponseUser('yes');
     }
@@ -58,61 +55,16 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   }
 
   /* ==========================================
-              Get subServices  
+             GET PRICE 
      ==========================================   */
-  $scope.showChecboxSubservic = function (Serv) {
-    switch (Serv) {
-      case "Salones":
-        $scope.serviceoptional = false;
-        $scope.subservice = objsubServicesSalones;
-        break;
-      case "Barberias":
-        $scope.serviceoptional = false;
-        $scope.subservice = objsubServiceBarberia;
-        break;
-      case "Estética":
-        $scope.serviceoptional = false;
-        $scope.subservice = objsubServiceEstetica;
-        break;
-      case "Clínicas":
-        $scope.serviceoptional = false;
-        $scope.subservice = objsubServiceClinicas
-        break;
-      case "Functional Training":
-        $scope.serviceoptional = false;
-        $scope.subservice = objsubServiceCejasPesta
-        break;
-      case "Cejas y Pestañas":
-        $scope.serviceoptional = false;
-        $scope.subservice = objsubServiceCejasPesta
-        break;
-      case "Uñas":
-        $scope.serviceoptional = false;
-        $scope.subservice = objsubServiceUñas
-        break;
-      case "Depilación":
-        $scope.serviceoptional = false;
-        $scope.subservice = objsubServiceDepilacion
-        break;
-      case "Masajes y Spa":
-        $scope.serviceoptional = false;
-        $scope.subservice = objsubServiceMasajesEspa
-        break;
-      default:
-        alertify.set('notifier', 'position', 'top-left');
-        alertify.error('A ocurrido un error, sus datos no se estan Guardando Correctamente  Vuelva a Intentarlos o contacte al administrador de este sitio.');
-        break;
-    }
-  }
-  /* ==========================================
-               get to all data part 1  
-    ==========================================   */
-
   $scope.getIdPrice = function (obj) {
     Price = obj.p.Price;
     $scope.price = Price;
   }
 
+  /* ==========================================
+              VALIDATE DATA GENERAL  
+      ==========================================   */
   $scope.validateresponseUser = function (opc) {
     if (opc == "yes") {
 
@@ -147,8 +99,48 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       InserDataPersonal(dataUsers);
     } else { }
   }
+
   /* ==========================================
-                get data subservices 
+                GET SUB SERVICE
+     ==========================================   */
+  $scope.showChecboxSubservic = function (Serv) {
+    switch (Serv) {
+      case "Salones":
+        $scope.subservice = objsubServicesSalones;
+        break;
+      case "Barberias":
+        $scope.subservice = objsubServiceBarberia;
+        break;
+      case "Estética":
+        $scope.subservice = objsubServiceEstetica;
+        break;
+      case "Clínicas":
+        $scope.$watch($scope.subservice = objsubServiceClinicas)
+        break;
+      case "Functional Training":
+        $scope.subservice = objsubServiceCejasPesta
+        break;
+      case "Cejas y Pestañas":
+        $scope.subservice = objsubServiceCejasPesta
+        break;
+      case "Uñas":
+        $scope.subservice = objsubServiceUñas
+        break;
+      case "Depilación":
+        $scope.subservice = objsubServiceDepilacion
+        break;
+      case "Masajes y Spa":
+        $scope.subservice = objsubServiceMasajesEspa
+        break;
+      default:
+        alertify.set('notifier', 'position', 'top-left');
+        alertify.error('A ocurrido un error, sus datos no se estan Guardando Correctamente  Vuelva a Intentarlos o contacte al administrador de este sitio.');
+        break;
+    }
+  }
+
+  /* ==========================================
+       GET AND PUSH DATA SUB SERVICE 
      ==========================================   */
   $scope.getsubservice = function (obj) {
     $scope.buttonEdit = false;
@@ -158,19 +150,19 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   }
 
   /* ==========================================
-            Push service and Subservices  
+           PUSH SERVICE AND SUB SERVICE   
      ==========================================   */
   $scope.pushServiceAndSub = function () {
+console.log(objservicesget)
     objservicesget.push({
       "servicioPrincipal": $scope.service,
       "othersServ": objservicesgetothers
     })
-    $scope.typeService = true;
-    $scope.imageslocal = false;
+
     insertServise(objservicesget);
   }
   /* ==========================================
-              get Services  
+              GET SERVICE 
     ==========================================   */
   $scope.getIdServ = function (obj) {
     $scope.buttonEdit = true;
@@ -178,13 +170,8 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
     $scope.service = Serv
     $scope.showChecboxSubservic(Serv)
   }
-  /* ==========================================
-                edit Service  
-     ==========================================   */
-  $scope.EditServ = function () {
-    $scope.service = "";
-    activecheckboxServ()
-  }
+
+
   /* ==========================================
                Validate Images
      ==========================================   */
@@ -226,7 +213,6 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
     $scope.addHours = false;
     insertMethodPay(objMethodPay)
   }
-
 
   /*
    #####################################################################################
@@ -366,13 +352,6 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
     $scope.uploadImagesServer = false
   }
 
-  if ($scope.Users != "" && $scope.Users != null) {
-    $scope.dataOfUserSession = JSON.parse($scope.Users);
-    console.log($scope.dataOfUserSession)
-  } else {
-    location.href = "/"
-  }
-
   function InserDataPersonal(dataUsers) {
     // console.log(dataUsers)
     $.ajax({
@@ -406,6 +385,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   }
 
   function insertServise(objservicesget) {
+    console.log(objservicesget);
     $.ajax({
       type: "POST",
       url: UrlServInsert,
@@ -413,13 +393,13 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       data: {
         subService: objservicesget[0].othersServ,
         service: objservicesget[0].servicioPrincipal,
-        id: $scope.idUser[0].id
+        id: $scope.dataOfUserSession[0].id
       },
       success: function (data) {
         data_app = data;
-        // console.log(data_app);
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Se Guardaron los datos correctamente ');
+        objservicesget = [] ; 
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
@@ -447,14 +427,13 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   }
 
   function insertMethodPay(objMethodPay) {
-    console.log($scope.idUser[0].id)
     $.ajax({
       type: "POST",
       url: UrlPayMethod,
       timeout: 2000,
       data: {
         pay: objMethodPay,
-        id: $scope.idUser[0].id
+        id: $scope.dataOfUserSession[0].id
       },
       success: function (data) {
         data_app = data.result.Database[0].Table.Row[0];
@@ -474,6 +453,11 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
      #####################################################################################
     */
 
+  /*
+      #####################################################################################
+      #                                  SET DATA GENERAL                                 #
+      #####################################################################################
+     */
   function getDaGeneral() {
     $.ajax({
       type: "POST",
@@ -486,7 +470,9 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
         var dataGeneral = data.result.Database[0].Table.Row[0][0];
         $scope.dataInGeneral = dataGeneral;
         if (dataGeneral != undefined) {
-          setDataGeneral(dataGeneral)
+          setDataServicesOfLocal(dataGeneral);
+          setDataGeneral(dataGeneral);
+          setDataMethodPay(dataGeneral);
         }
       },
       error: function (textStatus, err) {
@@ -494,6 +480,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       }
     });
   }
+
 
   function setDataGeneral(dataGeneral) {
     $scope.ubication = objectUbication;
@@ -525,6 +512,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
         $scope.$watch($scope.ubication.selectedOption.id = $scope.ubication.Panama[key].id,
           $scope.ubication.selectedOption.name = $scope.ubication.Panama[key].name
         )
+        applyObject()
       }
     }
 
@@ -536,7 +524,105 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
     }
   }
 
+  /*
+   #####################################################################################
+   #                                  SERVICE PRINCIPAL                                #
+   #####################################################################################
+  */
+  function setDataServicesOfLocal(dataGeneral) {
+    for (const servP in $scope.Services) {
+      if ($scope.Services[servP].Service === dataGeneral.servicioPrincipal) {
+        var id = $scope.Services[servP].Service;
+        document.getElementById(id).checked = true;
+        setSubservice(dataGeneral)
+      }
+    }
+    function setSubservice(dataGeneral) {
 
+      switch (dataGeneral.servicioPrincipal) {
+        case "Salones":
+          $scope.subservice = objsubServicesSalones;
+          applyObject();
+          break;
+        case "Barberias":
+          $scope.subservice = objsubServiceBarberia;
+          applyObject();
+          break;
+        case "Estética":
+          $scope.subservice = objsubServiceEstetica;
+          applyObject();
+          break;
+        case "Clínicas":
+          $scope.subservice = objsubServiceClinicas;
+          applyObject();
+          break;
+        case "Functional Training":
+          $scope.subservice = objsubServiceCejasPesta
+          applyObject();
+          break;
+        case "Cejas y Pestañas":
+          $scope.subservice = objsubServiceCejasPesta
+          applyObject();
+          break;
+        case "Uñas":
+          $scope.subservice = objsubServiceUñas
+          applyObject();
+          break;
+        case "Depilación":
+          $scope.subservice = objsubServiceDepilacion
+          applyObject();
+          break;
+        case "Masajes y Spa":
+          $scope.subservice = objsubServiceMasajesEspa
+          applyObject();
+          break;
+        default:
+          alertify.set('notifier', 'position', 'top-left');
+          alertify.error('A ocurrido un error, sus datos no se estan Guardando Correctamente  Vuelva a Intentarlos o contacte al administrador de este sitio.');
+          break;
+      }
+      var splitSubservice = dataGeneral.servicios.split(',');
+      $.each($scope.subservice, function (i, sub) {
+        var subS = splitSubservice;
+        $.each(subS, function (l, s) {
+          if (sub.Service == s) {
+            var id = s
+            document.getElementById(id).checked = true;
+          }
+        })
+      })
+    }
+  }
+  function applyObject() {
+    $scope.$apply()
+  }
+  /*
+     #####################################################################################
+     #                               SET DATA METHOD OF PAY                             #
+     #####################################################################################
+    */
+  function setDataMethodPay(dataGeneral) {
+    var splitmethodPay = dataGeneral.methodpay.split(',');
+    $.each($scope.methodPay, function (i, pay) {
+      var methodPay = splitmethodPay;
+      $.each(methodPay, function (l, s) {
+        if (pay.method == s) {
+          var id = s
+          document.getElementById(id).checked = true;
+        }
+      })
+    })
+  }
+  /*
+     #####################################################################################
+     #                                  EXIST SESION                                     #
+     #####################################################################################
+    */
+  if ($scope.Users != "" && $scope.Users != null) {
+    $scope.dataOfUserSession = JSON.parse($scope.Users);
+  } else {
+    location.href = "/"
+  }
 
-  getDaGeneral();
+  getDaGeneral()
 }]);
