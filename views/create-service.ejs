@@ -181,28 +181,31 @@
           </div>
           <!-- ##### Servicios  local  ##### -->
           <div class="tab-pane fade" id="service" role="tabpanel" aria-labelledby="service-tab">
-            <div class="col-md-8">
-              <div class="container mt-4">
-                <hr>
-                <h6 class="bold">Servicios </h6>
-                <hr />
-                <div>
-                  <div class="col-md-8 mt-4" id="message">
-                    <div ng-repeat="s in Services">
-                      <div class="custom-control custom-switch">
-                        <input type="radio" class="custom-control-input" name="micheckbox" id="{{s.id}}"
-                          value="{{s.Service}}" ng-model="s.isChecked" ng-click="getIdServ(this)">
-                        <label class="custom-control-label" for="{{s.id}}">{{s.Service}}</label>
-                      </div>
-                    </div>
-
-                    <div class=" mt-5">
-                      <div class="mt-3">
-                        <div ng-repeat="subserv in subservice">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" name="subservice" id="{{subserv.id}}"
-                              value="{{subserv.Service}}" ng-model="s.isChecked" ng-click="getsubservice(this)">
-                            <label class="custom-control-label" for="{{subserv.id}}">{{subserv.Service}}</label>
+            <div class="col-md-12 ">
+              <hr>
+              <h6 class="bold">Servicios </h6>
+              <hr />
+              <div>
+                <div class="container">
+                  <div class="col-md-12 col-sm-12 " id="message">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div ng-repeat="s in Services">
+                            <div class="custom-control custom-switch">
+                              <input type="radio" class="custom-control-input" name="micheckbox" id="{{s.id}}"
+                                value="{{s.Service}}" ng-model="s.isChecked" ng-click="getIdServ(this)">
+                              <label class="custom-control-label" for="{{s.id}}">{{s.Service}}</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div ng-repeat="subserv in subservice">
+                            <div class="custom-control custom-switch">
+                              <input type="checkbox" class="custom-control-input" name="subservice" id="{{subserv.id}}"
+                                value="{{subserv.Service}}" ng-model="s.isChecked" ng-click="getsubservice(this)">
+                              <label class="custom-control-label" for="{{subserv.id}}">{{subserv.Service}}</label>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -219,20 +222,26 @@
                       </div>
                     </div>
                   </div>
-                  <hr />
-                  <div class="mt-4">
-                    <h6 class="bold">Métodos de Pago </h6>
+                  <div class="row">
                     <hr />
-                    <div>
-                      <div class="form-group mx-sm-3 mb-2" ng-repeat="Pay in methodPay">
-                        <div class="custom-control custom-switch">
-                          <input type="checkbox" class="custom-control-input" id="{{Pay.id}}" value="{{Pay.id}}"
-                            ng-click="getmethodPay(this)">
-                          <label class="custom-control-label" for="{{Pay.id}}">{{Pay.method}}</label>
+                    <div class="mt-4">
+                      <h6 class="bold">Métodos de Pago </h6>
+                      <hr />
+                    </div>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-group mx-sm-3 mb-2" ng-repeat="Pay in methodPay">
+                            <div class="custom-control custom-switch">
+                              <input type="checkbox" class="custom-control-input" id="{{Pay.id}}" value="{{Pay.id}}"
+                                ng-click="getmethodPay(this)">
+                              <label class="custom-control-label" for="{{Pay.id}}">{{Pay.method}}</label>
+                            </div>
+                          </div>
+                          <button class="mt-2 btn btn-outline-primary btn-lg btn-block border" type="submit"
+                            ng-click="sendMethod()">Añadir Método</button>
                         </div>
                       </div>
-                      <button class="mt-2 btn btn-outline-primary btn-lg btn-block border" type="submit"
-                        ng-click="sendMethod()">Añadir Método</button>
                     </div>
                   </div>
                 </div>
@@ -242,42 +251,81 @@
           <!-- ##### Images local  ##### -->
           <div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
             <div class="container mt-5">
-              <h6 class="bold">Imagenes del Local </h6>
-              <hr />
-              <div class=" row mt-5">
-                <div class="col-md-12">
-                  <form method="POST" id="imagesOne" enctype="multipart/form-data">
-                    <div class="custom-file">
-                      <input type="file" id="file-uploadOne" name="image" class="custom-file-input" id="customFileLang"
-                        lang="es" onchange="imgFileAlOne(this)">
-                      <label class="custom-file-label" for="customFileLang" id="namefileOne">Ingrese Imagen
-                        1</label>
+              <div class="row d-flex justify-content-center">
+                <div class="col-md-8">
+                    <div class="container">
+                        <div class="row">
+                          <div class="col-md-8" id="imagesoView">
+                            <img class="rounded mx-auto d-block w-50" id="chamgeImagesO" src="#">
+                          </div>
+                        </div>
+                      </div>
+                  <form method="POST" id="imagesId" enctype="multipart/form-data">
+                    <div id="errMessage-Id"></div>
+                    <div class="image-upload-wrap" id="image-upload-input-wrap-Id">
+                      <input type='file' class="file-upload-input" id="file-upload-input-Id" name="image"
+                        onchange="validateUploadId(this);" />
+                      <div class="drag-text">
+                        <i class="fa fa-cloud-upload mt-5 color-nanny icon-upload"></i>
+                        <h3>Ingresa Imagen #1</h3>
+                      </div>
                     </div>
-                    <div class="rounded mx-auto d-block mt-2" id="previewTwo"></div>
-                    <div class="mt-3 messageEdit">
-                      <label>Desea guardar esta Imagen </label>
-                      <button class=" mt-2 btn btn-outline-primary btn-md btn-sm border Save"
-                        onclick="saveImagesInServer('OneTrue')">Guardar
-                        <i class="far fa-save"></i></button>
-                      <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImage"
-                        onclick="saveImagesInServer('OneFalse')"> Elegir Otra <i class="far fa-edit"></i> </button>
+                    <div class="file-upload-content" id="file-upload-content-Id">
+                      <span class="color-alert" id="image-title-Id"></span>
+                      <hr>
+                      <img class="file-upload-image" id="file-upload-image-Id" src="#" alt="your image" />
+                      <div class="image-title-wrap">
+                        <button type="button" onclick="chooseAnotherImagesId()" class="btn btn-danger btn-lg">Eligir
+                          Otra
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row mt-3" id="saveImagesId">
+                      <div class="col-sm-12">
+                        <button type="button"
+                          class="btn btn-outline-primary  btn-lg  btn-block  border btnEstablishment "
+                          onclick="uploadImagesServ()">Guardar
+                          Imagen</button>
+                      </div>
                     </div>
                   </form>
-                  <form method="POST" id="imagesTwo" enctype="multipart/form-data">
-                    <div class="custom-file mt-3">
-                      <input type="file" id="file-uploadTwo" name="image" class="custom-file-input" id="customFileLang"
-                        lang="es" onchange="imgFileAlTwo(this)">
-                      <label class="custom-file-label" for="customFileLang" id="namefileTwo">Ingrese Imagen
-                        2</label>
+                </div>
+                <!-- images #2 -->
+                <div class="col-md-8 mt-3">
+                    <div class="container">
+                        <div class="row">
+                          <div class="col-md-8" id="imagestView">
+                            <img class="rounded mx-auto d-block w-50" id="chamgeImagesT" src="#">
+                          </div>
+                        </div>
+                      </div>
+                  <form method="POST" id="imageThree" enctype="multipart/form-data">
+                    <div id="errMessage-Three"></div>
+                    <div class="image-upload-wrap" id="image-upload-input-wrap-Three">
+                      <input type='file' class="file-upload-input" id="file-upload-input-Three" name="image"
+                        onchange="validateUploadThree(this);" />
+                      <div class="drag-text">
+                        <i class="fa fa-cloud-upload mt-5 color-nanny icon-upload"></i>
+                        <h3>Ingresa Imagen #2</h3>
+                      </div>
                     </div>
-                    <div class="rounded mx-auto d-block mt-2" id="previewThree"></div>
-                    <div class="mt-3 messageEdit">
-                      <label>Desea guardar esta Imagen </label>
-                      <button class=" mt-2 btn btn-outline-primary  btn-md  btn-sm  border Save"
-                        onclick="saveImagesInServer('TwoTrue')">Guardar
-                        <i class="far fa-save"></i></button>
-                      <button class="mt-2 btn btn-outline-danger btn-md btn-sm border EditImageTwo"
-                        onclick="saveImagesInServer('TwoFalse')"> Elegir Otra <i class="far fa-edit"></i> </button>
+                    <div class="file-upload-content" id="file-upload-content-Three">
+                      <span class="color-alert" id="image-title-Three"></span>
+                      <hr>
+                      <img class="file-upload-image" id="file-upload-image-Three" src="#" alt="your image" />
+                      <div class="image-title-wrap">
+                        <button type="button" onclick="chooseAnotherImagesThree()"
+                          class="btn btn-danger btn-block">Eligir Otra
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row mt-3" id="saveImagesThree">
+                      <div class="col-sm-12">
+                        <button type="button"
+                          class="btn btn-outline-primary  btn-lg  "
+                          onclick="uploadImagesServ()">Guardar
+                          Imagen</button>
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -285,7 +333,7 @@
               <div class="form-row mt-3">
                 <div class="col">
                   <button class="mt-2 btn btn-outline-primary btn-lg btn-block border btnEstablishment" type="submit"
-                    onclick="validateImages()" ng-click="ValidateImages()"> Validar Imagenes
+                    ng-click="ValidateImages()"> Validar Imagenes
                     <i class="fa fa-chevron-circle-right"></i></button>
                 </div>
               </div>
@@ -293,158 +341,147 @@
           </div>
           <!-- ##### Horario del local  ##### -->
           <div class="tab-pane fade" id="hours" role="tabpanel" aria-labelledby="hours-tab">
-            <div class=" col-md-12 mt-2">
-              <h6 class="bold"><i class="fa fa-calendar-minus-o bold"></i> Opciones de Horario </h6>
-              <hr />
-              <div class="accordion" id="accordionExample">
-                <div class="card">
-                  <div class="card-header" id="headingOne">
-                    <h2 class="mb-0">
-                      <button class="btn btn-link btnColorHorario " id="viernes" type="button" data-toggle="collapse"
-                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                        ng-hide="lunesViernes" ng-click="validateBtnHour('LV')">
-                        Horario de Lunes a viernes
-                      </button>
-                    </h2>
-                  </div>
-                  <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <div class="card-body">
-                      <div class="container">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Apertura</label>
-                              <input type="time" lass="form-control" id="openMondayV_id">
-                            </div>
-                            <div class="form-group">
-                              <label>Cierre</label>
-                              <input type="time" lass="form-control" id="closeMondayV_id">
-                            </div>
-                          </div>
-                          </button>
-                          <div class="col-md-4">
-                            <button class="btn btn-outline-dark   btn-sm" type="submit"
-                              ng-click="validateBtnHour('all')">Atrás
-                              <i class="fas fa-backward"></i></button>
-                          </div>
-                          <div class=" col-md-6 form-group mt-5 container ">
-                            <div class="form-row">
-                              <div class="col">
-                                <button class="btn btn-primary btn-search-Home   btn-block" type="submit"
-                                  ng-click="octainselectweekdays('V')">Agregar
-                                  Horario <i class="fa fa-chevron-circle-right"></i>
+              <div class="container mt-2">
+                  <div class="row d-flex justify-content-center">
+                    <div class="col-md-12">
+                      <form id="Disponibilidad">
+                        <div class="container d-flex justify-content-center">
+                          <div class="row d-flex justify-content-center">
+                            <div class='col-md-12'>
+                              <div>
+                                <h5 class="text-center">Lunes</h5>
+                                <hr>
+                                <div class="d-flex justify-content-center">
+                                  <div class="col-4">
+                                    <label for="">Desde</label>
+                                    <input class="time ui-timepicker-input" type="text" id="Lunes" name="lunes">
+                                    <span id="lunestTarget" style="margin-left: 30px;"></span>
+                                  </div>
+                                  <div class="col-4">
+                                    <label for="">Hasta</label>
+                                    <input class="time ui-timepicker-input" type="text" id="LunesCierre" name="lunesCierre">
+                                  </div>
+                                </div>
+    
+                              </div>
+                              <!-- martes -->
+                              <div class="mt-5">
+                                <h5 class="text-center">Martes</h5>
+                                <hr>
+                                <div class="d-flex justify-content-center">
+                                  <div class="col-4">
+                                    <label for="">Desde</label>
+                                    <input class="time ui-timepicker-input" type="text" id="Martes" name="martes">
+                                  </div>
+                                  <div class="col-4">
+                                    <label for="">Hasta</label>
+                                    <input class="time ui-timepicker-input" type="text" id="MartesCierre"
+                                      name="martesCierre">
+                                  </div>
+                                </div>
+    
+    
+                              </div><br>
+                              <!-- miercoles -->
+                              <div class="mt-5">
+                                <h5 class="text-center">Miércoles</h5>
+                                <hr>
+                                <div class="d-flex justify-content-center">
+                                  <div class="col-4">
+                                    <label for="">Desde</label>
+                                    <input class="time ui-timepicker-input" type="text" id="Miércoles" name="miercoles">
+                                  </div>
+                                  <div class="col-4">
+                                    <label for="">Hasta</label>
+                                    <input class="time ui-timepicker-input" type="text" id="MiércolesCierre"
+                                      name="miercolesCierre">
+                                  </div>
+                                </div>
+    
+                              </div>
+                              <!-- jueves -->
+                              <div class="mt-5">
+                                <h5 class="text-center">Jueves</h5>
+                                <hr>
+                                <div class="d-flex justify-content-center">
+                                  <div class="col-4">
+                                    <label for="">Desde </label>
+                                    <input class="time ui-timepicker-input" type="text" id="Jueves" name="jueves">
+                                  </div>
+                                  <div class="col-4">
+                                    <label for="">Hasta </label>
+                                    <input class="time ui-timepicker-input" type="text" id="JuevesCierre"
+                                      name="juevesCierre">
+                                  </div>
+                                </div>
+    
+    
+                              </div>
+                              <!-- viernes -->
+                              <div class="mt-5">
+                                <h5 class="text-center">Viernes</h5>
+                                <hr>
+                                <div class="d-flex justify-content-center">
+                                  <div class="col-4">
+                                    <label for="">Desde</label>
+                                    <input class="time ui-timepicker-input" type="text" id="Viernes" name="viernes">
+                                  </div>
+                                  <div class="col-4">
+                                    <label for="">Hasta</label>
+                                    <input class="time ui-timepicker-input" type="text" id="ViernesCierre"
+                                      name="viernesCierre">
+                                  </div>
+                                </div>
+    
+                              </div>
+    
+                              <!-- sabado -->
+                              <div class="mt-5">
+                                <h5 class="text-center">Sábado</h5>
+                                <hr>
+                                <div class="d-flex justify-content-center">
+                                  <div class="col-4">
+                                    <label for="">Desde</label>
+                                    <input class="time ui-timepicker-input" type="text" id="Sábado" name="sabado">
+                                  </div>
+                                  <div class="col-4">
+                                    <label for="">Hasta</label>
+                                    <input class="time ui-timepicker-input" type="text" id="SábadoCierre"
+                                      name="sabadoCierre">
+                                  </div>
+                                </div>
+    
+                              </div>
+                              <!-- domingo -->
+                              <div class="mt-5">
+                                <h5 class="text-center">Domingo</h5>
+                                <hr>
+                                <div class="d-flex justify-content-center">
+                                  <div class="col-4">
+                                    <label for="">Desde</label>
+                                    <input class="time ui-timepicker-input" type="text" id="Domingo" name="domingo">
+                                  </div>
+                                  <div class="col-4">
+                                    <label for="">Hasta</label>
+                                    <input class="time ui-timepicker-input" type="text" id="DomingoCierre"
+                                      name="domingoCierre">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="d-flex justify-content-center mt-3 ">
+                                <button class=" btn btn-outline-primary btn-lg btn-block border btnEstablishment" id="sendDataPersonal" type="button"
+                                   ng-click="sendDataDisponibilidad()">Guardar
+                                  Datos
+                                  <i class="fa fa-save"></i>
                                 </button>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </form>
                     </div>
                   </div>
                 </div>
-                <div class="card">
-                  <div class="card-header" id="headingTwo">
-                    <h2 class="mb-0">
-                      <button class="btn btn-link collapsed btnColorHorario" type="button" data-toggle="collapse"
-                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
-                        ng-hide="lunesSabado" ng-click="validateBtnHour('LS')">
-                        Horario de Lunes a Sabado
-                      </button>
-                    </h2>
-                  </div>
-                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                    <div class="card-body">
-                      <div class="container">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>Apertura</label>
-                              <input type="time" lass="form-control" id="openMondayS_id">
-                            </div>
-                            <div class="form-group">
-                              <label>Cierre</label>
-                              <input type="time" lass="form-control" id="closeMondayS_id">
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <button class="btn btn-outline-dark   btn-sm" type="submit"
-                              ng-click="validateBtnHour('all')">Atrás
-                              <i class="fas fa-backward"></i></button>
-                          </div>
-                          <div class=" col-md-6 form-group mt-5 container ">
-                            <div class="form-row">
-                              <div class="col">
-                                <button class="btn btn-primary btn-search-Home   btn-block" type="submit"
-                                  ng-click="octainselectweekdays('S')">Agregar
-                                  Horario <i class="fa fa-chevron-circle-right"></i>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-header" id="headingThree">
-                    <h2 class="mb-0">
-                      <button class="btn btn-link collapsed btnColorHorario" type="button" data-toggle="collapse"
-                        data-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree"
-                        ng-hide="Personalisation" ng-click="validateBtnHour('P')">
-                        Horario Personalizado
-                      </button>
-                    </h2>
-                  </div>
-                  <div id="collapseFour" class="collapse" aria-labelledby="headingThree"
-                    data-parent="#accordionExample">
-                    <div class="card-body">
-                      <div class="container">
-                        <div class="row">
-                          <div class="col-md-12 contenedor-horario">
-                            <div ng-repeat=" d in daysweek " class="col-md-12">
-                              <div class="form-check form-check-inline col-md-2">
-                                <label class="form-check-label" for="{{d.id}}">{{d.weekdays}} </label>
-                              </div>
-                              <div class="form-check form-check-inline m-2 col-md-4">
-                                <label class="form-check-label"> Apertura: </label>
-                                <input type="time" name="hours" id="{{d.id_HoursA}}"
-                                  style="  font-size: 10px;    border: solid 1px #cecece;">
-                              </div>
-                              <div class="form-check form-check-inline col-md-3 mt-2">
-                                <label class="form-check-label" for="inlineCheckbox2">Cierre: </label>
-                                <input type="time" name="hours" id="{{d.id_HoursC}}"
-                                  style="  font-size: 10px;     border: solid 1px #cecece; ">
-                              </div>
-                              <div class="form-check form-check-inline col-md-2">
-                                <input class="" type="checkbox" id="{{d.id}}" value="{{d.weekdays}}"
-                                  ng-click="inputHours(this)">
-                              </div>
-                              <hr>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4 mt-5">
-                        <button class="btn btn-outline-dark   btn-sm" type="submit"
-                          ng-click="validateBtnHour('all')">Atrás
-                          <i class="fas fa-backward"></i></button>
-                      </div>
-                      <div class=" col-md-6 form-group mt-5 container ">
-                        <div class="form-row">
-                          <div class="col">
-                            <button class="btn btn-primary btn-search-Home   btn-block" type="submit"
-                              ng-click="sendHour()">Agregar
-                              Horario <i class="fa fa-chevron-circle-right"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

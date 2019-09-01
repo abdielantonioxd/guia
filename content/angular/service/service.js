@@ -3,9 +3,15 @@ app.factory("Dataservice", function ($http) {
   const allUpdate = "/api/get-dataUpdate/json";
   const desc = "/api/get-descuento/json"
   const recomendate = `/api/get-recomendate/json`
+  const UrlHorari = `/api/get-horario/json`;
   var Dataservice = {
     GetToAllEstablecimiento: function () {
       return $http.get(all).then(function (data) {
+        return data
+      })
+    },
+    getDisponibilidad: function (id) {
+      return $http.post(UrlHorari, { id: id }).then(function (data) {
         return data
       })
     },

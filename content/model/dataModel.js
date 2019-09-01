@@ -217,7 +217,7 @@ var objsubServiceUñas = [{
 
 var objsubServiceClinicas = [{
   Service: "Limpieza",
-  id: "Limpieza "
+  id: "Limpieza"
 },
 {
   Service: "Diseño de sonrisa",

@@ -1,4 +1,4 @@
-app.controller("ctrl-create", ['$scope', function ($scope) {
+app.controller("ctrl-create", ['$scope','Dataservice', function ($scope,Dataservice) {
   /* ==========================================
             GLOBAL ANGULAR VARS  
      ==========================================   */
@@ -13,7 +13,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
   $scope.imgOfLocal = objImagesLocal;
   $scope.Users = objUserAdminRolOne;
   $scope.Horario = horario;
-
+  var obPush = "";
   /* ==========================================
         GET DATA GENERAL OF ESTABLISHMENT 
      ==========================================   */
@@ -36,7 +36,9 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
 
     if ($scope.dataInGeneral != undefined) {
       if ($scope.dataInGeneral.imagenPrincipal != "") {
-        imagesP.push({ name: $scope.dataInGeneral.imagenPrincipal })
+        imagesP.push({
+          name: $scope.dataInGeneral.imagenPrincipal
+        })
         $scope.imagesP = imagesP[0].name;
       }
     } else {
@@ -45,9 +47,11 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
     promotion = "";
     Name && telefono && direction && $scope.imagesP != "" ?
       responseTrue() : responseFalse();
+
     function responseTrue() {
       $scope.validateresponseUser('yes');
     }
+
     function responseFalse() {
       alertify.set('notifier', 'position', 'top-right');
       alertify.error('Todos los Campos son Obligatorios')
@@ -97,7 +101,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
       $scope.personalInformation = true;
       $scope.typeService = false;
       InserDataPersonal(dataUsers);
-    } else { }
+    } else {}
   }
 
   /* ==========================================
@@ -115,7 +119,7 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
         $scope.subservice = objsubServiceEstetica;
         break;
       case "Clínicas":
-        $scope.$watch($scope.subservice = objsubServiceClinicas)
+        $scope.subservice = objsubServiceClinicas
         break;
       case "Functional Training":
         $scope.subservice = objsubServiceCejasPesta
@@ -137,23 +141,34 @@ app.controller("ctrl-create", ['$scope', function ($scope) {
         alertify.error('A ocurrido un error, sus datos no se estan Guardando Correctamente  Vuelva a Intentarlos o contacte al administrador de este sitio.');
         break;
     }
+
   }
 
   /* ==========================================
        GET AND PUSH DATA SUB SERVICE 
      ==========================================   */
   $scope.getsubservice = function (obj) {
-    $scope.buttonEdit = false;
     var subServ = obj.subserv.Service;
-    $scope.subService = subServ
-    objservicesgetothers.push($scope.subService)
+
+    if ($scope.dataInGeneral.servicios != "") {
+      subServicdb = $scope.dataInGeneral.servicios.split(',');
+      objservicesgetothers.push(subServicdb)
+
+      $scope.subserviceselected = JSON.stringify($scope.subservice);
+      servicesPIndb = $scope.dataInGenera.servicioPrincipal;
+      for (const subEnt in subServicdb) {
+        if (subServicdb[subEnt] === subServ) {
+          $scope.serviceEspe.splice(subEnt, 1);
+        }
+      }
+    }
+    objservicesgetothers.push(subServ)
   }
 
   /* ==========================================
            PUSH SERVICE AND SUB SERVICE   
      ==========================================   */
   $scope.pushServiceAndSub = function () {
-console.log(objservicesget)
     objservicesget.push({
       "servicioPrincipal": $scope.service,
       "othersServ": objservicesgetothers
@@ -176,7 +191,7 @@ console.log(objservicesget)
                Validate Images
      ==========================================   */
   $scope.ValidateImages = function () {
-    if (objImagesLocal[0].imagenlocal.imageslocalOne && objImagesLocal[0].imagenlocal.imageslocalTwo != "") {
+    if (objImagesLocal[0].imageslocal && objImagesLocalTree[0].imageslocal != "") {
       $scope.imageslocal = true;
       $scope.methodP = false;
       $.ajax({
@@ -184,12 +199,13 @@ console.log(objservicesget)
         url: urlInserImages,
         timeout: 2000,
         data: {
-          imgOne: objImagesLocal[0].imagenlocal.imageslocalOne,
-          imgTwo: objImagesLocal[0].imagenlocal.imageslocalTwo,
-          id: $scope.idUser[0].id
+          imgOne: objImagesLocal[0].imageslocal,
+          imgTwo: objImagesLocal[0].imageslocal,
+          id: $scope.dataOfUserSession[0].id
         },
         success: function (data) {
           data_app = data;
+          console.log(data_app)
         },
         error: function (textStatus, err) {
           console.log(textStatus + "" + err);
@@ -205,152 +221,72 @@ console.log(objservicesget)
   */
   $scope.getmethodPay = function (obj) {
     var method = obj.Pay.method;
-    objMethodPay.push(method)
+    if (objMethodPay != "") {
+      for (const datM in objMethodPay) {
+        if (objMethodPay[datM][datM] === method) {
+          objMethodPay.splice([datM], 1)
+        } else {
+          $scope.responseMethodPush = true;
+        }
+      }
+    } else {
+      objMethodPay.push(method)
+    }
+    if ($scope.responseMethodPush === true) {
+      obPush = objMethodPay[0];
+      obPush.push(method);
+    }
+
   }
 
   $scope.sendMethod = function () {
-    $scope.methodP = true;
-    $scope.addHours = false;
     insertMethodPay(objMethodPay)
+
   }
 
-  /*
-   #####################################################################################
-   #                     get data  for table 3  Hours                                  #
-   #####################################################################################
-  */
-  $scope.validateBtnHour = function (btn) {
-    switch (btn) {
-      case 'LV':
-        $scope.lunesViernes = false;
-        $scope.lunesSabado = true;
-        $scope.Personalisation = true;
-        break;
-      case 'LS':
-        $scope.lunesSabado = false;
-        $scope.Personalisation = true;
-        $scope.lunesViernes = true;
-        break;
-      case 'P':
-        $scope.lunesSabado = true;
-        $scope.Personalisation = false;
-        $scope.lunesViernes = true;
-        break;
-      case 'all':
-        $scope.lunesSabado = false;
-        $scope.Personalisation = false;
-        $scope.lunesViernes = false;
-        break;
-      default:
-        break;
-    }
-  }
-  /* ==========================================
-                get values week days 
-     ==========================================   */
-  $scope.octainselectweekdays = function (obj) {
-    open = document.getElementById(`openMonday${obj}_id`).value
-    close = document.getElementById(`closeMonday${obj}_id`).value
-    switch (obj) {
-      case 'V':
-        LunesVienes();
-        setTimeout(() => {
-          InsertHour();
-        }, 2000);
-        $scope.addHours = true
-        $scope.uploadImagesServer = false
-        $scope.DoneEstablishment = false;
-        alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Se Guardaron los datos correctamente ');
-        break;
-      case 'S':
-        LunesSabado();
-        setTimeout(() => {
-          InsertHour();
-        }, 2000);
-        $scope.addHours = true
-        $scope.DoneEstablishment = false;
-        $scope.uploadImagesServer = false
-        alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Se Guardaron los datos correctamente ');
-        break;
-      default:
-        alert("A ocurrido un eror contacte al admin de la pagina ")
-        break;
-    }
-  }
-
-  $scope.inputHours = function (obj) {
-    day = obj.d.id;
-    HoursA = document.getElementById(obj.d.id_HoursA).value;
-    HoursC = document.getElementById(obj.d.id_HoursC).value;
-    var HourOpen = `${HoursA}:00`;
-    var HourClose = `${HoursC}:00`;
-    objHoursEstablishment.push({
-      horario: {
-        "dia": day,
-        "horaEntrada": HourOpen,
-        "horaCierre": HourClose
+  /* =================================== 
+         GET DATA DISPONIBILIDAD
+     =================================== */
+     $scope.sendDataDisponibilidad = function () {
+      form = $("#Disponibilidad").serializeArray();
+      form.push({
+        name: 'id',
+        value: $scope.dataOfUserSession[0].id
+      });
+      obj = new Object();
+      for (const i in form) {
+        obj[form[i].name] = form[i].value;
       }
-    })
-    // console.log(" dia :  " + day + " hora de netrada : " + HourOpen + "  hora de salida: " + HourClose);
-  }
-  /* ==========================================
-                Send Hours  
-     ==========================================   */
-  $scope.sendHour = function () {
-    var horario = {
-      "Lunes": objHoursEstablishment[0].horario.dia,
-      "L_apertura": objHoursEstablishment[0].horario.horaEntrada + ":00",
-      "L_cierre": objHoursEstablishment[0].horario.horaCierre + ":00",
-      "Martes": objHoursEstablishment[1].horario.dia,
-      "M_apertura": objHoursEstablishment[1].horario.horaEntrada + ":00",
-      "M_cierre": objHoursEstablishment[1].horario.horaCierre + ":00",
-      "Miercoles": objHoursEstablishment[2].horario.dia,
-      "Mi_apertura": objHoursEstablishment[2].horario.horaEntrada + ":00",
-      "Mi_cierre": objHoursEstablishment[2].horario.horaCierre + ":00",
-      "Jueves": objHoursEstablishment[3].horario.dia,
-      "J_apertura": objHoursEstablishment[3].horario.horaEntrada + ":00",
-      "J_cierre": objHoursEstablishment[3].horario.horaCierre + ":00",
-      "Viernes": objHoursEstablishment[4].horario.dia,
-      "V_apertura": objHoursEstablishment[4].horario.horaEntrada + ":00",
-      "V_cierre": objHoursEstablishment[4].horario.horaCierre + ":00",
-      "Sabado": objHoursEstablishment[5].horario.dia,
-      "S_apertura": objHoursEstablishment[5].horario.horaEntrada + ":00",
-      "S_cierre": objHoursEstablishment[5].horario.horaCierre + ":00",
-      "Domingo": objHoursEstablishment[5].horario.dia,
-      "D_apertura": objHoursEstablishment[5].horario.horaEntrada + ":00",
-      "D_cierre": objHoursEstablishment[5].horario.horaCierre + ":00",
-      id: $scope.idUser[0].id
+      sendDisponibilidad(obj)
     }
 
-    $.ajax({
-      type: "POST",
-      url: UrlInsertHour,
-      timeout: 2000,
-      data: horario,
-      success: function (data) {
-        data_app = data.result.Database[0].Table.Row[0];
-        $scope.idUser = data_app;
-        $scope.DoneEstablishment = false;
-        alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Se Guardaron los datos correctamente ');
-        doneInsert()
-      },
-      error: function (textStatus, err) {
-        console.log(textStatus + "" + err);
-      }
-    });
-  }
+    /* =================================== 
+           SEND DATA DISPONIBILIDAD
+       =================================== */
+    function sendDisponibilidad(obj) {
+      $.ajax({
+        type: "POST",
+        url: UrlInsertHour,
+        timeout: 2000,
+        data: obj,
+        success: function (data) {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.success('Su disponibilidad  fue   guardada correctamente');
+          var id = $scope.sessionExist[0].id;
+          getDisponibilidad(id)
+  
+        },
+        error: function (textStatus, err) {
+          console.log(textStatus + "" + err);
+        }
+      });
+    }
+
   /*
     #####################################################################################
     #                     API INSERT DATA IN DATABASE                                   #
     #####################################################################################
    */
-  function doneInsert() {
-    $scope.addHours = true;
-    $scope.uploadImagesServer = false
-  }
 
   function InserDataPersonal(dataUsers) {
     // console.log(dataUsers)
@@ -399,7 +335,7 @@ console.log(objservicesget)
         data_app = data;
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Se Guardaron los datos correctamente ');
-        objservicesget = [] ; 
+        objservicesget = [];
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
@@ -407,39 +343,21 @@ console.log(objservicesget)
     });
   };
 
-  function InsertHour() {
-    $.ajax({
-      type: "POST",
-      url: UrlInsertHour,
-      timeout: 2000,
-      data: $scope.Horario[0],
-      success: function (data) {
-        // console.log(data)
-        data_app = data.result.Database[0].Table.Row[0];
-        $scope.idUser = data_app;
-        alertify.set('notifier', 'position', 'top-right');
-        alertify.success('Se Guardaron los datos correctamente ');
-      },
-      error: function (textStatus, err) {
-        console.log(textStatus + "" + err);
-      }
-    });
-  }
-
   function insertMethodPay(objMethodPay) {
+    console.log(objMethodPay[0])
     $.ajax({
       type: "POST",
       url: UrlPayMethod,
       timeout: 2000,
       data: {
-        pay: objMethodPay,
+        pay: objMethodPay[0],
         id: $scope.dataOfUserSession[0].id
       },
       success: function (data) {
         data_app = data.result.Database[0].Table.Row[0];
+        console.log(data_app)
         alertify.set('notifier', 'position', 'top-right');
         alertify.success('Se Guardaron los datos correctamente ');
-        // console.log(data_app)
       },
       error: function (textStatus, err) {
         console.log(textStatus + "" + err);
@@ -473,6 +391,9 @@ console.log(objservicesget)
           setDataServicesOfLocal(dataGeneral);
           setDataGeneral(dataGeneral);
           setDataMethodPay(dataGeneral);
+          setDataImages(dataGeneral);
+          getDisponibilidad($scope.dataInGeneral.perfilEstablecimientoID)
+
         }
       },
       error: function (textStatus, err) {
@@ -483,7 +404,7 @@ console.log(objservicesget)
 
 
   function setDataGeneral(dataGeneral) {
-    $scope.ubication = objectUbication;
+   
     if (dataGeneral.Nombre_establecimiento != "") {
       document.getElementById("Name_local").value = dataGeneral.Nombre_establecimiento;
     }
@@ -495,6 +416,7 @@ console.log(objservicesget)
       document.getElementById("Tel").value = dataGeneral.Telefono;
     }
     if (dataGeneral.Direccion != "") {
+      $scope.ubication = objectUbication;
       document.getElementById("idInformation").value = dataGeneral.Direccion;
     }
 
@@ -537,8 +459,9 @@ console.log(objservicesget)
         setSubservice(dataGeneral)
       }
     }
-    function setSubservice(dataGeneral) {
 
+    function setSubservice(dataGeneral) {
+      $scope.service = dataGeneral.servicioPrincipal;
       switch (dataGeneral.servicioPrincipal) {
         case "Salones":
           $scope.subservice = objsubServicesSalones;
@@ -593,25 +516,72 @@ console.log(objservicesget)
       })
     }
   }
+
   function applyObject() {
     $scope.$apply()
   }
+
   /*
      #####################################################################################
      #                               SET DATA METHOD OF PAY                             #
      #####################################################################################
     */
-  function setDataMethodPay(dataGeneral) {
-    var splitmethodPay = dataGeneral.methodpay.split(',');
-    $.each($scope.methodPay, function (i, pay) {
-      var methodPay = splitmethodPay;
-      $.each(methodPay, function (l, s) {
-        if (pay.method == s) {
-          var id = s
-          document.getElementById(id).checked = true;
-        }
+    function setDataMethodPay(dataGeneral) {
+      var splitmethodPay = dataGeneral.methodpay.split(',');
+      objMethodPay.push(splitmethodPay);
+      $.each($scope.methodPay, function (i, pay) {
+        var methodPay = splitmethodPay;
+        $.each(methodPay, function (l, s) {
+          if (pay.method == s) {
+            var id = s
+            document.getElementById(id).checked = true;
+          }
+        })
       })
+    }
+
+
+  /*
+      #####################################################################################
+      #                                  SET DATA IMAGES                                  #
+      #####################################################################################
+     */
+  function setDataImages(dataGeneral) {
+    if (dataGeneral.imagenPrincipal != "") {
+      document.getElementById("chamgeImagesO").src = "/public/images/" + dataGeneral.imagenPrincipal;
+      $('#imagesoView').show()
+
+    }
+
+    if (dataGeneral.imagenesEstablecimiento != "") {
+      document.getElementById("chamgeImagesT").src = "/public/images/" + dataGeneral.imagenesEstablecimiento;
+      $('#imagestView').show()
+    }
+  }
+
+
+
+  function getDisponibilidad(id) {
+    Dataservice.getDisponibilidad(id).then(function (data) {
+      var disponibilidad = data.data.result.Database[0].Table.Row[0];
+      if (disponibilidad.length == 0) {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error("No has publicado tus  disponibilidad en Nanny 365");
+        // console.log('a un no ah agregado sus dias disponibles ');
+      } else {
+        setdataDisponibilidad(disponibilidad)
+      }
     })
+  }
+
+  function setdataDisponibilidad(disponibilidad) {
+
+    for (const i in disponibilidad) {
+      document.getElementById(`${disponibilidad[i].dia}`).value = disponibilidad[i].horaInicio;
+      document.getElementById(`${disponibilidad[i].dia}Cierre`).value = disponibilidad[i].horaFinal;
+    }
+
+    // document.getElementById(`${disponibilidad[0].dia}`).value =disponibilidad[0].horaInicio;
   }
   /*
      #####################################################################################

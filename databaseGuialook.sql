@@ -1,3 +1,4 @@
+use guialook;
 -- MySQL dump 10.13  Distrib 8.0.16, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: guialook
@@ -222,15 +223,14 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spCloseSesion`(in _id int
+CREATE  PROCEDURE `spCloseSesion`(in _id int
 (11))
 BEGIN
     DELETE FROM  loginactive WHERE userId = _id;
 END ;;
 DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
@@ -244,7 +244,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeleteEstablishment`(in _id int(11))
+CREATE  PROCEDURE `spDeleteEstablishment`(in _id int(11))
 BEGIN
 DELETE FROM  establecimiento WHERE id= _id ;
 DELETE FROM establecimientohorario 
@@ -275,9 +275,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spHorarioestablecimiento`(in id int)
+CREATE  PROCEDURE `spHorarioestablecimiento`(in id int)
 BEGIN
 select *
     from establecimientohorario
@@ -296,9 +296,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertEstablecimiento`(in direction VARCHAR(200),
+CREATE  PROCEDURE `spInsertEstablecimiento`(in direction VARCHAR(200),
  in image VARCHAR(200), in nombre VARCHAR (50), in _email VARCHAR (50), in _id VARCHAR (50),in price int(11), in tel varchar(40), in _mapa varchar(400) )
 BEGIN
 
@@ -332,9 +332,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertHour`(
+CREATE  PROCEDURE `spInsertHour`(
 in  _lunes varchar
 (45),
 in _Lapertura time,
@@ -466,9 +466,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertImages`(in _imagesOne VARCHAR
+CREATE  PROCEDURE `spInsertImages`(in _imagesOne VARCHAR
 (100), in _imagesTwo VARCHAR
 (100), in _id int
 (11) )
@@ -514,9 +514,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertMethodPay`(
+CREATE  PROCEDURE `spInsertMethodPay`(
 in _methodPay VARCHAR(100),
 in _idPay int(11))
 BEGIN
@@ -553,9 +553,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertNewservice`(in _subService VARCHAR
+CREATE  PROCEDURE `spInsertNewservice`(in _subService VARCHAR
 (200),in _servicePrincipal VARCHAR
 (50), in _idService int
 (11))
@@ -596,9 +596,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spOpenNow`( in days varchar
+CREATE  PROCEDURE `spOpenNow`( in days varchar
 (45) ,in  hours TIME )
 BEGIN
 
@@ -633,9 +633,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spRecomedate`()
+CREATE  PROCEDURE `spRecomedate`()
 BEGIN
     SELECT
         *
@@ -660,7 +660,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spSearchAdvanced`(in _search VARCHAR(100))
+CREATE  PROCEDURE `spSearchAdvanced`(in _search VARCHAR(100))
 BEGIN
 SELECT 
     *
@@ -688,9 +688,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spSelecServices`()
+CREATE  PROCEDURE `spSelecServices`()
 BEGIN
   SELECT 
     *
@@ -714,7 +714,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spSelecServicesUpdate`()
+CREATE  PROCEDURE `spSelecServicesUpdate`()
 BEGIN
 SELECT 
     *
@@ -738,9 +738,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spSelectEstablecimiento`(in _Id int
+CREATE  PROCEDURE `spSelectEstablecimiento`(in _Id int
 (11))
 BEGIN
     SELECT 
@@ -768,9 +768,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spSelectMprice`()
+CREATE  PROCEDURE `spSelectMprice`()
 BEGIN
     SELECT *
     FROM establecimiento
@@ -789,9 +789,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spSelectPrecio`(in _precio int, _serv VARCHAR
+CREATE  PROCEDURE `spSelectPrecio`(in _precio int, _serv VARCHAR
 (50))
 BEGIN
 
@@ -834,9 +834,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spSelectPromotion`()
+CREATE  PROCEDURE `spSelectPromotion`()
 BEGIN
 
     SELECT
@@ -862,9 +862,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spSelectServicio`(in Serv VARCHAR
+CREATE  PROCEDURE `spSelectServicio`(in Serv VARCHAR
 (50), in _subServ VARCHAR
 (100),in _ubication VARCHAR
 (100) )
@@ -922,9 +922,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spselectZonas`(in _zonas VARCHAR
+CREATE  PROCEDURE `spselectZonas`(in _zonas VARCHAR
 (100))
 BEGIN
 
@@ -950,9 +950,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateEstablishment`(in _id int (11) ,in direction VARCHAR(200),
+CREATE  PROCEDURE `spUpdateEstablishment`(in _id int (11) ,in direction VARCHAR(200),
  in image VARCHAR(200), nombre VARCHAR (50),in price int(11), in tel varchar(40), in _mapa varchar(400) , in _promociones int(11))
 BEGIN
 UPDATE establecimiento SET Nombre_establecimiento = nombre , Direccion = direction , Precio = price , Telefono = tel , mapa = _mapa , Promociones = _promociones , imagenPrincipal = image
@@ -974,7 +974,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateHour`(
+CREATE  PROCEDURE `spUpdateHour`(
 in _Lapertura VARCHAR(20),
 in  _Lcierre  VARCHAR(20),
 
@@ -1084,7 +1084,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateImages`(in _id int(11))
+CREATE  PROCEDURE `spUpdateImages`(in _id int(11))
 BEGIN
 SELECT 
     *
@@ -1104,9 +1104,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateMethodPay`(in _methodPay varchar(100), in _id int(11))
+CREATE  PROCEDURE `spUpdateMethodPay`(in _methodPay varchar(100), in _id int(11))
 BEGIN
 UPDATE methodpay  SET methodpay = _methodPay WHERE  idestablecimiento = _id;
 
@@ -1125,9 +1125,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateProduction`(in _prod tinyint(4),in _id int(11))
+CREATE  PROCEDURE `spUpdateProduction`(in _prod tinyint(4),in _id int(11))
 BEGIN
 UPDATE establecimiento  SET prod = _prod WHERE id = _id;
 SELECT LAST_INSERT_ID() AS id;
@@ -1145,9 +1145,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateQuitProduction`(in _prod tinyint(4),in _id int(11))
+CREATE  PROCEDURE `spUpdateQuitProduction`(in _prod tinyint(4),in _id int(11))
 BEGIN
 UPDATE establecimiento  SET prod = _prod WHERE id = _id;
 SELECT LAST_INSERT_ID() AS id;
@@ -1167,7 +1167,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateServices`( in _servicioPrincipal varchar(200), in _servicios varchar(50), in _id int(11))
+CREATE  PROCEDURE `spUpdateServices`( in _servicioPrincipal varchar(200), in _servicios varchar(50), in _id int(11))
 BEGIN
 UPDATE establecimientoservicio  SET servicios = _servicios,  servicioPrincipal = _servicioPrincipal  WHERE establecimientID = _id ;
 SELECT LAST_INSERT_ID() AS establecimientID;
@@ -1185,9 +1185,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spUserExist`(in _id int
+CREATE  PROCEDURE `spUserExist`(in _id int
 (11))
 BEGIN
 
@@ -1222,9 +1222,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_selectDataUpdate`(in _Id int
+CREATE  PROCEDURE `SP_selectDataUpdate`(in _Id int
 (11))
 BEGIN
 	SELECT
@@ -1268,7 +1268,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateImagesEstablishment`(in _imagesOne varchar(100),in _imagesTwo varchar(100),in _idOne int(11),in _idTwo int(11))
+CREATE  PROCEDURE `UpdateImagesEstablishment`(in _imagesOne varchar(100),in _imagesTwo varchar(100),in _idOne int(11),in _idTwo int(11))
 BEGIN
 UPDATE imagenes  SET imagenesEstablecimiento = _imagesOne WHERE id = _idOne;
 UPDATE imagenes  SET imagenesEstablecimiento = _imagesTwo WHERE id = _idTwo;
@@ -1287,9 +1287,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `validateUser`(
+CREATE  PROCEDURE `validateUser`(
 in _name varchar (50),
 in _lastName Varchar(50),
 in _email VARCHAR(40) ,

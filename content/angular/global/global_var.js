@@ -52,6 +52,7 @@ var updateImagesP = [];
 var objservicesget = [];
 var objservicesgetothers = [];
 var objImagesLocal = [];
+var objImagesLocalTree = [];
 var objHoursEstablishment = []
 var objname = []
 var sesionActive = false;
@@ -74,6 +75,7 @@ var ObjSearchAdvanced = []
 var ObjectSearchAdvanced = [];
 var S = "";
 var reader = new FileReader();
+
 // configuration Images Global 
 var config = [{
   contentImput: "image-upload-input-wrap",
@@ -102,6 +104,24 @@ var configId = [{
   idErr: "errMessage-Id",
   templateErr: "",
   nameForm: "imagesId",
+  size: 1024 * 1024,
+  validateSize: false,
+  validateFormats: true,
+  validateSpace: true,
+  preview: true,
+  useSweetAlert: false,
+  useAlertify: true,
+}];
+
+var configThree = [{
+  contentImput: "image-upload-input-wrap-Three",
+  idInput: "file-upload-input-Three",
+  contentUpload: "file-upload-content-Three",
+  viewImages: "file-upload-image-Three",
+  titleImages: "image-title-Three",
+  idErr: "errMessage-Three",
+  templateErr: "",
+  nameForm: "imageThree",
   size: 1024 * 1024,
   validateSize: false,
   validateFormats: true,
